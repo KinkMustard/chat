@@ -1,0 +1,437 @@
+$primary-color: #3e3e5e;
+$primary-color-dark: #2e2e4f;
+$primary-color-light: #5d5d8a;
+$primary-color-active: #363656;
+$sent-message-bg-color: #89a1fc;
+$secondary-color: #484d79;
+$main-text-color: #cac8ee;
+$messages-bg: #dcddf5;
+$received-message-bg-color: #fff;
+$sent-message-color: #fff;
+$received-message-color: #b3b2ca;
+$success-color: #60d66a;
+$main-padding-vertical: 18px;
+$main-padding-horizontal: 16px;
+$main-padding: $main-padding-vertical $main-padding-horizontal;
+$error-text: #c92c43;
+$head-max-height: 65px;
+$footer-max-height: 65px;
+$footer-height: 10vh;
+$black: #21252b;
+$blackBody: #282c34;
+$greyFont: #ccccc1;
+$blackPop: #2f333d;
+
+@mixin customscrollbar() {
+  &::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    background-color: $main-text-color;
+  }
+  &::-webkit-scrollbar {
+    width: 5px;
+    background-color: green;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: $secondary-color;
+  }
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  height: 100%;
+}
+.grey {
+  color: $greyFont !important;
+}
+input,
+textarea {
+  font-family: Arial;
+}
+
+.login {
+  background: rgb(2, 0, 36);
+  background: linear-gradient(
+    121deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(9, 9, 121, 1) 21%,
+    rgba(6, 68, 160, 1) 44%,
+    rgba(6, 76, 165, 1) 47%,
+    rgba(0, 212, 255, 1) 100%
+  );
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-form {
+  $height: 5vw;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  h2 {
+    // font-size: $height;
+  }
+  input {
+    max-width: 100%;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    // height: $height;
+    // line-height: $height;
+    // font-size: $height;
+    border-bottom: solid 2px $received-message-color;
+    transition: all 0.23s ease-in;
+    &:focus {
+      $height: 30px;
+      border-bottom: solid 2px $primary-color-light;
+      outline: none;
+    }
+  }
+  .error {
+    text-align: center;
+    margin: 5px 0;
+    padding: 5px 10px;
+    color: $error-text;
+  }
+}
+@mixin dot-indicator($size, $color) {
+  .indicator {
+    width: $size;
+    height: $size;
+    border-radius: $size;
+    background: $color;
+    display: inline-block;
+    margin-right: 8px;
+  }
+}
+.container {
+  color: $main-text-color;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  height: 100%;
+  width: 100%;
+}
+
+.app-bar {
+  background-color: $blackBody !important;
+  color: $greyFont !important;
+}
+
+#side-bar {
+  height: 100%;
+  background-color: $black;
+  color: $greyFont;
+
+  .animeHeader {
+    display: "flex";
+    background-color: $blackBody !important;
+    color: $greyFont !important;
+  }
+  .animeImg {
+    margin-top: 10px;
+    width: 50px;
+    height: 50px;
+  }
+  .animeAppBar {
+  }
+  .animeTab {
+    min-width: 50%;
+    background-color: $blackBody !important;
+    color: $greyFont !important;
+  }
+  .heading {
+  }
+  .side-bar-select {
+  }
+
+  .side-bar-select__option {
+  }
+
+  .search {
+    color: $greyFont !important;
+
+    .search-icon {
+      color: $greyFont !important;
+    }
+
+    input {
+      color: $greyFont !important;
+    }
+  }
+
+  .users {
+    .user {
+      .user-photo {
+      }
+
+      .user-info {
+        .last-message {
+        }
+      }
+
+      .new-message {
+      }
+    }
+  }
+
+  .current-user {
+    display: flex;
+    flex-wrap: wrap;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: $blackBody !important;
+    color: $greyFont !important;
+
+    .logout {
+      background-color: $blackPop !important;
+      color: $greyFont !important;
+    }
+  }
+}
+
+.chat-header {
+  // background: $primary-color-light;
+
+  // box-shadow: 0px 6px 5px -2px rgba(225, 225, 225, 0.7);
+  // box-sizing: border-box;
+
+  // display: flex;
+  // justify-content: space-between;
+  // align-items: center;
+
+  // padding: 18px 16px;
+
+  .user-info {
+    // align-items: center;
+    // display: flex;
+
+    .user-name {
+      // margin-right: 10px;
+    }
+
+    .status {
+      // $indicator-size: 8px;
+      // align-items: center;
+      // display: flex;
+      .online {
+        // $indicator-color: #32b0bb;
+      }
+      .offline {
+        // $indicator-color: #c63d2c;
+      }
+    }
+  }
+
+  .options {
+    // display: flex;
+    // align-items: center;
+    // flex-direction: row;
+    // justify-content: space-around;
+    svg {
+      // cursor: pointer;
+    }
+    // height: 100%;
+    // width: 15%;
+  }
+}
+
+.chat-room-container {
+  height: 100%;
+  width: 100%;
+}
+@media screen and (max-width: 510px) {
+  #side-bar {
+    // position: absolute;
+    // left: -100%;
+  }
+  .chat-room-container {
+    // width: 100%;
+  }
+}
+.chat-room {
+  display: grid;
+  grid-template: 8vh 1fr 8vh / 100%;
+  height: 100%;
+  width: 100%;
+
+  &.choose {
+    // align-items: center;
+    // justify-content: center;
+    // font-size: 2em;
+  }
+}
+
+.thread-container {
+  display: grid;
+  flex-grow: 1;
+  @include customscrollbar();
+  overflow-y: scroll;
+  position: relative;
+  // background-color: #89a1fc;
+  background-color: $blackBody;
+  margin-top: -80px;
+
+  .thread {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    color: $received-message-color;
+    // background: $messages-bg;
+  }
+}
+
+.message-container {
+  display: flex;
+  justify-content: flex-start;
+  min-height: 50px;
+  margin: 10px 15px;
+  $message-triangle-offset: -7px;
+
+  animation: 0.65s ease-out 0s show;
+
+  .time {
+    order: 1;
+  }
+  .data {
+    order: 2;
+    height: 100%;
+    margin-left: 25px;
+  }
+  .name {
+    font-size: 0.65em;
+    margin-top: 5px;
+    text-align: right;
+  }
+  .message {
+    // background: $received-message-bg-color;
+    // border-radius: 5px;
+    // border-top-left-radius: 0;
+    // box-sizing: border-box;
+    // // color: $received-message-color;
+    // height: 100%;
+    // padding: 10px 15px;
+    // position: relative;
+  }
+
+  @keyframes show {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  .message::before {
+    // $triangle-color: $received-message-bg-color;
+
+    // border-bottom-color: transparent;
+    // border-left-color: transparent;
+    // border-right-color: $triangle-color;
+    // border-style: solid;
+    // border-top-color: $triangle-color;
+    // border-width: 4px;
+
+    // content: "";
+
+    // height: 0;
+    // left: $message-triangle-offset;
+    // position: absolute;
+    // top: 0;
+    // width: 0;
+  }
+
+  &.right {
+    text-align: right;
+    justify-content: flex-end;
+
+    .time {
+      order: 2;
+      margin-left: 25px;
+    }
+    .data {
+      margin-left: 0;
+      order: 1;
+    }
+    .name {
+      display: none;
+    }
+    .message {
+      // background: $sent-message-bg-color;
+      // color: $sent-message-color;
+      // border-top-right-radius: 0;
+      // border-top-left-radius: 5px;
+    }
+
+    .message::before {
+      // $triangle-color: $sent-message-bg-color;
+
+      // border-top-color: $triangle-color;
+      // border-left-color: $triangle-color;
+      // border-right-color: transparent;
+      // left: auto;
+      // right: $message-triangle-offset;
+    }
+  }
+}
+
+.typing-user {
+  text-align: right;
+  margin: 10px 15px;
+}
+
+.message-input {
+  background: white;
+  color: $secondary-color;
+  box-sizing: border-box;
+  border-radius: 25px !important;
+
+  .message-form {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+    .form-control {
+      @include customscrollbar();
+      &:focus {
+        outline: none;
+      }
+      resize: none;
+      padding-left: 15px;
+      box-sizing: border-box;
+      width: 80%;
+      height: 100%;
+      border: none;
+      font-size: 16px;
+      background: #cfd2d9;
+    }
+
+    .send {
+      width: 20%;
+      box-sizing: border-box;
+      font-size: 1.25em;
+      text-align: center;
+      border: none;
+      height: 100%;
+      color: $sent-message-color;
+      background: $primary-color;
+      transition: all 0.35s ease-out;
+
+      &:disabled {
+        opacity: 0.2;
+        background: $primary-color-light;
+      }
+    }
+  }
+}
