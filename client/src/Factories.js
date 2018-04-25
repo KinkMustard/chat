@@ -8,10 +8,11 @@ const uuidv4 = require("uuid/v4");
 *	@param {object}
 *		name {string}
 */
-const createUser = ({ name = "", socketId = null } = {}) => ({
+const createUser = ({ name = "", socketId = null, color = "" } = {}) => ({
   id: uuidv4(),
   name,
-  socketId
+  socketId,
+  color
 });
 
 /*
@@ -25,11 +26,12 @@ const createUser = ({ name = "", socketId = null } = {}) => ({
 *		message {string}
 *		sender {string}
 */
-const createMessage = ({ message = "", sender = "" } = {}) => ({
+const createMessage = ({ message = "", sender = "", color = "" } = {}) => ({
   id: uuidv4(),
-  time: getTime(new Date(Date.now())),
+  time: Date.now,
   message,
-  sender
+  sender,
+  color
 });
 
 /*

@@ -16,6 +16,24 @@ const {
 const { createUser, createMessage, createChat } = require("./client/src/Factories");
 
 let connectedUsers = {};
+const potentialColors = [
+  "#FF3D00",
+  "#FF9100",
+  "#FFC400",
+  "#FFEA00",
+  "#C6FF00",
+  "#76FF03",
+  "#00E676",
+  "#1DE9B6",
+  "#00E5FF",
+  "#00B0FF",
+  "#2979FF",
+  "#3D5AFE",
+  "#651FFF",
+  "#D500F9",
+  "#F50057",
+  "#ff1744"
+];
 
 const generalChat = createChat({ isGeneral: true });
 
@@ -32,7 +50,12 @@ module.exports = (socket) => {
     if (isUser(connectedUsers, nickname)) {
       callback({ isUser: true, user: null });
     } else {
-      callback({ isUser: false, user: createUser({ name: nickname, socketId: socket.id }) });
+      const chosenColor = potentialColors[Math.floor(Math.random() * potentialColors.length)];
+      console.log(chosenColor);
+      callback({
+        isUser: false,
+        user: createUser({ name: nickname, socketId: socket.id, color: chosenColor })
+      });
     }
   });
 
@@ -42,7 +65,7 @@ module.exports = (socket) => {
     connectedUsers = addUser(connectedUsers, user);
     socket.user = user;
 
-    sendMessageToChatFromUser = sendMessageToChat(user.name);
+    sendMessageToChatFromUser = sendMessageToChat(user.name, user.color);
     sendTypingFromUser = sendTypingToChat(user.name);
 
     io.emit(USER_CONNECTED, connectedUsers);
@@ -121,9 +144,9 @@ function sendTypingToChat(user) {
 * @param sender {string} username of sender
 * @return function(chatId, message)
 */
-function sendMessageToChat(sender) {
+function sendMessageToChat(sender, color) {
   return (chatId, message) => {
-    io.emit(`${MESSAGE_RECIEVED}-${chatId}`, createMessage({ message, sender }));
+    io.emit(`${MESSAGE_RECIEVED}-${chatId}`, createMessage({ message, sender, color }));
   };
 }
 

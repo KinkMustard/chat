@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import Avatar from "material-ui/Avatar";
+import moment from "moment";
 
 export default class Messages extends Component {
   constructor(props) {
@@ -29,11 +31,17 @@ export default class Messages extends Component {
             <div
               key={mes.id}
               className={`message-container ${mes.sender === user.name && "right"}`}
+              style={{ color: mes.color }}
             >
-              <div className="time">{mes.time}</div>
+              <Avatar style={{ backgroundColor: mes.color }} className="avatar">
+                {mes.sender[0]}
+              </Avatar>
               <div className="data">
+                <div className="name">
+                  <p className="user-name">{mes.sender}</p>
+                  <p className="time">{moment().calendar(mes.time)}</p>
+                </div>
                 <div className="message">{mes.message}</div>
-                <div className="name">{mes.sender}</div>
               </div>
             </div>
           ))}

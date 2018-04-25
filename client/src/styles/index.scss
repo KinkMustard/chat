@@ -299,8 +299,27 @@ textarea {
 
   animation: 0.65s ease-out 0s show;
 
-  .time {
+  .avatar {
     order: 1;
+    margin-top: 30px;
+  }
+  .time {
+    font-size: 0.8em;
+    margin-left: 10px;
+    margin-top: 30px;
+    order: 3;
+    // margin: 0;
+    // font-style: italic;
+    opacity: 0.6;
+    float: left;
+    // position: absolute;
+  }
+  .user-name {
+    font-size: 1.5em;
+    // margin-top: 5px;
+    text-align: right;
+    float: left;
+    margin-bottom: 10px;
   }
   .data {
     order: 2;
@@ -308,9 +327,7 @@ textarea {
     margin-left: 25px;
   }
   .name {
-    font-size: 0.65em;
-    margin-top: 5px;
-    text-align: right;
+    // margin: 0;
   }
   .message {
     // background: $received-message-bg-color;
@@ -354,17 +371,38 @@ textarea {
   &.right {
     text-align: right;
     justify-content: flex-end;
-
-    .time {
-      order: 2;
+    .avatar {
+      order: 3;
       margin-left: 25px;
+      margin-top: 30px;
+      // display: none;
+    }
+    .time {
+      font-size: 0.8em;
+      margin-left: 10px;
+      margin-top: 30px;
+      order: 2;
+      opacity: 0.6;
+      float: right;
     }
     .data {
-      margin-left: 0;
+      order: 2;
+      margin-left: 25px;
       order: 1;
+      height: 100%;
     }
     .name {
       display: none;
+    }
+    .user-name {
+      font-size: 1.5em;
+      // margin-top: 5px;
+      text-align: left;
+      float: left;
+      margin-bottom: 10px;
+    }
+    .name {
+      // margin: 0;
     }
     .message {
       // background: $sent-message-bg-color;
