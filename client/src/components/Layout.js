@@ -4,7 +4,7 @@ import { USER_CONNECTED, LOGOUT, VERIFY_USER } from "../Events";
 import LoginForm from "./LoginForm";
 import ChatContainer from "./chats/ChatContainer";
 
-const socketUrl = "http://localhost:5000";
+const socketUrl = process.env.NODE_ENV === "development" ? "http://192.168.1.97:5000" : "/";
 export default class Layout extends Component {
   constructor(props) {
     super(props);
