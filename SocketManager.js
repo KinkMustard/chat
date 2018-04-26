@@ -1,3 +1,4 @@
+const mongoose = require("mongoose");
 const io = require("./index.js").io;
 
 const {
@@ -10,10 +11,16 @@ const {
   MESSAGE_SENT,
   TYPING,
   PRIVATE_MESSAGE,
-  NEW_CHAT_USER
+  NEW_CHAT_USER,
+  GET_CHAT,
+  CHAT_MOUNTED
 } = require("./client/src/Events");
+require("./models/Chat");
+require("./models/Message");
 
 const { createUser, createMessage, createChat } = require("./client/src/Factories");
+
+const ChatModel = mongoose.model("chats");
 
 let connectedUsers = {};
 const potentialColors = [
@@ -37,21 +44,40 @@ const potentialColors = [
 
 const generalChat = createChat({ isGeneral: true });
 
-module.exports = (socket) => {
+module.exports = async (socket) => {
   // console.log('\x1bc'); //clears console
   console.log(`Socket Id:${socket.id}`);
 
   let sendMessageToChatFromUser;
 
+  const currentGeneralChat = await ChatModel.findOne({ name: "General" });
+  if (!currentGeneralChat) {
+    const chat = new ChatModel({
+      name: generalChat.name,
+      isGeneral: generalChat.isGeneral,
+      messages: generalChat.messages,
+      users: generalChat.users,
+      _id: generalChat.id,
+      id: generalChat.id,
+      typingUsers: generalChat.typingUsers
+    });
+    await chat.save();
+    console.log("new chat created");
+  }
   let sendTypingFromUser;
+  console.log(currentGeneralChat);
 
+  socket.on(CHAT_MOUNTED, () => {
+    socket.emit(GET_CHAT, currentGeneralChat);
+    console.log("might get chat");
+  });
   // Verify Username
+
   socket.on(VERIFY_USER, (nickname, callback) => {
     if (isUser(connectedUsers, nickname)) {
       callback({ isUser: true, user: null });
     } else {
       const chosenColor = potentialColors[Math.floor(Math.random() * potentialColors.length)];
-      console.log(chosenColor);
       callback({
         isUser: false,
         user: createUser({ name: nickname, socketId: socket.id, color: chosenColor })
@@ -60,7 +86,7 @@ module.exports = (socket) => {
   });
 
   // User Connects with username
-  socket.on(USER_CONNECTED, (user) => {
+  socket.on(USER_CONNECTED, async (user) => {
     user.socketId = socket.id;
     connectedUsers = addUser(connectedUsers, user);
     socket.user = user;
@@ -68,8 +94,8 @@ module.exports = (socket) => {
     sendMessageToChatFromUser = sendMessageToChat(user.name, user.color);
     sendTypingFromUser = sendTypingToChat(user.name);
 
-    io.emit(USER_CONNECTED, connectedUsers);
-    console.log(connectedUsers);
+    await io.emit(USER_CONNECTED, connectedUsers);
+    // console.log(connectedUsers);
   });
 
   // User disconnects
@@ -78,7 +104,7 @@ module.exports = (socket) => {
       connectedUsers = removeUser(connectedUsers, socket.user.name);
 
       io.emit(USER_DISCONNECTED, connectedUsers);
-      console.log("Disconnect", connectedUsers);
+      // console.log("Disconnect", connectedUsers);
     }
   });
 
@@ -86,7 +112,7 @@ module.exports = (socket) => {
   socket.on(LOGOUT, () => {
     connectedUsers = removeUser(connectedUsers, socket.user.name);
     io.emit(USER_DISCONNECTED, connectedUsers);
-    console.log("Disconnect", connectedUsers);
+    // console.log("Disconnect", connectedUsers);
   });
 
   // Get General Chat
@@ -145,8 +171,21 @@ function sendTypingToChat(user) {
 * @return function(chatId, message)
 */
 function sendMessageToChat(sender, color) {
-  return (chatId, message) => {
-    io.emit(`${MESSAGE_RECIEVED}-${chatId}`, createMessage({ message, sender, color }));
+  return async (chatId, message) => {
+    const newMessage = createMessage({ message, sender, color });
+    io.emit(`${MESSAGE_RECIEVED}-${chatId}`, newMessage);
+    const temp = await ChatModel.findById(chatId);
+    temp.messages.push(newMessage);
+
+    await ChatModel.findByIdAndUpdate(
+      chatId,
+      {
+        messages: temp.messages
+      },
+      () => {
+        console.log("messages updated");
+      }
+    );
   };
 }
 

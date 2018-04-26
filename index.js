@@ -6,11 +6,11 @@ const io = (module.exports.io = require("socket.io")(server));
 const mongoose = require("mongoose");
 
 const SocketManager = require("./SocketManager");
-require("./models/Color");
+// require("./models/Color");
 
-const ColorModel = mongoose.model("colors");
+// const ColorModel = mongoose.model("colors");
 
-mongoose.connect("mongodb://KinkMustard:Czy4306162@ds149309.mlab.com:49309/imageboard");
+mongoose.connect("mongodb://KinkMustard:Czy4306162@ds147659.mlab.com:47659/connect");
 
 io.on("connection", SocketManager);
 

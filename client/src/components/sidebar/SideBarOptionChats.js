@@ -4,6 +4,9 @@ import { withStyles } from "material-ui/styles";
 import Avatar from "material-ui/Avatar";
 import Chip from "material-ui/Chip";
 import DoneIcon from "@material-ui/icons/Done";
+import Card, { CardContent, CardMedia } from "material-ui/Card";
+import Typography from "material-ui/Typography";
+import Button from "material-ui/Button";
 
 const styles = theme => ({
   avatar: {
@@ -40,15 +43,33 @@ class SideBarOption extends PureComponent {
     alert("You clicked the Chip."); // eslint-disable-line no-alert
   };
   render() {
-    const { active, lastMessage, name, onClick, classes, color } = this.props;
+    const { active, lastMessage, name, onClick, classes } = this.props;
     return (
-      <Chip
-        avatar={<Avatar style={{ backgroundColor: color }}>{name[0].toUpperCase()}</Avatar>}
-        label={name}
-        onClick={onClick}
-        onDelete={this.handleDelete}
-        className="SideBarOption-chip-199 side-bar-option"
-      />
+      <React.Fragment>
+        {/* <Chip
+          avatar={<Avatar>{name[0].toUpperCase()}</Avatar>}
+          label={name}
+          onClick={onClick}
+          onDelete={this.handleDelete}
+          className="SideBarOption-chip-199 side-bar-option"
+        /> */}
+
+        <Card className="animeHeader">
+          <Button onClick={onClick} className="side-bar-option-button">
+            <div className={classes.details}>
+              <CardContent>
+                <Typography variant="headline" className="grey">
+                  {name}
+                </Typography>
+              </CardContent>
+            </div>
+            {/* <CardMedia
+              className="animeImg"
+              image="http://i0.kym-cdn.com/photos/images/original/001/228/878/307.png"
+            /> */}
+          </Button>
+        </Card>
+      </React.Fragment>
     );
   }
 }

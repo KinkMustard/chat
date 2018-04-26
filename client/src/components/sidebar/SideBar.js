@@ -27,6 +27,7 @@ import Avatar from "material-ui/Avatar";
 import SideBarOption from "./SideBarOption";
 import { last, get, differenceBy } from "lodash";
 import { createChatNameFromUsers } from "../../Factories";
+import SideBarOptionChats from "./SideBarOptionChats";
 
 const drawerWidth = 240;
 
@@ -216,7 +217,7 @@ class SideBar extends Component {
             <TabContainer dir={theme.direction}>
               {chats.map(chat => {
                 return (
-                  <SideBarOption
+                  <SideBarOptionChats
                     key={chat.id}
                     lastMessage={get(last(chat.messages), "message", "")}
                     name={
@@ -230,12 +231,13 @@ class SideBar extends Component {
                 );
               })}
             </TabContainer>
-            <TabContainer dir={theme.direction}>
+            <TabContainer dir={theme.direction} className="side-bar-container">
               {differenceBy(users, [user], "name").map(user => {
                 return (
                   <SideBarOption
                     key={user.id}
                     name={user.name}
+                    color={user.color}
                     onClick={() => {
                       this.addChatForUser(user.name);
                     }}

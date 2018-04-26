@@ -22,29 +22,51 @@ export default class Messages extends Component {
     this.scrollDown();
   }
 
+  displayMessage() {
+    const { messages, user } = this.props;
+    return messages.map((mes, index) => {
+      let temp = index;
+      if (index !== 0) {
+        temp--;
+      }
+
+      if (messages[temp].sender === mes.sender && index !== 0) {
+        return (
+          <div
+            key={mes.id}
+            className={`message-container ${mes.sender === user.name && "right"}`}
+            style={{ color: mes.color }}
+          >
+            <div className="lonely-message">{mes.message}</div>
+          </div>
+        );
+      }
+      return (
+        <div
+          key={mes.id}
+          className={`message-container ${mes.sender === user.name && "right"}`}
+          style={{ color: mes.color }}
+        >
+          <Avatar style={{ backgroundColor: mes.color }} className="avatar">
+            {mes.sender[0]}
+          </Avatar>
+          <div className="data">
+            <div className="name">
+              <p className="user-name">{mes.sender}</p>
+              <p className="time">{moment().calendar(mes.time)}</p>
+            </div>
+            <div className="message">{mes.message}</div>
+          </div>
+        </div>
+      );
+    });
+  }
   render() {
     const { messages, user, typingUsers } = this.props;
     return (
       <div ref="container" className="thread-container">
         <div className="thread">
-          {messages.map(mes => (
-            <div
-              key={mes.id}
-              className={`message-container ${mes.sender === user.name && "right"}`}
-              style={{ color: mes.color }}
-            >
-              <Avatar style={{ backgroundColor: mes.color }} className="avatar">
-                {mes.sender[0]}
-              </Avatar>
-              <div className="data">
-                <div className="name">
-                  <p className="user-name">{mes.sender}</p>
-                  <p className="time">{moment().calendar(mes.time)}</p>
-                </div>
-                <div className="message">{mes.message}</div>
-              </div>
-            </div>
-          ))}
+          {this.displayMessage()}
           {typingUsers.map(name => (
             <div key={name} className="typing-user">
               {`${name} is typing . . .`}
