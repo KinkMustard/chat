@@ -65,12 +65,6 @@ module.exports = async (socket) => {
     console.log("new chat created");
   }
   let sendTypingFromUser;
-  console.log(currentGeneralChat);
-
-  socket.on(CHAT_MOUNTED, () => {
-    socket.emit(GET_CHAT, currentGeneralChat);
-    console.log("might get chat");
-  });
   // Verify Username
 
   socket.on(VERIFY_USER, (nickname, callback) => {
@@ -117,7 +111,7 @@ module.exports = async (socket) => {
 
   // Get General Chat
   socket.on(GENERAL_CHAT, (callback) => {
-    callback(generalChat);
+    callback(currentGeneralChat);
   });
 
   socket.on(MESSAGE_SENT, ({ chatId, message }) => {

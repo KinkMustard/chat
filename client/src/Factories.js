@@ -28,7 +28,7 @@ const createUser = ({ name = "", socketId = null, color = "" } = {}) => ({
 */
 const createMessage = ({ message = "", sender = "", color = "" } = {}) => ({
   id: uuidv4(),
-  time: Date.now,
+  time: new Date(Date.now()),
   message,
   sender,
   color
