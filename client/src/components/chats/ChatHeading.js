@@ -55,15 +55,15 @@ const styles = theme => ({
 
 class ChatHeading extends React.Component {
   render() {
+    console.log(drawerWidth);
     const {
       classes, theme, name, numberOfUsers, handleDrawerToggle
     } = this.props;
-    const nice = classNames({ "ChatHeading-appBar-203": true, "app-bar": true });
     return (
       <React.Fragment>
         <div>
-          <AppBar className={nice}>
-            <Toolbar>
+          <AppBar className={classes.appBar}>
+            <Toolbar className="app-bar">
               <IconButton
                 color="inherit"
                 aria-label="open drawer"

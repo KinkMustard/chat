@@ -28,6 +28,14 @@ import SideBarOption from "./SideBarOption";
 import { last, get, differenceBy } from "lodash";
 import { createChatNameFromUsers } from "../../Factories";
 import SideBarOptionChats from "./SideBarOptionChats";
+import { FormGroup, FormControlLabel } from "material-ui/Form";
+import Checkbox from "material-ui/Checkbox";
+import Dialog, {
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle
+} from "material-ui/Dialog";
 
 const drawerWidth = 240;
 
@@ -48,6 +56,9 @@ const styles = theme => ({
   // card: {
   //   minWidth: 275
   // },
+  root: {
+    width: "100%"
+  },
   details: {
     display: "flex",
     flexDirection: "column"
@@ -122,7 +133,10 @@ class SideBar extends Component {
       reciever: "",
       activeSideBar: SideBar.type.CHATS,
       value: 0,
-      mobileOpen: false
+      mobileOpen: false,
+      expanded: null,
+      open: false,
+      private: false
     };
   }
 
@@ -156,6 +170,24 @@ class SideBar extends Component {
     this.setState({ activeSideBar: type });
   };
 
+  handleChangePanel = panel => (event, expanded) => {
+    this.setState({
+      expanded: expanded ? panel : false
+    });
+  };
+
+  handleDialogOpen = () => {
+    this.setState({ open: true });
+  };
+
+  handleDialogClose = () => {
+    this.setState({ open: false });
+  };
+
+  handleCheck = name => event => {
+    this.setState({ [name]: event.target.checked });
+  };
+
   render() {
     const { classes, theme } = this.props;
     const { chats, activeChat, user, setActiveChat, logout, users } = this.props;
@@ -179,6 +211,68 @@ class SideBar extends Component {
             </Card>
           </div>
         </CardContent>
+        <Button
+          variant="raised"
+          color="secondary"
+          className="create-chat-button"
+          onClick={this.handleDialogOpen}
+        >
+          Create New Chat
+        </Button>
+        <Dialog
+          open={this.state.open}
+          onClose={this.handleDialogClose}
+          aria-labelledby="form-dialog-title"
+        >
+          <DialogTitle id="form-dialog-title">Create New Chat</DialogTitle>
+          <DialogContent>
+            {/* <DialogContentText>
+              To subscribe to this website, please enter your email address here. We will send
+              updates occationally.
+            </DialogContentText> */}
+            <TextField
+              autoFocus
+              required
+              margin="dense"
+              id="name"
+              label="Name"
+              type="name"
+              fullWidth
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={this.state.private}
+                  onChange={this.handleCheck("private")}
+                  value="private"
+                  color="primary"
+                />
+              }
+              label="Private"
+            />
+            <DialogContentText>
+              Setting a chat to private makes it only accessible through a secret code
+            </DialogContentText>
+            {this.state.private ? (
+              <TextField
+                required
+                margin="dense"
+                id="name"
+                label="Secret Code"
+                type="name"
+                fullWidth
+              />
+            ) : null}
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={this.handleDialogClose} color="primary">
+              Cancel
+            </Button>
+            <Button onClick={this.handleDialogClose} color="primary">
+              Create
+            </Button>
+          </DialogActions>
+        </Dialog>
         <form onSubmit={this.handleSubmit} className="search">
           <i className="search-icon">
             <FASearch />
@@ -217,7 +311,7 @@ class SideBar extends Component {
             <TabContainer dir={theme.direction}>
               {chats.map(chat => {
                 return (
-                  <SideBarOptionChats
+                  <SideBarOption
                     key={chat.id}
                     lastMessage={get(last(chat.messages), "message", "")}
                     name={
@@ -227,23 +321,31 @@ class SideBar extends Component {
                     onClick={() => {
                       this.props.setActiveChat(chat);
                     }}
+                    handleChangePanel={this.handleChangePanel}
+                    expanded={this.state.expanded}
+                    version="chats"
                   />
                 );
               })}
             </TabContainer>
             <TabContainer dir={theme.direction} className="side-bar-container">
-              {differenceBy(users, [user], "name").map(user => {
-                return (
-                  <SideBarOption
-                    key={user.id}
-                    name={user.name}
-                    color={user.color}
-                    onClick={() => {
-                      this.addChatForUser(user.name);
-                    }}
-                  />
-                );
-              })}
+              <div className={classes.root}>
+                {differenceBy(users, [user], "name").map(user => {
+                  return (
+                    <SideBarOption
+                      key={user.id}
+                      name={user.name}
+                      color={user.color}
+                      onClick={() => {
+                        this.addChatForUser(user.name);
+                      }}
+                      handleChangePanel={this.handleChangePanel}
+                      expanded={this.state.expanded}
+                      version="users"
+                    />
+                  );
+                })}
+              </div>
             </TabContainer>
           </SwipeableViews>
         </div>

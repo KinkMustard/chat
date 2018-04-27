@@ -14,6 +14,8 @@ export default class MessageInput extends Component {
     e.preventDefault();
     this.sendMessage();
     this.setState({ message: "" });
+    this.setState({ isTyping: false });
+    this.stopCheckingTyping();
   };
 
   sendMessage = () => {
@@ -21,6 +23,7 @@ export default class MessageInput extends Component {
   };
 
   componentWillUnmount() {
+    this.setState({ isTyping: false });
     this.stopCheckingTyping();
   }
 

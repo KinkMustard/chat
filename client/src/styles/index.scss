@@ -44,8 +44,21 @@ body,
   font-family: sans-serif;
   height: 100%;
 }
+.black-content {
+  background-color: $blackBody !important;
+  color: $greyFont !important;
+  margin-bottom: 18px;
+}
 .grey {
   color: $greyFont !important;
+}
+.side-bar-option-header {
+  color: $greyFont !important;
+  margin-top: 9px;
+  margin-left: 22px;
+}
+.side-bar-option-avatar {
+  margin-left: -10px;
 }
 input,
 textarea {
@@ -138,6 +151,11 @@ textarea {
     margin-top: 10px;
     width: 50px;
     height: 50px;
+  }
+  .create-chat-button {
+    background-color: $blackPop !important;
+    color: $greyFont !important;
+    margin-left: 40px;
   }
   .animeAppBar {
   }
@@ -341,6 +359,9 @@ textarea {
     float: left;
   }
   .message {
+    max-width: 500px;
+    overflow-wrap: break-word;
+    opacity: 0.8;
     // background: $received-message-bg-color;
     // border-radius: 5px;
     // border-top-left-radius: 0;
@@ -355,6 +376,8 @@ textarea {
     margin-bottom: -20px;
     opacity: 0.8;
     margin-left: 64px;
+    max-width: 500px;
+    overflow-wrap: break-word;
   }
 
   @keyframes show {
