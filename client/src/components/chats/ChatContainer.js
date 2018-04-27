@@ -10,7 +10,8 @@ import {
   USER_DISCONNECTED,
   NEW_CHAT_USER,
   GET_CHAT,
-  CHAT_MOUNTED
+  CHAT_MOUNTED,
+  CREATE_NEW_CHAT
 } from "../../Events";
 import ChatHeading from "./ChatHeading";
 import Messages from "../messages/Messages";
@@ -45,6 +46,7 @@ export default class ChatContainer extends Component {
   initSocket(socket) {
     socket.emit(GENERAL_CHAT, this.resetChat);
     socket.on(PRIVATE_MESSAGE, this.addChat);
+    socket.on(CREATE_NEW_CHAT, this.addChat);
     socket.on("connect", () => {
       socket.emit(GENERAL_CHAT, this.resetChat);
     });
@@ -58,6 +60,12 @@ export default class ChatContainer extends Component {
     });
     socket.on(NEW_CHAT_USER, this.addUserToChat);
   }
+
+  createNewChat = name => {
+    const { socket, user } = this.props;
+    const { activeChat } = this.state;
+    socket.emit(CREATE_NEW_CHAT, { creator: user.name, chatName: name });
+  };
 
   sendOpenPrivateMessage = reciever => {
     const { socket, user } = this.props;
@@ -111,6 +119,7 @@ export default class ChatContainer extends Component {
 
     socket.on(typingEvent, this.updateTypingInChat(chat.id));
     socket.on(messageEvent, this.addMessageToChat(chat.id));
+    console.log(chat.id);
   };
 
   /*
@@ -199,6 +208,8 @@ export default class ChatContainer extends Component {
           onSendPrivateMessage={this.sendOpenPrivateMessage}
           mobileOpen={this.state.mobileOpen}
           handleDrawerToggle={this.handleDrawerToggle}
+          createNewChat={this.createNewChat}
+          socket={this.props.socket}
         />
         <div className="chat-room-container">
           {activeChat !== null ? (

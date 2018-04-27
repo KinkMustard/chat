@@ -29,13 +29,9 @@ import { last, get, differenceBy } from "lodash";
 import { createChatNameFromUsers } from "../../Factories";
 import SideBarOptionChats from "./SideBarOptionChats";
 import { FormGroup, FormControlLabel } from "material-ui/Form";
+import Input, { InputLabel, InputAdornment } from "material-ui/Input";
 import Checkbox from "material-ui/Checkbox";
-import Dialog, {
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle
-} from "material-ui/Dialog";
+import CreateChat from "./CreateChat";
 
 const drawerWidth = 240;
 
@@ -135,8 +131,7 @@ class SideBar extends Component {
       value: 0,
       mobileOpen: false,
       expanded: null,
-      open: false,
-      private: false
+      open: false
     };
   }
 
@@ -184,10 +179,6 @@ class SideBar extends Component {
     this.setState({ open: false });
   };
 
-  handleCheck = name => event => {
-    this.setState({ [name]: event.target.checked });
-  };
-
   render() {
     const { classes, theme } = this.props;
     const { chats, activeChat, user, setActiveChat, logout, users } = this.props;
@@ -219,60 +210,13 @@ class SideBar extends Component {
         >
           Create New Chat
         </Button>
-        <Dialog
+        <CreateChat
           open={this.state.open}
           onClose={this.handleDialogClose}
-          aria-labelledby="form-dialog-title"
-        >
-          <DialogTitle id="form-dialog-title">Create New Chat</DialogTitle>
-          <DialogContent>
-            {/* <DialogContentText>
-              To subscribe to this website, please enter your email address here. We will send
-              updates occationally.
-            </DialogContentText> */}
-            <TextField
-              autoFocus
-              required
-              margin="dense"
-              id="name"
-              label="Name"
-              type="name"
-              fullWidth
-            />
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={this.state.private}
-                  onChange={this.handleCheck("private")}
-                  value="private"
-                  color="primary"
-                />
-              }
-              label="Private"
-            />
-            <DialogContentText>
-              Setting a chat to private makes it only accessible through a secret code
-            </DialogContentText>
-            {this.state.private ? (
-              <TextField
-                required
-                margin="dense"
-                id="name"
-                label="Secret Code"
-                type="name"
-                fullWidth
-              />
-            ) : null}
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={this.handleDialogClose} color="primary">
-              Cancel
-            </Button>
-            <Button onClick={this.handleDialogClose} color="primary">
-              Create
-            </Button>
-          </DialogActions>
-        </Dialog>
+          handleDialogClose={this.handleDialogClose}
+          createNewChat={this.props.createNewChat}
+          socket={this.props.socket}
+        />
         <form onSubmit={this.handleSubmit} className="search">
           <i className="search-icon">
             <FASearch />

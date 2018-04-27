@@ -53,8 +53,7 @@ export default class Messages extends Component {
           <div className="data">
             <div className="name">
               <p className="user-name">{mes.sender}</p>
-              <p className="time">{moment().calendar(mes.time)}</p>
-              {console.log(mes.time)}
+              <p className="time">{moment(mes.time).fromNow()}</p>
             </div>
             <div className="message">{mes.message}</div>
           </div>

@@ -13,7 +13,9 @@ const {
   PRIVATE_MESSAGE,
   NEW_CHAT_USER,
   GET_CHAT,
-  CHAT_MOUNTED
+  CHAT_MOUNTED,
+  CREATE_NEW_CHAT,
+  VERIFY_NEW_CHAT
 } = require("./client/src/Events");
 require("./models/Chat");
 require("./models/Message");
@@ -23,6 +25,7 @@ const { createUser, createMessage, createChat } = require("./client/src/Factorie
 const ChatModel = mongoose.model("chats");
 
 let connectedUsers = {};
+let currentChats = {};
 const potentialColors = [
   "#FF3D00",
   "#FF9100",
@@ -79,6 +82,14 @@ module.exports = async (socket) => {
     }
   });
 
+  socket.on(VERIFY_NEW_CHAT, (name, callback) => {
+    if (isChat(currentChats, name)) {
+      callback({ isChat: true });
+    } else {
+      callback({ isChat: false });
+    }
+  });
+
   // User Connects with username
   socket.on(USER_CONNECTED, async (user) => {
     user.socketId = socket.id;
@@ -120,6 +131,25 @@ module.exports = async (socket) => {
 
   socket.on(TYPING, ({ chatId, isTyping }) => {
     sendTypingFromUser(chatId, isTyping);
+  });
+
+  socket.on(CREATE_NEW_CHAT, async ({ creator, chatName }) => {
+    console.log("created new chat", chatName);
+    const newChat = createChat({ name: chatName, isGeneral: true });
+    currentChats = addChat(currentChats, chatName);
+    // socket.emit(CREATE_NEW_CHAT, newChat);
+    io.emit(CREATE_NEW_CHAT, newChat);
+    const chat = new ChatModel({
+      name: newChat.name,
+      isGeneral: newChat.isGeneral,
+      messages: newChat.messages,
+      users: newChat.users,
+      _id: newChat.id,
+      id: newChat.id,
+      typingUsers: newChat.typingUsers
+    });
+    await chat.save();
+    console.log("saved to database", newChat.name);
   });
 
   socket.on(PRIVATE_MESSAGE, ({ reciever, sender, activeChat }) => {
@@ -195,6 +225,12 @@ function addUser(userList, user) {
   return newList;
 }
 
+function addChat(chatList, chat) {
+  const newList = Object.assign({}, chatList);
+  newList[chat] = chat;
+  return newList;
+}
+
 /*
 * Removes user from the list passed in.
 * @param userList {Object} Object with key value pairs of Users
@@ -215,4 +251,8 @@ function removeUser(userList, username) {
 */
 function isUser(userList, username) {
   return username in userList;
+}
+
+function isChat(chatList, name) {
+  return name in chatList;
 }
