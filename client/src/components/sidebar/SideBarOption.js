@@ -58,7 +58,8 @@ class SideBarOption extends PureComponent {
       classes,
       color,
       expanded,
-      handleChangePanel
+      handleChangePanel,
+      description
     } = this.props;
     if (this.props.version === "users") {
       return (
@@ -98,12 +99,17 @@ class SideBarOption extends PureComponent {
               <div className="side-bar-option-header">{name}</div>
             </Typography>
           </ExpansionPanelSummary>
-          <ExpansionPanelDetails>
-            <Typography>
-              <div className="grey">This is a chat</div>
-            </Typography>
-          </ExpansionPanelDetails>
-          <Divider />
+          {name !== "General" ? (
+            <React.Fragment>
+              <ExpansionPanelDetails>
+                <Typography>
+                  <div className="grey">{description}</div>
+                </Typography>
+              </ExpansionPanelDetails>
+              <Divider />
+            </React.Fragment>
+          ) : null}
+          {console.log(description)}
           <ExpansionPanelActions>
             <Button size="small" color="primary" onClick={onClick}>
               JOIN CHAT
@@ -124,8 +130,6 @@ class SideBarOption extends PureComponent {
       expanded,
       handleChangePanel
     } = this.props;
-    console.log(expanded);
-    console.log(handleChangePanel);
     return <React.Fragment>{this.decideWhatToRender()}</React.Fragment>;
   }
 }

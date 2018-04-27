@@ -11,7 +11,8 @@ import {
   NEW_CHAT_USER,
   GET_CHAT,
   CHAT_MOUNTED,
-  CREATE_NEW_CHAT
+  CREATE_NEW_CHAT,
+  GET_CURRENT_CHATS
 } from "../../Events";
 import ChatHeading from "./ChatHeading";
 import Messages from "../messages/Messages";
@@ -45,6 +46,7 @@ export default class ChatContainer extends Component {
 
   initSocket(socket) {
     socket.emit(GENERAL_CHAT, this.resetChat);
+    socket.emit(GET_CURRENT_CHATS, this.addCurrentChats);
     socket.on(PRIVATE_MESSAGE, this.addChat);
     socket.on(CREATE_NEW_CHAT, this.addChat);
     socket.on("connect", () => {
@@ -61,10 +63,19 @@ export default class ChatContainer extends Component {
     socket.on(NEW_CHAT_USER, this.addUserToChat);
   }
 
-  createNewChat = name => {
+  addCurrentChats = currentChats => {
+    currentChats.forEach(chat => {
+      this.addChat(chat, false);
+    });
+  };
+  createNewChat = (name, description) => {
     const { socket, user } = this.props;
     const { activeChat } = this.state;
-    socket.emit(CREATE_NEW_CHAT, { creator: user.name, chatName: name });
+    socket.emit(CREATE_NEW_CHAT, {
+      creator: user.name,
+      chatName: name,
+      chatDescription: description
+    });
   };
 
   sendOpenPrivateMessage = reciever => {

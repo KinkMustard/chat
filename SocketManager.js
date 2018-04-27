@@ -15,7 +15,8 @@ const {
   GET_CHAT,
   CHAT_MOUNTED,
   CREATE_NEW_CHAT,
-  VERIFY_NEW_CHAT
+  VERIFY_NEW_CHAT,
+  GET_CURRENT_CHATS
 } = require("./client/src/Events");
 require("./models/Chat");
 require("./models/Message");
@@ -25,7 +26,7 @@ const { createUser, createMessage, createChat } = require("./client/src/Factorie
 const ChatModel = mongoose.model("chats");
 
 let connectedUsers = {};
-let currentChats = {};
+let currentChats = [];
 const potentialColors = [
   "#FF3D00",
   "#FF9100",
@@ -53,7 +54,7 @@ module.exports = async (socket) => {
 
   let sendMessageToChatFromUser;
 
-  const currentGeneralChat = await ChatModel.findOne({ name: "General" });
+  let currentGeneralChat = await ChatModel.findOne({ name: "General" });
   if (!currentGeneralChat) {
     const chat = new ChatModel({
       name: generalChat.name,
@@ -62,13 +63,18 @@ module.exports = async (socket) => {
       users: generalChat.users,
       _id: generalChat.id,
       id: generalChat.id,
-      typingUsers: generalChat.typingUsers
+      typingUsers: generalChat.typingUsers,
+      isPublic: false,
+      creator: "general chat",
+      description: "general chat"
     });
     await chat.save();
     console.log("new chat created");
+    currentGeneralChat = chat;
   }
   let sendTypingFromUser;
   // Verify Username
+  const currentPublicChats = await ChatModel.find({ isPublic: true });
 
   socket.on(VERIFY_USER, (nickname, callback) => {
     if (isUser(connectedUsers, nickname)) {
@@ -82,8 +88,9 @@ module.exports = async (socket) => {
     }
   });
 
-  socket.on(VERIFY_NEW_CHAT, (name, callback) => {
-    if (isChat(currentChats, name)) {
+  socket.on(VERIFY_NEW_CHAT, async (name, callback) => {
+    const aspiringChat = await ChatModel.findOne({ name });
+    if (aspiringChat) {
       callback({ isChat: true });
     } else {
       callback({ isChat: false });
@@ -125,6 +132,10 @@ module.exports = async (socket) => {
     callback(currentGeneralChat);
   });
 
+  socket.on(GET_CURRENT_CHATS, (callback) => {
+    callback(currentPublicChats);
+  });
+
   socket.on(MESSAGE_SENT, ({ chatId, message }) => {
     sendMessageToChatFromUser(chatId, message);
   });
@@ -133,10 +144,16 @@ module.exports = async (socket) => {
     sendTypingFromUser(chatId, isTyping);
   });
 
-  socket.on(CREATE_NEW_CHAT, async ({ creator, chatName }) => {
+  socket.on(CREATE_NEW_CHAT, async ({ creator, chatName, chatDescription }) => {
     console.log("created new chat", chatName);
-    const newChat = createChat({ name: chatName, isGeneral: true });
-    currentChats = addChat(currentChats, chatName);
+    const newChat = createChat({
+      name: chatName,
+      isGeneral: true,
+      creator,
+      description: chatDescription
+    });
+    currentChats = addChat(currentChats, newChat);
+    console.log(newChat.description);
     // socket.emit(CREATE_NEW_CHAT, newChat);
     io.emit(CREATE_NEW_CHAT, newChat);
     const chat = new ChatModel({
@@ -146,7 +163,10 @@ module.exports = async (socket) => {
       users: newChat.users,
       _id: newChat.id,
       id: newChat.id,
-      typingUsers: newChat.typingUsers
+      typingUsers: newChat.typingUsers,
+      creator: newChat.creator,
+      description: newChat.description,
+      isPublic: true
     });
     await chat.save();
     console.log("saved to database", newChat.name);
@@ -254,5 +274,5 @@ function isUser(userList, username) {
 }
 
 function isChat(chatList, name) {
-  return name in chatList;
+  return { name } in chatList;
 }

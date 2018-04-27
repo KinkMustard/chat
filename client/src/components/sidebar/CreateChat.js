@@ -20,7 +20,8 @@ class CreateChat extends Component {
       private: false,
       name: "",
       secretCode: "",
-      error: ""
+      error: "",
+      description: ""
     };
   }
 
@@ -35,12 +36,17 @@ class CreateChat extends Component {
   };
 
   verifyChat = ({ isChat }) => {
+    const { name, description } = this.state;
     if (isChat) {
       this.setError("Chat name taken");
+    } else if (name === "") {
+      this.setError("Name can not be empty");
+    } else if (name === "General") {
+      this.setError("Name can not be General");
     } else {
       this.setError("");
-      this.props.createNewChat(this.state.name);
-      this.props.handleDialogClose();
+      this.props.createNewChat(this.state.name, this.state.description);
+      this.resetFields();
     }
   };
 
@@ -52,6 +58,11 @@ class CreateChat extends Component {
 
   setError = error => {
     this.setState({ error });
+  };
+
+  resetFields = () => {
+    this.setState({ private: false, name: "", secretCode: "", error: "" });
+    this.props.handleDialogClose();
   };
 
   render() {
@@ -67,13 +78,29 @@ class CreateChat extends Component {
           <form>
             <TextField
               autoFocus
-              required
               margin="dense"
               id="name"
               label="Name"
               type="name"
               name="name"
               value={this.state.name}
+              onChange={this.handleInputChange}
+              fullWidth
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <LabelIcon />
+                  </InputAdornment>
+                )
+              }}
+            />
+            <TextField
+              margin="dense"
+              id="description"
+              label="Description"
+              type="description"
+              name="description"
+              value={this.state.description}
               onChange={this.handleInputChange}
               fullWidth
               InputProps={{
@@ -103,7 +130,6 @@ class CreateChat extends Component {
           </DialogContentText>
           {this.state.private ? (
             <TextField
-              required
               margin="dense"
               id="name"
               label="Secret Code"
@@ -116,7 +142,7 @@ class CreateChat extends Component {
           ) : null}
         </DialogContent>
         <DialogActions>
-          <Button onClick={this.props.handleDialogClose} color="primary">
+          <Button onClick={this.resetFields} color="primary">
             Cancel
           </Button>
           <Button onClick={this.handleSubmit} color="primary">

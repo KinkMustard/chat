@@ -265,6 +265,7 @@ class SideBar extends Component {
                     onClick={() => {
                       this.props.setActiveChat(chat);
                     }}
+                    description={chat.description}
                     handleChangePanel={this.handleChangePanel}
                     expanded={this.state.expanded}
                     version="chats"

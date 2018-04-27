@@ -81,7 +81,12 @@ textarea {
   justify-content: center;
   align-items: center;
 }
-
+.error {
+  text-align: center;
+  margin: 5px 0;
+  padding: 5px 10px;
+  color: $error-text;
+}
 .login-form {
   $height: 5vw;
   display: flex;
@@ -105,12 +110,6 @@ textarea {
       border-bottom: solid 2px $primary-color-light;
       outline: none;
     }
-  }
-  .error {
-    text-align: center;
-    margin: 5px 0;
-    padding: 5px 10px;
-    color: $error-text;
   }
 }
 @mixin dot-indicator($size, $color) {

@@ -50,14 +50,21 @@ const createMessage = ({ message = "", sender = "", color = "" } = {}) => ({
 *
 */
 const createChat = ({
-  messages = [], name = "General", users = [], isGeneral = false
+  messages = [],
+  name = "General",
+  users = [],
+  isGeneral = false,
+  creator = "",
+  description = ""
 } = {}) => ({
   id: uuidv4(),
   name: isGeneral ? name : createChatNameFromUsers(users),
   messages,
   users,
   typingUsers: [],
-  isGeneral
+  isGeneral,
+  creator,
+  description
 });
 
 /*
