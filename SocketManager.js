@@ -74,9 +74,9 @@ module.exports = async (socket) => {
   }
   let sendTypingFromUser;
   // Verify Username
-  const currentPublicChats = await ChatModel.find({ isPublic: true });
+  let currentPublicChats = await ChatModel.find({ isPublic: true });
 
-  socket.on(VERIFY_USER, (nickname, callback) => {
+  socket.on(VERIFY_USER, async (nickname, callback) => {
     if (isUser(connectedUsers, nickname)) {
       callback({ isUser: true, user: null });
     } else {
@@ -85,6 +85,9 @@ module.exports = async (socket) => {
         isUser: false,
         user: createUser({ name: nickname, socketId: socket.id, color: chosenColor })
       });
+      // Gets any new changes that might have happened while the user was filling out name
+      currentPublicChats = await ChatModel.find({ isPublic: true });
+      currentGeneralChat = await ChatModel.findOne({ name: "General" });
     }
   });
 

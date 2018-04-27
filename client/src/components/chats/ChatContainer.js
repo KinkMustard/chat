@@ -18,6 +18,7 @@ import ChatHeading from "./ChatHeading";
 import Messages from "../messages/Messages";
 import MessageInput from "../messages/MessageInput";
 import { values, difference, differenceBy } from "lodash";
+import UsersDrawer from "../sidebar/UsersDrawer";
 
 export default class ChatContainer extends Component {
   constructor(props) {
@@ -27,7 +28,8 @@ export default class ChatContainer extends Component {
       chats: [],
       users: [],
       activeChat: null,
-      mobileOpen: false
+      mobileOpen: false,
+      mobileUsersOpen: false
     };
   }
 
@@ -200,9 +202,9 @@ export default class ChatContainer extends Component {
   };
   handleDrawerToggle = () => {
     this.setState({ mobileOpen: !this.state.mobileOpen });
-    console.log(this.state.activeChat);
-    console.log(this.state.chats);
-    console.log(this.state.users);
+  };
+  handleUserDrawerToggle = () => {
+    this.setState({ mobileUsersOpen: !this.state.mobileUsersOpen });
   };
   render() {
     const { user, logout } = this.props;
@@ -222,6 +224,7 @@ export default class ChatContainer extends Component {
           createNewChat={this.createNewChat}
           socket={this.props.socket}
         />
+
         <div className="chat-room-container">
           {activeChat !== null ? (
             <div className="chat-room">
@@ -247,6 +250,19 @@ export default class ChatContainer extends Component {
             </div>
           )}
         </div>
+        <UsersDrawer
+          mobileOpen={this.state.mobileUsersOpen}
+          handleDrawerToggle={this.handleUserDrawerToggle}
+          logout={logout}
+          chats={chats}
+          user={user}
+          users={users}
+          activeChat={activeChat}
+          setActiveChat={this.setActiveChat}
+          onSendPrivateMessage={this.sendOpenPrivateMessage}
+          createNewChat={this.createNewChat}
+          socket={this.props.socket}
+        />
       </div>
     );
   }
