@@ -32,6 +32,7 @@ import { FormGroup, FormControlLabel } from "material-ui/Form";
 import Input, { InputLabel, InputAdornment } from "material-ui/Input";
 import Checkbox from "material-ui/Checkbox";
 import CreateChat from "./CreateChat";
+import IslandImage from "../../images/island.svg";
 
 const drawerWidth = 240;
 
@@ -179,29 +180,52 @@ class UsersDrawer extends Component {
     this.setState({ open: false });
   };
 
+  renderUsers = () => {
+    const { chats, activeChat, user, setActiveChat, logout, users } = this.props;
+    if (users.length > 1) {
+      return differenceBy(users, [user], "name").map(user => {
+        return (
+          <SideBarOption
+            key={user.id}
+            name={user.name}
+            color={user.color}
+            onClick={() => {
+              this.addChatForUser(user.name);
+            }}
+            handleChangePanel={this.handleChangePanel}
+            expanded={this.state.expanded}
+            version="users"
+          />
+        );
+      });
+    } else {
+      return (
+        <div>
+          <Typography variant="headline" className="no-users-message">
+            Looks like there's nobody here yet
+          </Typography>
+          <img src={IslandImage} alt="no users" />
+        </div>
+      );
+    }
+  };
+
   render() {
     const { classes, theme } = this.props;
     const { chats, activeChat, user, setActiveChat, logout, users } = this.props;
     const { reciever, activeSideBar } = this.state;
     const drawer = (
       <Card id="side-bar">
-        <div className="side-bar-option-users">
-          {differenceBy(users, [user], "name").map(user => {
-            return (
-              <SideBarOption
-                key={user.id}
-                name={user.name}
-                color={user.color}
-                onClick={() => {
-                  this.addChatForUser(user.name);
-                }}
-                handleChangePanel={this.handleChangePanel}
-                expanded={this.state.expanded}
-                version="users"
-              />
-            );
-          })}
-        </div>
+        <Card className="user-list-header">
+          <div className={classes.details}>
+            <CardContent>
+              <Typography variant="headline" className="grey">
+                Users
+              </Typography>
+            </CardContent>
+          </div>
+        </Card>
+        <div className="side-bar-option-users">{this.renderUsers()}</div>
       </Card>
     );
     return (

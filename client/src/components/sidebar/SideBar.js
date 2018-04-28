@@ -179,6 +179,47 @@ class SideBar extends Component {
     this.setState({ open: false });
   };
 
+  renderPublicChats = () => {
+    const { chats, activeChat, user, setActiveChat, logout, users } = this.props;
+    return chats.filter(chat => chat.isDM === false).map(chat => {
+      return (
+        <SideBarOption
+          key={chat.id}
+          lastMessage={get(last(chat.messages), "message", "")}
+          name={chat.isGeneral ? chat.name : createChatNameFromUsers(chat.users, user.name)}
+          active={activeChat.id === chat.id}
+          onClick={() => {
+            this.props.setActiveChat(chat);
+          }}
+          description={chat.description}
+          handleChangePanel={this.handleChangePanel}
+          expanded={this.state.expanded}
+          version="chats"
+        />
+      );
+    });
+  };
+
+  renderDMs = () => {
+    const { chats, activeChat, user, setActiveChat, logout, users } = this.props;
+    return chats.filter(chat => chat.isDM === true).map(chat => {
+      return (
+        <SideBarOption
+          key={chat.id}
+          lastMessage={get(last(chat.messages), "message", "")}
+          name={chat.isGeneral ? chat.name : createChatNameFromUsers(chat.users, user.name)}
+          active={activeChat.id === chat.id}
+          onClick={() => {
+            this.props.setActiveChat(chat);
+          }}
+          description={chat.description}
+          handleChangePanel={this.handleChangePanel}
+          expanded={this.state.expanded}
+          version="chats"
+        />
+      );
+    });
+  };
   render() {
     const { classes, theme } = this.props;
     const { chats, activeChat, user, setActiveChat, logout, users } = this.props;
@@ -244,7 +285,7 @@ class SideBar extends Component {
               className="animeAppBar"
             >
               <Tab label="Chats" className="animeTab" />
-              <Tab label="Users" className="animeTab" />
+              <Tab label="Messages" className="animeTab" />
             </Tabs>
           </AppBar>
           <SwipeableViews
@@ -252,46 +293,8 @@ class SideBar extends Component {
             index={this.state.value}
             onChangeIndex={this.handleChangeIndex}
           >
-            <TabContainer dir={theme.direction}>
-              {chats.map(chat => {
-                return (
-                  <SideBarOption
-                    key={chat.id}
-                    lastMessage={get(last(chat.messages), "message", "")}
-                    name={
-                      chat.isGeneral ? chat.name : createChatNameFromUsers(chat.users, user.name)
-                    }
-                    active={activeChat.id === chat.id}
-                    onClick={() => {
-                      this.props.setActiveChat(chat);
-                    }}
-                    description={chat.description}
-                    handleChangePanel={this.handleChangePanel}
-                    expanded={this.state.expanded}
-                    version="chats"
-                  />
-                );
-              })}
-            </TabContainer>
-            <TabContainer dir={theme.direction} className="side-bar-container">
-              <div className={classes.root}>
-                {differenceBy(users, [user], "name").map(user => {
-                  return (
-                    <SideBarOption
-                      key={user.id}
-                      name={user.name}
-                      color={user.color}
-                      onClick={() => {
-                        this.addChatForUser(user.name);
-                      }}
-                      handleChangePanel={this.handleChangePanel}
-                      expanded={this.state.expanded}
-                      version="users"
-                    />
-                  );
-                })}
-              </div>
-            </TabContainer>
+            <TabContainer dir={theme.direction}>{this.renderPublicChats()}</TabContainer>
+            <TabContainer dir={theme.direction}>{this.renderDMs()}</TabContainer>
           </SwipeableViews>
         </div>
         <Card className="current-user">

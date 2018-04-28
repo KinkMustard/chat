@@ -8,6 +8,7 @@ const chatSchema = new Schema({
   description: String,
   isGeneral: Boolean,
   isPublic: Boolean,
+  isDM: Boolean,
   messages: [MessageSchema],
   users: Array,
   typingUsers: Array,

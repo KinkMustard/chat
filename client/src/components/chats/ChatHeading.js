@@ -13,6 +13,8 @@ import IconButton from "material-ui/IconButton";
 import Hidden from "material-ui/Hidden";
 import Divider from "material-ui/Divider";
 import MenuIcon from "@material-ui/icons/Menu";
+import GroupIcon from "@material-ui/icons/Group";
+
 import classNames from "classnames";
 
 const drawerWidth = 240;
@@ -57,7 +59,12 @@ class ChatHeading extends React.Component {
   render() {
     console.log(drawerWidth);
     const {
-      classes, theme, name, numberOfUsers, handleDrawerToggle
+      classes,
+      theme,
+      name,
+      numberOfUsers,
+      handleDrawerToggle,
+      handleUserDrawerToggle
     } = this.props;
     return (
       <React.Fragment>
@@ -79,6 +86,15 @@ class ChatHeading extends React.Component {
               <Typography variant="title" color="inherit" noWrap>
                 {numberOfUsers || null}
               </Typography>
+              <IconButton
+                color="inherit"
+                aria-label="open drawer"
+                onClick={handleUserDrawerToggle}
+                className={classes.navIconHide}
+                ref={this.menuElement}
+              >
+                <GroupIcon />
+              </IconButton>
             </Toolbar>
           </AppBar>
         </div>

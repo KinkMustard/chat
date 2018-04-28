@@ -228,7 +228,11 @@ export default class ChatContainer extends Component {
         <div className="chat-room-container">
           {activeChat !== null ? (
             <div className="chat-room">
-              <ChatHeading name={activeChat.name} handleDrawerToggle={this.handleDrawerToggle} />
+              <ChatHeading
+                name={activeChat.name}
+                handleDrawerToggle={this.handleDrawerToggle}
+                handleUserDrawerToggle={this.handleUserDrawerToggle}
+              />
               <Messages
                 messages={activeChat.messages}
                 user={user}

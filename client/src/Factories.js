@@ -54,17 +54,21 @@ const createChat = ({
   name = "General",
   users = [],
   isGeneral = false,
+  isPublic = false,
+  isDM = false,
   creator = "",
   description = ""
 } = {}) => ({
   id: uuidv4(),
-  name: isGeneral ? name : createChatNameFromUsers(users),
+  name: isGeneral ? name : createChatNameFromUsers(users, creator),
   messages,
   users,
   typingUsers: [],
   isGeneral,
   creator,
-  description
+  description,
+  isPublic,
+  isDM
 });
 
 /*
@@ -74,7 +78,7 @@ const createChat = ({
 * @return {string} users names concatenated by a '&' or "Empty Chat" if no users
 */
 const createChatNameFromUsers = (users, excludedUser = "") =>
-  users.filter(u => u !== excludedUser).join(" & ") || "Empty Chat";
+  users.filter(u => u !== excludedUser).join(" and ") || "Empty Chat";
 
 /*
 *	@param date {Date}

@@ -65,6 +65,7 @@ module.exports = async (socket) => {
       id: generalChat.id,
       typingUsers: generalChat.typingUsers,
       isPublic: false,
+      isDM: false,
       creator: "general chat",
       description: "general chat"
     });
@@ -153,7 +154,9 @@ module.exports = async (socket) => {
       name: chatName,
       isGeneral: true,
       creator,
-      description: chatDescription
+      description: chatDescription,
+      isPublic: true,
+      isDM: false
     });
     currentChats = addChat(currentChats, newChat);
     console.log(newChat.description);
@@ -169,7 +172,8 @@ module.exports = async (socket) => {
       typingUsers: newChat.typingUsers,
       creator: newChat.creator,
       description: newChat.description,
-      isPublic: true
+      isPublic: true,
+      isDM: false
     });
     await chat.save();
     console.log("saved to database", newChat.name);
@@ -179,7 +183,12 @@ module.exports = async (socket) => {
     if (reciever in connectedUsers) {
       const recieverSocket = connectedUsers[reciever].socketId;
       if (activeChat === null || activeChat.id === generalChat.id) {
-        const newChat = createChat({ name: `${reciever}&${sender}`, users: [reciever, sender] });
+        const newChat = createChat({
+          name: `${reciever}`,
+          users: [reciever, sender],
+          creator: sender,
+          isDM: true
+        });
         socket.to(recieverSocket).emit(PRIVATE_MESSAGE, newChat);
         socket.emit(PRIVATE_MESSAGE, newChat);
       } else {
