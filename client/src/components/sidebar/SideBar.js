@@ -120,7 +120,7 @@ const styles = theme => ({
     margin: theme.spacing.unit * 2
   },
   badge: {
-    margin: theme.spacing.unit * 2
+    // margin: theme.spacing.unit * 2
   },
   panelContainer: {}
 });
@@ -187,22 +187,36 @@ class SideBar extends Component {
     this.setState({ open: false });
   };
 
+  resetExpandedPanel = () => {
+    this.setState({ expanded: null });
+  };
+
   renderPublicChats = () => {
     const { classes, theme } = this.props;
     const { chats, activeChat, user, setActiveChat, logout, users, unreadChats } = this.props;
-    console.log(unreadChats);
-    // unreadChats.forEach(unreadChat => console.log(unreadChat));
 
     return chats.filter(chat => chat.isDM === false).map(chat => {
-      if (!unreadChats[chat.id]) {
-        classes.badge = {
-          margin: theme.spacing.unit * 2,
-          display: "none"
-        };
-      }
       return (
         <div className={classes.panelContainer}>
-          <Badge className={classes.badge} badgeContent={unreadChats[chat.id]} color="secondary">
+          {unreadChats[chat.id] ? (
+            <Badge className={classes.badge} badgeContent={unreadChats[chat.id]} color="secondary">
+              <SideBarOption
+                key={chat.id}
+                lastMessage={get(last(chat.messages), "message", "")}
+                name={chat.isGeneral ? chat.name : createChatNameFromUsers(chat.users, user.name)}
+                active={activeChat.id === chat.id}
+                onClick={() => {
+                  this.props.setActiveChat(chat);
+                  this.props.clearUnreadMessages(chat);
+                  this.resetExpandedPanel();
+                }}
+                description={chat.description}
+                handleChangePanel={this.handleChangePanel}
+                expanded={this.state.expanded}
+                version="chats"
+              />
+            </Badge>
+          ) : (
             <SideBarOption
               key={chat.id}
               lastMessage={get(last(chat.messages), "message", "")}
@@ -210,13 +224,15 @@ class SideBar extends Component {
               active={activeChat.id === chat.id}
               onClick={() => {
                 this.props.setActiveChat(chat);
+                this.props.clearUnreadMessages(chat);
+                this.resetExpandedPanel();
               }}
               description={chat.description}
               handleChangePanel={this.handleChangePanel}
               expanded={this.state.expanded}
               version="chats"
             />
-          </Badge>
+          )}
         </div>
       );
     });

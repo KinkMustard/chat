@@ -209,6 +209,14 @@ export default class ChatContainer extends Component {
   setActiveChat = activeChat => {
     this.setState({ activeChat });
   };
+
+  clearUnreadMessages = chat => {
+    const { unreadChats } = this.state;
+    let tempObj = Object.assign({}, unreadChats);
+    tempObj[chat.id] = 0;
+    this.setState({ unreadChats: Object.assign({}, tempObj) });
+    console.log("messages cleared");
+  };
   handleDrawerToggle = () => {
     this.setState({ mobileOpen: !this.state.mobileOpen });
   };
@@ -228,6 +236,7 @@ export default class ChatContainer extends Component {
           users={users}
           activeChat={activeChat}
           setActiveChat={this.setActiveChat}
+          clearUnreadMessages={this.clearUnreadMessages}
           onSendPrivateMessage={this.sendOpenPrivateMessage}
           mobileOpen={this.state.mobileOpen}
           handleDrawerToggle={this.handleDrawerToggle}

@@ -33,7 +33,9 @@ const styles = theme => ({
     marginLeft: "-10px"
   },
   expansionPanel: {
-    marginLeft: -20,
+    // margin: 16,
+    // marginLeft: 0,
+    marginBottom: 16,
     backgroundColor: Colors.BlackBody,
     color: Colors.GreyFont,
     alignSelf: "center",
