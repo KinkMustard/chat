@@ -20,6 +20,7 @@ import List from "material-ui/List";
 import IconButton from "material-ui/IconButton";
 import Delete from "@material-ui/icons/Delete";
 import Hidden from "material-ui/Hidden";
+import Badge from "material-ui/Badge";
 import Divider from "material-ui/Divider";
 import MenuIcon from "@material-ui/icons/Menu";
 import Avatar from "material-ui/Avatar";
@@ -114,7 +115,14 @@ const styles = theme => ({
     flexGrow: 1,
     backgroundColor: theme.palette.background.default,
     padding: theme.spacing.unit * 3
-  }
+  },
+  margin: {
+    margin: theme.spacing.unit * 2
+  },
+  badge: {
+    margin: theme.spacing.unit * 2
+  },
+  panelContainer: {}
 });
 
 class SideBar extends Component {
@@ -180,43 +188,63 @@ class SideBar extends Component {
   };
 
   renderPublicChats = () => {
-    const { chats, activeChat, user, setActiveChat, logout, users } = this.props;
+    const { classes, theme } = this.props;
+    const { chats, activeChat, user, setActiveChat, logout, users, unreadChats } = this.props;
+    console.log(unreadChats);
+    // unreadChats.forEach(unreadChat => console.log(unreadChat));
+
     return chats.filter(chat => chat.isDM === false).map(chat => {
+      if (!unreadChats[chat.id]) {
+        classes.badge = {
+          margin: theme.spacing.unit * 2,
+          display: "none"
+        };
+      }
       return (
-        <SideBarOption
-          key={chat.id}
-          lastMessage={get(last(chat.messages), "message", "")}
-          name={chat.isGeneral ? chat.name : createChatNameFromUsers(chat.users, user.name)}
-          active={activeChat.id === chat.id}
-          onClick={() => {
-            this.props.setActiveChat(chat);
-          }}
-          description={chat.description}
-          handleChangePanel={this.handleChangePanel}
-          expanded={this.state.expanded}
-          version="chats"
-        />
+        <div className={classes.panelContainer}>
+          <Badge className={classes.badge} badgeContent={unreadChats[chat.id]} color="secondary">
+            <SideBarOption
+              key={chat.id}
+              lastMessage={get(last(chat.messages), "message", "")}
+              name={chat.isGeneral ? chat.name : createChatNameFromUsers(chat.users, user.name)}
+              active={activeChat.id === chat.id}
+              onClick={() => {
+                this.props.setActiveChat(chat);
+              }}
+              description={chat.description}
+              handleChangePanel={this.handleChangePanel}
+              expanded={this.state.expanded}
+              version="chats"
+            />
+          </Badge>
+        </div>
       );
     });
+    // unreadChats.map(unreadChat => {return (<div>{unreadChat.id}</div>)});
   };
 
   renderDMs = () => {
+    const { classes, theme } = this.props;
     const { chats, activeChat, user, setActiveChat, logout, users } = this.props;
     return chats.filter(chat => chat.isDM === true).map(chat => {
       return (
-        <SideBarOption
-          key={chat.id}
-          lastMessage={get(last(chat.messages), "message", "")}
-          name={chat.isGeneral ? chat.name : createChatNameFromUsers(chat.users, user.name)}
-          active={activeChat.id === chat.id}
-          onClick={() => {
-            this.props.setActiveChat(chat);
-          }}
-          description={chat.description}
-          handleChangePanel={this.handleChangePanel}
-          expanded={this.state.expanded}
-          version="chats"
-        />
+        <div className={classes.panelContainer}>
+          <Badge className={classes.margin} badgeContent={4} color="secondary">
+            <SideBarOption
+              key={chat.id}
+              lastMessage={get(last(chat.messages), "message", "")}
+              name={chat.isGeneral ? chat.name : createChatNameFromUsers(chat.users, user.name)}
+              active={activeChat.id === chat.id}
+              onClick={() => {
+                this.props.setActiveChat(chat);
+              }}
+              description={chat.description}
+              handleChangePanel={this.handleChangePanel}
+              expanded={this.state.expanded}
+              version="chats"
+            />
+          </Badge>
+        </div>
       );
     });
   };

@@ -19,6 +19,7 @@ import Messages from "../messages/Messages";
 import MessageInput from "../messages/MessageInput";
 import { values, difference, differenceBy } from "lodash";
 import UsersDrawer from "../sidebar/UsersDrawer";
+import _ from "lodash";
 
 export default class ChatContainer extends Component {
   constructor(props) {
@@ -26,6 +27,7 @@ export default class ChatContainer extends Component {
 
     this.state = {
       chats: [],
+      unreadChats: [],
       users: [],
       activeChat: null,
       mobileOpen: false,
@@ -132,7 +134,6 @@ export default class ChatContainer extends Component {
 
     socket.on(typingEvent, this.updateTypingInChat(chat.id));
     socket.on(messageEvent, this.addMessageToChat(chat.id));
-    console.log(chat.id);
   };
 
   /*
@@ -143,13 +144,21 @@ export default class ChatContainer extends Component {
 	*/
   addMessageToChat = chatId => {
     return message => {
-      const { chats } = this.state;
+      const { chats, unreadChats, activeChat } = this.state;
+      const tempObj = Object.assign({}, unreadChats);
+      if (tempObj[chatId]) {
+        tempObj[chatId]++;
+      } else {
+        tempObj[chatId] = 1;
+      }
       let newChats = chats.map(chat => {
         if (chat.id === chatId) chat.messages.push(message);
         return chat;
       });
-
       this.setState({ chats: newChats });
+      if (chatId !== activeChat.id) {
+        this.setState({ unreadChats: Object.assign({}, tempObj) });
+      }
     };
   };
 
@@ -208,12 +217,13 @@ export default class ChatContainer extends Component {
   };
   render() {
     const { user, logout } = this.props;
-    const { chats, activeChat, users } = this.state;
+    const { chats, activeChat, users, unreadChats } = this.state;
     return (
       <div className="container">
         <SideBar
           logout={logout}
           chats={chats}
+          unreadChats={unreadChats}
           user={user}
           users={users}
           activeChat={activeChat}

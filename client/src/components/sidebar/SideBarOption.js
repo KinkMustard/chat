@@ -13,6 +13,7 @@ import Typography from "material-ui/Typography";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import Button from "material-ui/Button";
 import Divider from "material-ui/Divider";
+import * as Colors from "../../Colors";
 
 const styles = theme => ({
   root: {
@@ -21,11 +22,22 @@ const styles = theme => ({
   heading: {
     fontSize: theme.typography.pxToRem(15),
     flexBasis: "33.33%",
-    flexShrink: 0
+    flexShrink: 0,
+    marginLeft: "-10px"
   },
   secondaryHeading: {
     fontSize: theme.typography.pxToRem(15),
     color: theme.palette.text.secondary
+  },
+  avatar: {
+    marginLeft: "-10px"
+  },
+  expansionPanel: {
+    marginLeft: -20,
+    backgroundColor: Colors.BlackBody,
+    color: Colors.GreyFont,
+    alignSelf: "center",
+    width: "100%"
   }
 });
 
@@ -66,10 +78,10 @@ class SideBarOption extends PureComponent {
         <ExpansionPanel
           expanded={expanded === name}
           onChange={handleChangePanel(name)}
-          className="black-content"
+          className={classes.expansionPanel}
         >
           <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-            <Avatar style={{ backgroundColor: color }} className="side-bar-option-avatar">
+            <Avatar style={{ backgroundColor: color }} className={classes.avatar}>
               {name[0].toUpperCase()}
             </Avatar>
             <Typography className={classes.heading}>
@@ -89,10 +101,10 @@ class SideBarOption extends PureComponent {
         <ExpansionPanel
           expanded={expanded === name}
           onChange={handleChangePanel(name)}
-          className="black-content"
+          className={classes.expansionPanel}
         >
           <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-            <Avatar style={{ backgroundColor: color }} className="side-bar-option-avatar">
+            <Avatar style={{ backgroundColor: color }} className={classes.avatar}>
               {name[0].toUpperCase()}
             </Avatar>
             <Typography className={classes.heading}>
@@ -109,7 +121,6 @@ class SideBarOption extends PureComponent {
               <Divider />
             </React.Fragment>
           ) : null}
-          {console.log(description)}
           <ExpansionPanelActions>
             <Button size="small" color="primary" onClick={onClick}>
               JOIN CHAT
