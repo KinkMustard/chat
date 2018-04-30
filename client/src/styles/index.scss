@@ -159,7 +159,7 @@ textarea {
   color: $greyFont;
 
   .animeHeader {
-    display: "flex";
+    text-align: center;
     background-color: $blackBody !important;
     color: $greyFont !important;
   }
@@ -169,9 +169,18 @@ textarea {
     height: 50px;
   }
   .create-chat-button {
-    background-color: $blackPop !important;
-    color: $greyFont !important;
+    // background-color: $blackPop !important;
+    // color: $greyFont !important;
+    background-color: #ffffff !important;
+    color: $blackPop !important;
     margin-left: 40px;
+  }
+  .other-create-chat-button {
+    // background-color: $blackPop !important;
+    // color: $greyFont !important;
+    background-color: #ffffff !important;
+    color: $blackPop !important;
+    margin-left: 18px;
   }
   .animeAppBar {
     font-size: 10px !important;

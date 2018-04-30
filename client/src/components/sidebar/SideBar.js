@@ -287,10 +287,6 @@ class SideBar extends Component {
                   </Typography>
                 </CardContent>
               </div>
-              <CardMedia
-                className="animeImg"
-                image="http://i0.kym-cdn.com/photos/images/original/001/228/878/307.png"
-              />
             </Card>
           </div>
         </CardContent>
@@ -344,7 +340,17 @@ class SideBar extends Component {
             index={this.props.value}
             onChangeIndex={this.props.handleChangeIndex}
           >
-            <TabContainer dir={theme.direction}>{this.renderPublicChats()}</TabContainer>
+            <TabContainer dir={theme.direction}>
+              {this.renderPublicChats()}
+              <Button
+                variant="raised"
+                color="secondary"
+                className="other-create-chat-button"
+                onClick={this.handleDialogOpen}
+              >
+                Create New Chat
+              </Button>
+            </TabContainer>
             <TabContainer dir={theme.direction}>{this.renderDMs()}</TabContainer>
           </SwipeableViews>
         </div>
