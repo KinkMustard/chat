@@ -31,7 +31,8 @@ export default class ChatContainer extends Component {
       users: [],
       activeChat: null,
       mobileOpen: false,
-      mobileUsersOpen: false
+      mobileUsersOpen: false,
+      value: 0
     };
   }
 
@@ -223,6 +224,17 @@ export default class ChatContainer extends Component {
   handleUserDrawerToggle = () => {
     this.setState({ mobileUsersOpen: !this.state.mobileUsersOpen });
   };
+  handleChange = (event, value) => {
+    this.setState({ value });
+  };
+
+  handleChangeIndex = index => {
+    this.setState({ value: index });
+  };
+
+  changeTabs = tabToGoTo => {
+    this.setState({ value: tabToGoTo });
+  };
   render() {
     const { user, logout } = this.props;
     const { chats, activeChat, users, unreadChats } = this.state;
@@ -242,6 +254,10 @@ export default class ChatContainer extends Component {
           handleDrawerToggle={this.handleDrawerToggle}
           createNewChat={this.createNewChat}
           socket={this.props.socket}
+          value={this.state.value}
+          handleChange={this.handleChange}
+          handleChangeIndex={this.handleChangeIndex}
+          changeTabs={this.changeTabs}
         />
 
         <div className="chat-room-container">
@@ -285,6 +301,7 @@ export default class ChatContainer extends Component {
           onSendPrivateMessage={this.sendOpenPrivateMessage}
           createNewChat={this.createNewChat}
           socket={this.props.socket}
+          changeTabs={this.changeTabs}
         />
       </div>
     );

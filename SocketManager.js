@@ -182,7 +182,7 @@ module.exports = async (socket) => {
   socket.on(PRIVATE_MESSAGE, ({ reciever, sender, activeChat }) => {
     if (reciever in connectedUsers) {
       const recieverSocket = connectedUsers[reciever].socketId;
-      if (activeChat === null || activeChat.id === generalChat.id) {
+      if (activeChat === null || activeChat.id === generalChat.id || true) {
         const newChat = createChat({
           name: `${reciever}`,
           users: [reciever, sender],

@@ -136,7 +136,6 @@ class SideBar extends Component {
     this.state = {
       reciever: "",
       activeSideBar: SideBar.type.CHATS,
-      value: 0,
       mobileOpen: false,
       expanded: null,
       open: false
@@ -145,14 +144,6 @@ class SideBar extends Component {
 
   handleDrawerToggle = () => {
     this.setState({ mobileOpen: !this.state.mobileOpen });
-  };
-
-  handleChange = (event, value) => {
-    this.setState({ value });
-  };
-
-  handleChangeIndex = index => {
-    this.setState({ value: index });
   };
 
   handleSubmit = e => {
@@ -241,11 +232,27 @@ class SideBar extends Component {
 
   renderDMs = () => {
     const { classes, theme } = this.props;
-    const { chats, activeChat, user, setActiveChat, logout, users } = this.props;
+    const { chats, activeChat, user, setActiveChat, logout, users, unreadChats } = this.props;
     return chats.filter(chat => chat.isDM === true).map(chat => {
       return (
         <div className={classes.panelContainer}>
-          <Badge className={classes.margin} badgeContent={4} color="secondary">
+          {unreadChats[chat.id] ? (
+            <Badge className={classes.margin} badgeContent={unreadChats[chat.id]} color="secondary">
+              <SideBarOption
+                key={chat.id}
+                lastMessage={get(last(chat.messages), "message", "")}
+                name={chat.isGeneral ? chat.name : createChatNameFromUsers(chat.users, user.name)}
+                active={activeChat.id === chat.id}
+                onClick={() => {
+                  this.props.setActiveChat(chat);
+                }}
+                description={chat.description}
+                handleChangePanel={this.handleChangePanel}
+                expanded={this.state.expanded}
+                version="chats"
+              />
+            </Badge>
+          ) : (
             <SideBarOption
               key={chat.id}
               lastMessage={get(last(chat.messages), "message", "")}
@@ -259,7 +266,7 @@ class SideBar extends Component {
               expanded={this.state.expanded}
               version="chats"
             />
-          </Badge>
+          )}
         </div>
       );
     });
@@ -321,8 +328,8 @@ class SideBar extends Component {
         <div className="side-bar-select">
           <AppBar position="static" color="default" className="animeAppBar">
             <Tabs
-              value={this.state.value}
-              onChange={this.handleChange}
+              value={this.props.value}
+              onChange={this.props.handleChange}
               indicatorColor="primary"
               textColor="primary"
               fullWidth
@@ -334,8 +341,8 @@ class SideBar extends Component {
           </AppBar>
           <SwipeableViews
             axis={theme.direction === "rtl" ? "x-reverse" : "x"}
-            index={this.state.value}
-            onChangeIndex={this.handleChangeIndex}
+            index={this.props.value}
+            onChangeIndex={this.props.handleChangeIndex}
           >
             <TabContainer dir={theme.direction}>{this.renderPublicChats()}</TabContainer>
             <TabContainer dir={theme.direction}>{this.renderDMs()}</TabContainer>

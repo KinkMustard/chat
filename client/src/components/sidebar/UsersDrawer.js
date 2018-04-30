@@ -191,6 +191,8 @@ class UsersDrawer extends Component {
             color={user.color}
             onClick={() => {
               this.addChatForUser(user.name);
+              this.props.changeTabs(1);
+              this.setState({ expanded: null });
             }}
             handleChangePanel={this.handleChangePanel}
             expanded={this.state.expanded}
