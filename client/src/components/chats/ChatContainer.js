@@ -135,6 +135,12 @@ export default class ChatContainer extends Component {
 
     socket.on(typingEvent, this.updateTypingInChat(chat.id));
     socket.on(messageEvent, this.addMessageToChat(chat.id));
+    console.log("creator", chat.creator);
+    console.log("user", this.state.user);
+    if (chat.creator === this.state.user) {
+      console.log("user created chat");
+      this.setState({ activeChat: chat });
+    }
   };
 
   /*
