@@ -125,6 +125,8 @@ const styles = theme => ({
   panelContainer: {}
 });
 
+let gemp = 0;
+let hemp = 0;
 class SideBar extends Component {
   static type = {
     USERS: "users",
@@ -138,7 +140,9 @@ class SideBar extends Component {
       activeSideBar: SideBar.type.CHATS,
       mobileOpen: false,
       expanded: null,
-      open: false
+      open: false,
+      publicSum: 0,
+      privateSum: 0
     };
   }
 
@@ -182,11 +186,28 @@ class SideBar extends Component {
     this.setState({ expanded: null });
   };
 
+  sum = obj => {
+    var sum = 0;
+    for (var el in obj) {
+      if (obj.hasOwnProperty(el)) {
+        sum += parseFloat(obj[el]);
+      }
+    }
+    return sum;
+  };
+
   renderPublicChats = () => {
     const { classes, theme } = this.props;
     const { chats, activeChat, user, setActiveChat, logout, users, unreadChats } = this.props;
 
     return chats.filter(chat => chat.isDM === false).map(chat => {
+      // if (unreadChats[chat.id]) {
+      //   // let temp = this.state.publicSum;
+      //   let temp = gemp;
+      //   temp += unreadChats[chat.id];
+      //   gemp = temp;
+      //   // this.setState({ publicSum: temp });
+      // }
       return (
         <div className={classes.panelContainer}>
           {unreadChats[chat.id] ? (
@@ -234,6 +255,14 @@ class SideBar extends Component {
     const { classes, theme } = this.props;
     const { chats, activeChat, user, setActiveChat, logout, users, unreadChats } = this.props;
     return chats.filter(chat => chat.isDM === true).map(chat => {
+      // if (unreadChats[chat.id]) {
+      //   // let temp = this.state.publicSum;
+      //   // temp += unreadChats[chat.id];
+      //   // this.setState({ privateSum: temp });
+      //   let temp = hemp;
+      //   temp += unreadChats[chat.id];
+      //   hemp = temp;
+      // }
       return (
         <div className={classes.panelContainer}>
           {unreadChats[chat.id] ? (
@@ -270,6 +299,76 @@ class SideBar extends Component {
         </div>
       );
     });
+  };
+
+  renderTabs = () => {
+    const { classes, theme } = this.props;
+    const { publicSum, privateSum } = this.state;
+    if (gemp && hemp) {
+      return (
+        <Tabs
+          value={this.props.value}
+          onChange={this.props.handleChange}
+          indicatorColor="primary"
+          textColor="primary"
+          fullWidth
+          className="animeAppBar"
+        >
+          <Badge className={classes.margin} badgeContent={gemp} color="secondary">
+            <Tab label="Chats" className="animeTab" />
+          </Badge>
+          <Badge className={classes.margin} badgeContent={hemp} color="secondary">
+            <Tab label="Messages" className="animeTab" />
+          </Badge>
+        </Tabs>
+      );
+    } else if (gemp) {
+      return (
+        <Tabs
+          value={this.props.value}
+          onChange={this.props.handleChange}
+          indicatorColor="primary"
+          textColor="primary"
+          fullWidth
+          className="animeAppBar"
+        >
+          <Badge className={classes.margin} badgeContent={gemp} color="secondary">
+            <Tab label="Chats" className="animeTab" />
+          </Badge>
+          <Tab label="Messages" className="animeTab" />
+        </Tabs>
+      );
+    } else if (hemp) {
+      return (
+        <Tabs
+          value={this.props.value}
+          onChange={this.props.handleChange}
+          indicatorColor="primary"
+          textColor="primary"
+          fullWidth
+          className="animeAppBar"
+        >
+          <Tab label="Chats" className="animeTab" />
+          <Badge className={classes.margin} badgeContent={hemp} color="secondary">
+            <Tab label="Messages" className="animeTab" />
+          </Badge>
+        </Tabs>
+      );
+    } else {
+      return (
+        <Tabs
+          value={this.props.value}
+          onChange={this.props.handleChange}
+          indicatorColor="primary"
+          textColor="primary"
+          fullWidth
+          className="animeAppBar"
+        >
+          <Tab label="Chats" className="animeTab" />
+          <Tab label="Messages" className="animeTab" />
+        </Tabs>
+      );
+    }
   };
   render() {
     const { classes, theme } = this.props;
@@ -323,17 +422,7 @@ class SideBar extends Component {
         </form>
         <div className="side-bar-select">
           <AppBar position="static" color="default" className="animeAppBar">
-            <Tabs
-              value={this.props.value}
-              onChange={this.props.handleChange}
-              indicatorColor="primary"
-              textColor="primary"
-              fullWidth
-              className="animeAppBar"
-            >
-              <Tab label="Chats" className="animeTab" />
-              <Tab label="Messages" className="animeTab" />
-            </Tabs>
+            {this.renderTabs()}
           </AppBar>
           <SwipeableViews
             axis={theme.direction === "rtl" ? "x-reverse" : "x"}
@@ -341,15 +430,17 @@ class SideBar extends Component {
             onChangeIndex={this.props.handleChangeIndex}
           >
             <TabContainer dir={theme.direction}>
-              {this.renderPublicChats()}
-              <Button
-                variant="raised"
-                color="secondary"
-                className="other-create-chat-button"
-                onClick={this.handleDialogOpen}
-              >
-                Create New Chat
-              </Button>
+              <div style={{ overflow: "scroll" }}>
+                {/* {this.renderPublicChats()} */}
+                <Button
+                  variant="raised"
+                  color="secondary"
+                  className="other-create-chat-button"
+                  onClick={this.handleDialogOpen}
+                >
+                  Create New Chat
+                </Button>
+              </div>
             </TabContainer>
             <TabContainer dir={theme.direction}>{this.renderDMs()}</TabContainer>
           </SwipeableViews>
