@@ -1,9 +1,14 @@
+$black: #21252b;
+$blackBody: #282c34;
+$greyFont: #ccccc1;
+$blackPop: #2f333d;
+
 .message-container {
   display: flex;
   justify-content: flex-start;
   // min-height: 50px;
   margin: 10px 15px;
-  $message-triangle-offset: -7px;
+  // $message-triangle-offset: -7px;
 
   animation: 0.65s ease-out 0s show;
 
@@ -147,4 +152,31 @@
       // right: $message-triangle-offset;
     }
   }
+}
+
+.thread-container {
+  display: grid;
+  flex-grow: 1;
+  // @include customscrollbar();
+  // overflow-y: scroll;
+  overflow: hidden;
+  position: relative;
+  // background-color: #89a1fc;
+  background-color: $blackBody;
+  // margin-top: -50px;
+
+  .thread {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    // color: $received-message-color;
+    // background: $messages-bg;
+  }
+}
+
+.typing-user {
+  text-align: right;
+  margin: 10px 15px;
 }

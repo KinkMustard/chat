@@ -3,101 +3,30 @@ $blackBody: #282c34;
 $greyFont: #ccccc1;
 $blackPop: #2f333d;
 
-#side-bar {
+.users-side-bar {
   height: 100%;
   background-color: $black;
   color: $greyFont;
-
-  .animeHeader {
+  .grey {
+    color: $greyFont !important;
+  }
+  .no-users-message {
+    color: $greyFont !important;
+    font-size: 1.3rem !important;
     text-align: center;
+  }
+  .user-list-header {
+    margin-left: 20px !important;
+    margin-right: 20px !important;
+    margin-top: 20px !important;
     background-color: $blackBody !important;
     color: $greyFont !important;
+    text-align: center;
   }
-  .animeImg {
-    margin-top: 10px;
-    width: 50px;
-    height: 50px;
-  }
-  .create-chat-button {
-    // background-color: $blackPop !important;
-    // color: $greyFont !important;
-    background-color: #ffffff !important;
-    color: $blackPop !important;
-    margin-left: 40px;
-  }
-  .other-create-chat-button {
-    // background-color: $blackPop !important;
-    // color: $greyFont !important;
-    background-color: #ffffff !important;
-    color: $blackPop !important;
-    margin-left: 18px;
-  }
-  .animeAppBar {
-    font-size: 10px !important;
-  }
-  .animeTab {
-    min-width: 50%;
-    font-size: 10px !important;
-    background-color: $blackBody !important;
-    color: $greyFont !important;
-  }
-  .side-bar-container {
-    display: flex;
-    align-content: center;
-  }
-  .side-bar-option {
-    background-color: $blackPop !important;
-    color: $greyFont !important;
-    width: 100%;
-    display: flex !important;
-    align-content: space-between !important;
-  }
-  .side-bar-option-button {
-    text-transform: none;
-    background-color: $blackPop !important;
-    color: $greyFont !important;
-    width: 100%;
-  }
-
-  .search {
-    color: $greyFont !important;
-
-    .search-icon {
-      color: $greyFont !important;
-    }
-
-    input {
-      color: $greyFont !important;
-    }
-  }
-
-  .users {
-    .user {
-      .user-photo {
-      }
-
-      .user-info {
-        .last-message {
-        }
-      }
-
-      .new-message {
-      }
-    }
-  }
-
-  .current-user {
-    display: flex;
-    flex-wrap: wrap;
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    background-color: $blackBody !important;
-    color: $greyFont !important;
-
-    .logout {
-      background-color: $blackPop !important;
-      color: $greyFont !important;
-    }
+  .side-bar-option-users {
+    margin-left: 20px !important;
+    margin-right: 20px !important;
+    margin-top: 20px !important;
+    // display: none;
   }
 }

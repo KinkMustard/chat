@@ -1,9 +1,12 @@
 import React, { Component } from "react";
 import Avatar from "material-ui/Avatar";
 import moment from "moment";
-import "./Messages.scss";
+import PerfectScrollbar from "perfect-scrollbar";
 import "simplebar";
-import "simplebar/dist/simplebar.css";
+import SimpleBar from "simplebar";
+import "./Messages.scss";
+import "../scrollbar.scss";
+// import "../perfectScrollbar.scss";
 
 export default class Messages extends Component {
   constructor(props) {
@@ -14,7 +17,8 @@ export default class Messages extends Component {
 
   scrollDown() {
     const { container } = this.refs;
-    container.scrollTop = container.scrollHeight;
+    let scrollContainer = new SimpleBar(container);
+    scrollContainer.getScrollElement().scrollTop = scrollContainer.getScrollElement().scrollHeight;
   }
 
   componentDidMount() {
@@ -68,7 +72,7 @@ export default class Messages extends Component {
   render() {
     const { messages, user, typingUsers } = this.props;
     return (
-      <div ref="container" className="thread-container" data-simplebar>
+      <div ref="container" className="thread-container" data-simplebar="init">
         <div className="thread">
           {this.displayMessage()}
           {typingUsers.map(name => (

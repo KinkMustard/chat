@@ -212,7 +212,7 @@ class UsersDrawer extends Component {
       return (
         <div>
           <Typography variant="headline" className="no-users-message">
-            Looks like there's nobody here yet
+            Looks like there's nobody else here yet
           </Typography>
           <img src={IslandImage} alt="no users" />
         </div>
@@ -232,7 +232,7 @@ class UsersDrawer extends Component {
     } = this.props;
     const { reciever, activeSideBar } = this.state;
     const drawer = (
-      <Card id="side-bar">
+      <div className="users-side-bar">
         <Card className="user-list-header">
           <div className={classes.details}>
             <CardContent>
@@ -243,7 +243,7 @@ class UsersDrawer extends Component {
           </div>
         </Card>
         <div className="side-bar-option-users">{this.renderUsers()}</div>
-      </Card>
+      </div>
     );
     return (
       <React.Fragment>

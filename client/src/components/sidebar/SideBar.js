@@ -34,6 +34,9 @@ import Input, { InputLabel, InputAdornment } from "material-ui/Input";
 import Checkbox from "material-ui/Checkbox";
 import CreateChat from "./CreateChat";
 import "./SideBar.scss";
+import "simplebar";
+import SimpleBar from "simplebar";
+import "../scrollbar.scss";
 
 const drawerWidth = 240;
 
@@ -142,6 +145,12 @@ class SideBar extends Component {
       publicSum: 0,
       privateSum: 0
     };
+  }
+
+  scrollDown() {
+    const { chatContainer } = this.refs;
+    let scrollContainer = new SimpleBar(chatContainer);
+    scrollContainer.getScrollElement().scrollTop = scrollContainer.getScrollElement().scrollHeight;
   }
 
   handleDrawerToggle = () => {
@@ -486,6 +495,8 @@ class SideBar extends Component {
             index={this.props.value}
             onChangeIndex={this.props.handleChangeIndex}
             className="chat-container"
+            ref="chatContainer"
+            data-simplebar="init"
           >
             <TabContainer dir={theme.direction}>
               <div>

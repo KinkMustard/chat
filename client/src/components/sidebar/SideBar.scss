@@ -49,6 +49,7 @@ $blackPop: #2f333d;
   .chat-container {
     height: 93%;
     overflow: auto;
+    overflow-x: hidden !important;
   }
   .animeAppBar {
     font-size: 10px !important;

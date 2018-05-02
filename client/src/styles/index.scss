@@ -22,19 +22,19 @@ $blackBody: #282c34;
 $greyFont: #ccccc1;
 $blackPop: #2f333d;
 
-@mixin customscrollbar() {
-  &::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-    background-color: $main-text-color;
-  }
-  &::-webkit-scrollbar {
-    width: 5px;
-    background-color: green;
-  }
-  &::-webkit-scrollbar-thumb {
-    background-color: $secondary-color;
-  }
-}
+// @mixin customscrollbar() {
+//   &::-webkit-scrollbar-track {
+//     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+//     background-color: $main-text-color;
+//   }
+//   &::-webkit-scrollbar {
+//     width: 5px;
+//     background-color: green;
+//   }
+//   &::-webkit-scrollbar-thumb {
+//     background-color: $secondary-color;
+//   }
+// }
 
 html,
 body,
@@ -57,17 +57,7 @@ body,
   margin-top: 9px;
   margin-left: 22px;
 }
-.side-bar-option-users {
-  margin-left: 20px !important;
-  margin-right: 20px !important;
-  margin-top: 20px !important;
-  // display: none;
-}
-.no-users-message {
-  color: $greyFont !important;
-  font-size: 1.5rem !important;
-  text-align: center;
-}
+
 input,
 textarea {
   font-family: Arial;
@@ -144,15 +134,6 @@ textarea {
   color: $greyFont !important;
 }
 
-.user-list-header {
-  margin-left: 20px !important;
-  margin-right: 20px !important;
-  margin-top: 20px !important;
-  background-color: $blackBody !important;
-  color: $greyFont !important;
-  text-align: center;
-}
-
 .chat-header {
   // background: $primary-color-light;
 
@@ -214,7 +195,7 @@ textarea {
 }
 .chat-room {
   display: grid;
-  grid-template: 8vh 1fr 8vh / 100%;
+  grid-template: 6.5vh 1fr 8vh / 100%;
   height: 100%;
   width: 100%;
 
@@ -223,32 +204,6 @@ textarea {
     // justify-content: center;
     // font-size: 2em;
   }
-}
-
-.thread-container {
-  display: grid;
-  flex-grow: 1;
-  @include customscrollbar();
-  overflow-y: scroll;
-  position: relative;
-  // background-color: #89a1fc;
-  background-color: $blackBody;
-  margin-top: -50px;
-
-  .thread {
-    position: relative;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    color: $received-message-color;
-    // background: $messages-bg;
-  }
-}
-
-.typing-user {
-  text-align: right;
-  margin: 10px 15px;
 }
 
 .message-input {
@@ -264,7 +219,7 @@ textarea {
     justify-content: space-between;
 
     .form-control {
-      @include customscrollbar();
+      // @include customscrollbar();
       &:focus {
         outline: none;
       }
