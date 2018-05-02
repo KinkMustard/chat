@@ -1,0 +1,127 @@
+$black: #21252b;
+$blackBody: #282c34;
+$greyFont: #ccccc1;
+$blackPop: #2f333d;
+
+.chats-side-bar {
+  height: 100%;
+  background-color: $black;
+  color: $greyFont;
+  display: grid;
+  // grid-template-rows: 2fr 1fr 0.5fr 3fr 1.5fr;
+  grid-template-rows:
+    minmax(80px, 100px) minmax(40px, 50px) minmax(50px, 60px) minmax(100px, 1fr)
+    minmax(80px, 120px);
+  // grid-template-rows: repeat(auto-fill, minmax(100px, 1fr));
+  grid-template-columns: 240px;
+  .anime-header {
+    text-align: center;
+    background-color: $blackBody !important;
+    color: $greyFont !important;
+    margin: 16px;
+    grid-column-start: 1;
+    grid-column-end: span 1;
+    grid-row-start: 1;
+    grid-row-end: span 1;
+  }
+  .animeImg {
+    margin-top: 10px;
+    width: 50px;
+    height: 50px;
+  }
+  .create-chat-button {
+    // background-color: $blackPop !important; // color: $greyFont !important;
+    background-color: #ffffff !important;
+    color: $blackPop !important;
+    // margin-left: 40px;
+    grid-column-start: 1;
+    grid-column-end: span 1;
+    grid-row-start: 2;
+    grid-row-end: span 1;
+    justify-self: center;
+  }
+  .other-create-chat-button {
+    // background-color: $blackPop !important; // color: $greyFont !important;
+    background-color: #ffffff !important;
+    color: $blackPop !important;
+    margin-left: 18px;
+  }
+  .chat-container {
+    height: 93%;
+    overflow: auto;
+  }
+  .animeAppBar {
+    font-size: 10px !important;
+  }
+  .animeTab {
+    min-width: 50%;
+    font-size: 10px !important;
+    background-color: $blackBody !important;
+    color: $greyFont !important;
+  }
+  .side-bar-grid-container {
+    grid-column-start: 1;
+    grid-column-end: span 1;
+    grid-row-start: 4;
+    grid-row-end: span 1;
+  }
+  .side-bar-container {
+    display: flex;
+    align-content: center;
+  }
+  .side-bar-option {
+    background-color: $blackPop !important;
+    color: $greyFont !important;
+    width: 100%;
+    display: flex !important;
+    align-content: space-between !important;
+  }
+  .side-bar-option-button {
+    text-transform: none;
+    background-color: $blackPop !important;
+    color: $greyFont !important;
+    width: 100%;
+  }
+  .search {
+    color: $greyFont !important;
+    grid-column-start: 1;
+    grid-column-end: span 1;
+    grid-row-start: 3;
+    grid-row-end: span 1;
+    .search-icon {
+      color: $greyFont !important;
+    }
+    input {
+      color: $greyFont !important;
+    }
+  }
+  .users {
+    .user {
+      .user-photo {
+      }
+      .user-info {
+        .last-message {
+        }
+      }
+      .new-message {
+      }
+    }
+  }
+  .current-user {
+    display: flex;
+    flex-wrap: wrap;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: $blackBody !important;
+    color: $greyFont !important;
+    grid-column-start: 1;
+    grid-column-end: span 1;
+    grid-row-start: 5;
+    grid-row-end: span 1;
+    .logout {
+      background-color: $blackPop !important;
+      color: $greyFont !important;
+    }
+  }
+}

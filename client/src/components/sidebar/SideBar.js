@@ -33,6 +33,7 @@ import { FormGroup, FormControlLabel } from "material-ui/Form";
 import Input, { InputLabel, InputAdornment } from "material-ui/Input";
 import Checkbox from "material-ui/Checkbox";
 import CreateChat from "./CreateChat";
+import "./SideBar.scss";
 
 const drawerWidth = 240;
 
@@ -59,9 +60,6 @@ const styles = theme => ({
   details: {
     display: "flex",
     flexDirection: "column"
-  },
-  content: {
-    flex: "1 0 auto"
   },
   cover: {
     width: 50,
@@ -198,7 +196,15 @@ class SideBar extends Component {
 
   renderPublicChats = () => {
     const { classes, theme } = this.props;
-    const { chats, activeChat, user, setActiveChat, logout, users, unreadChats } = this.props;
+    const {
+      chats,
+      activeChat,
+      user,
+      setActiveChat,
+      logout,
+      users,
+      unreadChats
+    } = this.props;
 
     return chats.filter(chat => chat.isDM === false).map(chat => {
       // if (unreadChats[chat.id]) {
@@ -211,11 +217,19 @@ class SideBar extends Component {
       return (
         <div className={classes.panelContainer}>
           {unreadChats[chat.id] ? (
-            <Badge className={classes.badge} badgeContent={unreadChats[chat.id]} color="secondary">
+            <Badge
+              className={classes.badge}
+              badgeContent={unreadChats[chat.id]}
+              color="secondary"
+            >
               <SideBarOption
                 key={chat.id}
                 lastMessage={get(last(chat.messages), "message", "")}
-                name={chat.isGeneral ? chat.name : createChatNameFromUsers(chat.users, user.name)}
+                name={
+                  chat.isGeneral
+                    ? chat.name
+                    : createChatNameFromUsers(chat.users, user.name)
+                }
                 active={activeChat.id === chat.id}
                 onClick={() => {
                   this.props.setActiveChat(chat);
@@ -232,7 +246,11 @@ class SideBar extends Component {
             <SideBarOption
               key={chat.id}
               lastMessage={get(last(chat.messages), "message", "")}
-              name={chat.isGeneral ? chat.name : createChatNameFromUsers(chat.users, user.name)}
+              name={
+                chat.isGeneral
+                  ? chat.name
+                  : createChatNameFromUsers(chat.users, user.name)
+              }
               active={activeChat.id === chat.id}
               onClick={() => {
                 this.props.setActiveChat(chat);
@@ -253,7 +271,15 @@ class SideBar extends Component {
 
   renderDMs = () => {
     const { classes, theme } = this.props;
-    const { chats, activeChat, user, setActiveChat, logout, users, unreadChats } = this.props;
+    const {
+      chats,
+      activeChat,
+      user,
+      setActiveChat,
+      logout,
+      users,
+      unreadChats
+    } = this.props;
     return chats.filter(chat => chat.isDM === true).map(chat => {
       // if (unreadChats[chat.id]) {
       //   // let temp = this.state.publicSum;
@@ -266,11 +292,19 @@ class SideBar extends Component {
       return (
         <div className={classes.panelContainer}>
           {unreadChats[chat.id] ? (
-            <Badge className={classes.margin} badgeContent={unreadChats[chat.id]} color="secondary">
+            <Badge
+              className={classes.margin}
+              badgeContent={unreadChats[chat.id]}
+              color="secondary"
+            >
               <SideBarOption
                 key={chat.id}
                 lastMessage={get(last(chat.messages), "message", "")}
-                name={chat.isGeneral ? chat.name : createChatNameFromUsers(chat.users, user.name)}
+                name={
+                  chat.isGeneral
+                    ? chat.name
+                    : createChatNameFromUsers(chat.users, user.name)
+                }
                 active={activeChat.id === chat.id}
                 onClick={() => {
                   this.props.setActiveChat(chat);
@@ -285,7 +319,11 @@ class SideBar extends Component {
             <SideBarOption
               key={chat.id}
               lastMessage={get(last(chat.messages), "message", "")}
-              name={chat.isGeneral ? chat.name : createChatNameFromUsers(chat.users, user.name)}
+              name={
+                chat.isGeneral
+                  ? chat.name
+                  : createChatNameFromUsers(chat.users, user.name)
+              }
               active={activeChat.id === chat.id}
               onClick={() => {
                 this.props.setActiveChat(chat);
@@ -314,10 +352,18 @@ class SideBar extends Component {
           fullWidth
           className="animeAppBar"
         >
-          <Badge className={classes.margin} badgeContent={gemp} color="secondary">
+          <Badge
+            className={classes.margin}
+            badgeContent={gemp}
+            color="secondary"
+          >
             <Tab label="Chats" className="animeTab" />
           </Badge>
-          <Badge className={classes.margin} badgeContent={hemp} color="secondary">
+          <Badge
+            className={classes.margin}
+            badgeContent={hemp}
+            color="secondary"
+          >
             <Tab label="Messages" className="animeTab" />
           </Badge>
         </Tabs>
@@ -332,7 +378,11 @@ class SideBar extends Component {
           fullWidth
           className="animeAppBar"
         >
-          <Badge className={classes.margin} badgeContent={gemp} color="secondary">
+          <Badge
+            className={classes.margin}
+            badgeContent={gemp}
+            color="secondary"
+          >
             <Tab label="Chats" className="animeTab" />
           </Badge>
           <Tab label="Messages" className="animeTab" />
@@ -349,7 +399,11 @@ class SideBar extends Component {
           className="animeAppBar"
         >
           <Tab label="Chats" className="animeTab" />
-          <Badge className={classes.margin} badgeContent={hemp} color="secondary">
+          <Badge
+            className={classes.margin}
+            badgeContent={hemp}
+            color="secondary"
+          >
             <Tab label="Messages" className="animeTab" />
           </Badge>
         </Tabs>
@@ -372,23 +426,26 @@ class SideBar extends Component {
   };
   render() {
     const { classes, theme } = this.props;
-    const { chats, activeChat, user, setActiveChat, logout, users } = this.props;
+    const {
+      chats,
+      activeChat,
+      user,
+      setActiveChat,
+      logout,
+      users
+    } = this.props;
     const { reciever, activeSideBar } = this.state;
     const drawer = (
-      <Card id="side-bar">
-        <CardContent>
-          <div>
-            <Card className="animeHeader">
-              <div className={classes.details}>
-                <CardContent>
-                  <Typography variant="headline" className="grey">
-                    Chats
-                  </Typography>
-                </CardContent>
-              </div>
-            </Card>
+      <div className="chats-side-bar">
+        <Card className="anime-header">
+          <div className={classes.details}>
+            <CardContent>
+              <Typography variant="headline" className="grey">
+                Chats
+              </Typography>
+            </CardContent>
           </div>
-        </CardContent>
+        </Card>
         <Button
           variant="raised"
           color="secondary"
@@ -420,7 +477,7 @@ class SideBar extends Component {
             margin="normal"
           />
         </form>
-        <div className="side-bar-select">
+        <div className="side-bar-grid-container">
           <AppBar position="static" color="default" className="animeAppBar">
             {this.renderTabs()}
           </AppBar>
@@ -428,10 +485,11 @@ class SideBar extends Component {
             axis={theme.direction === "rtl" ? "x-reverse" : "x"}
             index={this.props.value}
             onChangeIndex={this.props.handleChangeIndex}
+            className="chat-container"
           >
             <TabContainer dir={theme.direction}>
-              <div style={{ overflow: "scroll" }}>
-                {/* {this.renderPublicChats()} */}
+              <div>
+                {this.renderPublicChats()}
                 <Button
                   variant="raised"
                   color="secondary"
@@ -442,7 +500,9 @@ class SideBar extends Component {
                 </Button>
               </div>
             </TabContainer>
-            <TabContainer dir={theme.direction}>{this.renderDMs()}</TabContainer>
+            <TabContainer dir={theme.direction}>
+              {this.renderDMs()}
+            </TabContainer>
           </SwipeableViews>
         </div>
         <Card className="current-user">
@@ -466,7 +526,7 @@ class SideBar extends Component {
             </Button>
           </CardActions>
         </Card>
-      </Card>
+      </div>
     );
     return (
       <React.Fragment>

@@ -1,0 +1,103 @@
+$black: #21252b;
+$blackBody: #282c34;
+$greyFont: #ccccc1;
+$blackPop: #2f333d;
+
+#side-bar {
+  height: 100%;
+  background-color: $black;
+  color: $greyFont;
+
+  .animeHeader {
+    text-align: center;
+    background-color: $blackBody !important;
+    color: $greyFont !important;
+  }
+  .animeImg {
+    margin-top: 10px;
+    width: 50px;
+    height: 50px;
+  }
+  .create-chat-button {
+    // background-color: $blackPop !important;
+    // color: $greyFont !important;
+    background-color: #ffffff !important;
+    color: $blackPop !important;
+    margin-left: 40px;
+  }
+  .other-create-chat-button {
+    // background-color: $blackPop !important;
+    // color: $greyFont !important;
+    background-color: #ffffff !important;
+    color: $blackPop !important;
+    margin-left: 18px;
+  }
+  .animeAppBar {
+    font-size: 10px !important;
+  }
+  .animeTab {
+    min-width: 50%;
+    font-size: 10px !important;
+    background-color: $blackBody !important;
+    color: $greyFont !important;
+  }
+  .side-bar-container {
+    display: flex;
+    align-content: center;
+  }
+  .side-bar-option {
+    background-color: $blackPop !important;
+    color: $greyFont !important;
+    width: 100%;
+    display: flex !important;
+    align-content: space-between !important;
+  }
+  .side-bar-option-button {
+    text-transform: none;
+    background-color: $blackPop !important;
+    color: $greyFont !important;
+    width: 100%;
+  }
+
+  .search {
+    color: $greyFont !important;
+
+    .search-icon {
+      color: $greyFont !important;
+    }
+
+    input {
+      color: $greyFont !important;
+    }
+  }
+
+  .users {
+    .user {
+      .user-photo {
+      }
+
+      .user-info {
+        .last-message {
+        }
+      }
+
+      .new-message {
+      }
+    }
+  }
+
+  .current-user {
+    display: flex;
+    flex-wrap: wrap;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: $blackBody !important;
+    color: $greyFont !important;
+
+    .logout {
+      background-color: $blackPop !important;
+      color: $greyFont !important;
+    }
+  }
+}

@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import Avatar from "material-ui/Avatar";
 import moment from "moment";
+import "./Messages.scss";
+import "simplebar";
+import "simplebar/dist/simplebar.css";
 
 export default class Messages extends Component {
   constructor(props) {
@@ -34,7 +37,8 @@ export default class Messages extends Component {
         return (
           <div
             key={mes.id}
-            className={`message-container ${mes.sender === user.name && "right"}`}
+            className={`message-container ${mes.sender === user.name &&
+              "right"}`}
             style={{ color: mes.color }}
           >
             <div className="lonely-message">{mes.message}</div>
@@ -64,7 +68,7 @@ export default class Messages extends Component {
   render() {
     const { messages, user, typingUsers } = this.props;
     return (
-      <div ref="container" className="thread-container">
+      <div ref="container" className="thread-container" data-simplebar>
         <div className="thread">
           {this.displayMessage()}
           {typingUsers.map(name => (

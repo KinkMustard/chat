@@ -33,6 +33,7 @@ import Input, { InputLabel, InputAdornment } from "material-ui/Input";
 import Checkbox from "material-ui/Checkbox";
 import CreateChat from "./CreateChat";
 import IslandImage from "../../images/island.svg";
+import "./UsersDrawer.scss";
 
 const drawerWidth = 240;
 
@@ -181,7 +182,14 @@ class UsersDrawer extends Component {
   };
 
   renderUsers = () => {
-    const { chats, activeChat, user, setActiveChat, logout, users } = this.props;
+    const {
+      chats,
+      activeChat,
+      user,
+      setActiveChat,
+      logout,
+      users
+    } = this.props;
     if (users.length > 1) {
       return differenceBy(users, [user], "name").map(user => {
         return (
@@ -214,7 +222,14 @@ class UsersDrawer extends Component {
 
   render() {
     const { classes, theme } = this.props;
-    const { chats, activeChat, user, setActiveChat, logout, users } = this.props;
+    const {
+      chats,
+      activeChat,
+      user,
+      setActiveChat,
+      logout,
+      users
+    } = this.props;
     const { reciever, activeSideBar } = this.state;
     const drawer = (
       <Card id="side-bar">
