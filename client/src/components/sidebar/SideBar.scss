@@ -10,40 +10,38 @@ $blackPop: #2f333d;
   display: grid;
   // grid-template-rows: 2fr 1fr 0.5fr 3fr 1.5fr;
   grid-template-rows:
-    minmax(80px, 100px) minmax(40px, 50px) minmax(50px, 60px) minmax(100px, 1fr)
+    minmax(60px, 70px) minmax(50px, 60px) minmax(100px, 1fr)
     minmax(80px, 120px);
   // grid-template-rows: repeat(auto-fill, minmax(100px, 1fr));
   grid-template-columns: 240px;
   .anime-header {
-    text-align: center;
-    background-color: $blackBody !important;
-    color: $greyFont !important;
-    margin: 16px;
+    // text-align: left;
+    // background-color: $blackBody !important;
+    // color: $greyFont !important;
+    // margin: 16px;
     grid-column-start: 1;
     grid-column-end: span 1;
     grid-row-start: 1;
     grid-row-end: span 1;
+    // margin-bottom: 10px;
+    // text-transform: none;
+    // justify-content: start;
   }
+  // .header-container {
+  //   display: flex;
+  // }
+  // .header-text {
+  //   color: $greyFont;
+  // }
   .animeImg {
     margin-top: 10px;
     width: 50px;
     height: 50px;
   }
-  .create-chat-button {
-    // background-color: $blackPop !important; // color: $greyFont !important;
-    background-color: #ffffff !important;
-    color: $blackPop !important;
-    // margin-left: 40px;
-    grid-column-start: 1;
-    grid-column-end: span 1;
-    grid-row-start: 2;
-    grid-row-end: span 1;
-    justify-self: center;
-  }
   .other-create-chat-button {
     // background-color: $blackPop !important; // color: $greyFont !important;
-    background-color: #ffffff !important;
-    color: $blackPop !important;
+    background-color: #ffffff;
+    color: $blackPop;
     margin-left: 18px;
   }
   .chat-container {
@@ -63,7 +61,7 @@ $blackPop: #2f333d;
   .side-bar-grid-container {
     grid-column-start: 1;
     grid-column-end: span 1;
-    grid-row-start: 4;
+    grid-row-start: 3;
     grid-row-end: span 1;
   }
   .side-bar-container {
@@ -87,7 +85,7 @@ $blackPop: #2f333d;
     color: $greyFont !important;
     grid-column-start: 1;
     grid-column-end: span 1;
-    grid-row-start: 3;
+    grid-row-start: 2;
     grid-row-end: span 1;
     .search-icon {
       color: $greyFont !important;
@@ -118,7 +116,7 @@ $blackPop: #2f333d;
     color: $greyFont !important;
     grid-column-start: 1;
     grid-column-end: span 1;
-    grid-row-start: 5;
+    grid-row-start: 4;
     grid-row-end: span 1;
     .logout {
       background-color: $blackPop !important;

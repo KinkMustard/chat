@@ -1,0 +1,53 @@
+$black: #21252b;
+$blackBody: #282c34;
+$greyFont: #ccccc1;
+$blackPop: #2f333d;
+
+.title-header {
+  text-align: left;
+  background-color: $blackBody !important;
+  color: $greyFont !important;
+  // margin: 16px !important;
+  margin-bottom: 10px !important;
+  display: flex !important;
+  justify-content: start !important;
+  // display: none;
+  a:hover {
+    background-color: $greyFont !important;
+  }
+  .header-text {
+    order: 1;
+    color: $greyFont;
+    text-transform: none;
+  }
+  .down-icon {
+    order: 2;
+    transform: scale(1.2);
+    display: inline !important;
+    margin-left: auto;
+  }
+}
+.popover-base {
+  background-color: $blackBody !important;
+  color: $greyFont !important;
+  display: flex;
+  flex-flow: column;
+  // align-content: space-around;
+  justify-content: space-evenly;
+  // align-content: center;
+  height: 200px;
+  width: 200px;
+
+  .popover-text {
+    background-color: $blackBody !important;
+    color: $greyFont !important;
+  }
+  .create-chat-button {
+    // background-color: $blackPop !important; // color: $greyFont !important;
+    // background-color: #ffffff;
+    color: $blackPop;
+    // margin-left: 40px;
+    margin: 0 10px;
+    // margin-bottom: 12px;
+  }
+}

@@ -16,7 +16,7 @@ import MenuIcon from "@material-ui/icons/Menu";
 import GroupIcon from "@material-ui/icons/Group";
 
 import classNames from "classnames";
-
+import "./ChatHeading.scss";
 const drawerWidth = 240;
 
 const styles = theme => ({
@@ -71,30 +71,39 @@ class ChatHeading extends React.Component {
         <div>
           <AppBar className={classes.appBar}>
             <Toolbar className="app-bar">
-              <IconButton
+              <div className="menu-icon">
+                <IconButton
+                  color="inherit"
+                  aria-label="open drawer"
+                  onClick={handleDrawerToggle}
+                  className={classes.navIconHide}
+                  ref={this.menuElement}
+                >
+                  <MenuIcon />
+                </IconButton>
+              </div>
+              <Typography
+                variant="title"
                 color="inherit"
-                aria-label="open drawer"
-                onClick={handleDrawerToggle}
-                className={classes.navIconHide}
-                ref={this.menuElement}
+                noWrap
+                className="chat-name"
               >
-                <MenuIcon />
-              </IconButton>
-              <Typography variant="title" color="inherit" noWrap>
                 {name}
               </Typography>
               <Typography variant="title" color="inherit" noWrap>
                 {numberOfUsers || null}
               </Typography>
-              <IconButton
-                color="inherit"
-                aria-label="open drawer"
-                onClick={handleUserDrawerToggle}
-                className={classes.navIconHide}
-                ref={this.menuElement}
-              >
-                <GroupIcon />
-              </IconButton>
+              <div className="group-icon">
+                <IconButton
+                  color="inherit"
+                  aria-label="open drawer"
+                  onClick={handleUserDrawerToggle}
+                  className={classes.navIconHide}
+                  ref={this.menuElement}
+                >
+                  <GroupIcon />
+                </IconButton>
+              </div>
             </Toolbar>
           </AppBar>
         </div>

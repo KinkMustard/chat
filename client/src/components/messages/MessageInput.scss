@@ -1,0 +1,52 @@
+$black: #21252b;
+$blackBody: #282c34;
+$greyFont: #ccccc1;
+$blackPop: #2f333d;
+$secondary-color: #484d79;
+$primary-color-light: #5d5d8a;
+
+.message-input {
+  background: white;
+  color: $secondary-color;
+  box-sizing: border-box;
+  border-radius: 25px !important;
+
+  .message-form {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+    .form-control {
+      // @include customscrollbar();
+      &:focus {
+        outline: none;
+      }
+      resize: none;
+      padding-left: 15px;
+      box-sizing: border-box;
+      width: 80%;
+      height: 100%;
+      border: none;
+      font-size: 16px;
+      background: #cfd2d9;
+    }
+
+    .send {
+      width: 20%;
+      box-sizing: border-box;
+      font-size: 1.25em;
+      text-align: center;
+      border: none;
+      height: 100%;
+      color: $greyFont;
+      background: $blackPop;
+      transition: all 0.35s ease-out;
+
+      &:disabled {
+        opacity: 0.2;
+        background: $primary-color-light;
+      }
+    }
+  }
+}

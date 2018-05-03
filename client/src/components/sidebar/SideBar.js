@@ -37,6 +37,8 @@ import "./SideBar.scss";
 import "simplebar";
 import SimpleBar from "simplebar";
 import "../scrollbar.scss";
+import * as Colors from "../../Colors";
+import SideBarDropDown from "./SideBarDropdown";
 
 const drawerWidth = 240;
 
@@ -110,7 +112,8 @@ const styles = theme => ({
     width: drawerWidth,
     [theme.breakpoints.up("md")]: {
       position: "relative"
-    }
+    },
+    border: Colors.Black
   },
   content: {
     flexGrow: 1,
@@ -446,23 +449,11 @@ class SideBar extends Component {
     const { reciever, activeSideBar } = this.state;
     const drawer = (
       <div className="chats-side-bar">
-        <Card className="anime-header">
-          <div className={classes.details}>
-            <CardContent>
-              <Typography variant="headline" className="grey">
-                Chats
-              </Typography>
-            </CardContent>
-          </div>
-        </Card>
-        <Button
-          variant="raised"
-          color="secondary"
-          className="create-chat-button"
-          onClick={this.handleDialogOpen}
-        >
-          Create New Chat
-        </Button>
+        <SideBarDropDown
+          className="anime-header"
+          handleDialogOpen={this.handleDialogOpen}
+        />
+
         <CreateChat
           open={this.state.open}
           onClose={this.handleDialogClose}

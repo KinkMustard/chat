@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import "./MessageInput.scss";
 
 export default class MessageInput extends Component {
   constructor(props) {

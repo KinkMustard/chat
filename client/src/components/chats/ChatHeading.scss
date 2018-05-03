@@ -1,0 +1,25 @@
+$black: #21252b;
+$blackBody: #282c34;
+$greyFont: #ccccc1;
+$blackPop: #2f333d;
+
+.app-bar {
+  background-color: $blackBody !important;
+  color: $greyFont !important;
+  display: flex;
+  // width: 100%;
+  // justify-content: center;
+  .chat-name {
+    order: 2;
+  }
+  .menu-icon {
+    order: 1;
+    // margin-right: auto;
+  }
+  .group-icon {
+    order: 3;
+    float: right;
+    // margin-left: 20px;
+    margin-left: auto;
+  }
+}
