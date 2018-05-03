@@ -134,11 +134,12 @@ class SideBar extends Component {
       publicSum: 0,
       privateSum: 0
     };
+
+    this.chatContainer = React.createRef();
   }
 
   scrollDown() {
-    const { chatContainer } = this.refs;
-    let scrollContainer = new SimpleBar(chatContainer);
+    let scrollContainer = new SimpleBar(this.chatContainer.current);
     scrollContainer.getScrollElement().scrollTop = scrollContainer.getScrollElement().scrollHeight;
   }
 
@@ -205,7 +206,7 @@ class SideBar extends Component {
       //   // this.setState({ publicSum: temp });
       // }
       return (
-        <div className={classes.panelContainer}>
+        <div className={classes.panelContainer} key={chat.id}>
           {unreadChats[chat.id] ? (
             <Badge
               className={classes.badge}
@@ -272,7 +273,7 @@ class SideBar extends Component {
       //   hemp = temp;
       // }
       return (
-        <div className={classes.panelContainer}>
+        <div className={classes.panelContainer} key={chat.id}>
           {unreadChats[chat.id] ? (
             <Badge
               className={classes.margin}
@@ -448,7 +449,7 @@ class SideBar extends Component {
             index={this.props.value}
             onChangeIndex={this.props.handleChangeIndex}
             className="chat-container"
-            ref="chatContainer"
+            ref={this.chatContainer}
             data-simplebar="init"
           >
             <TabContainer dir={theme.direction}>

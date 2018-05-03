@@ -10,13 +10,12 @@ import "../scrollbar.scss";
 export default class Messages extends React.Component {
   constructor(props) {
     super(props);
-
+    this.container = React.createRef();
     this.scrollDown = this.scrollDown.bind(this);
   }
 
   scrollDown() {
-    const { container } = this.refs;
-    let scrollContainer = new SimpleBar(container);
+    let scrollContainer = new SimpleBar(this.container.current);
     scrollContainer.getScrollElement().scrollTop = scrollContainer.getScrollElement().scrollHeight;
   }
 
@@ -71,7 +70,11 @@ export default class Messages extends React.Component {
   render() {
     const { typingUsers } = this.props;
     return (
-      <div ref="container" className="thread-container" data-simplebar="init">
+      <div
+        ref={this.container}
+        className="thread-container"
+        data-simplebar="init"
+      >
         <div className="thread">
           {this.displayMessage()}
           {typingUsers.map(name => (

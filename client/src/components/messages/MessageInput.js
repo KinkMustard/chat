@@ -69,7 +69,6 @@ export default class MessageInput extends React.Component {
         <form onSubmit={this.handleSubmit} className="message-form">
           <input
             id="message"
-            ref={"messageinput"}
             type="text"
             className="form-control"
             value={message}

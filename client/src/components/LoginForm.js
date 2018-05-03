@@ -74,9 +74,6 @@ class LoginForm extends React.Component {
               autoComplete="off"
             >
               <TextField
-                ref={input => {
-                  this.textInput = input;
-                }}
                 label="Name"
                 id="nickname"
                 className={classes.textField}
