@@ -1,37 +1,13 @@
 import React, { Component } from "react";
-import FAChevronDown from "react-icons/lib/md/keyboard-arrow-down";
-import FAMenu from "react-icons/lib/fa/list-ul";
-import FASearch from "react-icons/lib/fa/search";
-import MdEject from "react-icons/lib/md/eject";
 import PropTypes from "prop-types";
 import { withStyles } from "material-ui/styles";
-import Button from "material-ui/Button";
 import Typography from "material-ui/Typography";
-import SwipeableViews from "react-swipeable-views";
-import AppBar from "material-ui/AppBar";
-import Tabs, { Tab } from "material-ui/Tabs";
-import MenuItem from "material-ui/Menu/MenuItem";
-import TextField from "material-ui/TextField";
-import Card, { CardActions, CardContent, CardMedia } from "material-ui/Card";
+import Card, { CardContent } from "material-ui/Card";
 import Drawer from "material-ui/Drawer";
-import Toolbar from "material-ui/Toolbar";
-import Chip from "material-ui/Chip";
-import List from "material-ui/List";
-import IconButton from "material-ui/IconButton";
-import Delete from "@material-ui/icons/Delete";
 import Hidden from "material-ui/Hidden";
-import Divider from "material-ui/Divider";
-import MenuIcon from "@material-ui/icons/Menu";
-import Avatar from "material-ui/Avatar";
 // import { mailFolderListItems, otherMailFolderListItems } from "./tileData";
 import SideBarOption from "./SideBarOption";
-import { last, get, differenceBy } from "lodash";
-import { createChatNameFromUsers } from "../../Factories";
-import SideBarOptionChats from "./SideBarOptionChats";
-import { FormGroup, FormControlLabel } from "material-ui/Form";
-import Input, { InputLabel, InputAdornment } from "material-ui/Input";
-import Checkbox from "material-ui/Checkbox";
-import CreateChat from "./CreateChat";
+import { differenceBy } from "lodash";
 import IslandImage from "../../images/island.svg";
 import "./UsersDrawer.scss";
 
@@ -60,9 +36,6 @@ const styles = theme => ({
   details: {
     display: "flex",
     flexDirection: "column"
-  },
-  content: {
-    flex: "1 0 auto"
   },
   cover: {
     width: 50,
@@ -182,14 +155,7 @@ class UsersDrawer extends Component {
   };
 
   renderUsers = () => {
-    const {
-      chats,
-      activeChat,
-      user,
-      setActiveChat,
-      logout,
-      users
-    } = this.props;
+    const { user, users } = this.props;
     if (users.length > 1) {
       return differenceBy(users, [user], "name").map(user => {
         return (
@@ -221,16 +187,7 @@ class UsersDrawer extends Component {
   };
 
   render() {
-    const { classes, theme } = this.props;
-    const {
-      chats,
-      activeChat,
-      user,
-      setActiveChat,
-      logout,
-      users
-    } = this.props;
-    const { reciever, activeSideBar } = this.state;
+    const { classes } = this.props;
     const drawer = (
       <div className="users-side-bar">
         <Card className="user-list-header">

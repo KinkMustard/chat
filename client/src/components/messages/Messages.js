@@ -1,14 +1,13 @@
-import React, { Component } from "react";
+import React from "react";
 import Avatar from "material-ui/Avatar";
 import moment from "moment";
-import PerfectScrollbar from "perfect-scrollbar";
 import "simplebar";
 import SimpleBar from "simplebar";
 import "./Messages.scss";
 import "../scrollbar.scss";
 // import "../perfectScrollbar.scss";
 
-export default class Messages extends Component {
+export default class Messages extends React.Component {
   constructor(props) {
     super(props);
 
@@ -25,7 +24,7 @@ export default class Messages extends Component {
     this.scrollDown();
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate() {
     this.scrollDown();
   }
 
@@ -70,7 +69,7 @@ export default class Messages extends Component {
     });
   }
   render() {
-    const { messages, user, typingUsers } = this.props;
+    const { typingUsers } = this.props;
     return (
       <div ref="container" className="thread-container" data-simplebar="init">
         <div className="thread">

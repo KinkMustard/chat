@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import SideBar from "../sidebar/SideBar";
 import {
   GENERAL_CHAT,
@@ -9,8 +9,6 @@ import {
   USER_CONNECTED,
   USER_DISCONNECTED,
   NEW_CHAT_USER,
-  GET_CHAT,
-  CHAT_MOUNTED,
   CREATE_NEW_CHAT,
   GET_CURRENT_CHATS
 } from "../../Events";
@@ -19,9 +17,8 @@ import Messages from "../messages/Messages";
 import MessageInput from "../messages/MessageInput";
 import { values, difference, differenceBy } from "lodash";
 import UsersDrawer from "../sidebar/UsersDrawer";
-import _ from "lodash";
 
-export default class ChatContainer extends Component {
+export default class ChatContainer extends React.Component {
   constructor(props) {
     super(props);
 
@@ -75,7 +72,6 @@ export default class ChatContainer extends Component {
   };
   createNewChat = (name, description) => {
     const { socket, user } = this.props;
-    const { activeChat } = this.state;
     socket.emit(CREATE_NEW_CHAT, {
       creator: user.name,
       chatName: name,
@@ -128,7 +124,10 @@ export default class ChatContainer extends Component {
     const { chats } = this.state;
 
     const newChats = reset ? [chat] : [...chats, chat];
-    this.setState({ chats: newChats, activeChat: reset ? chat : this.state.activeChat });
+    this.setState({
+      chats: newChats,
+      activeChat: reset ? chat : this.state.activeChat
+    });
 
     const messageEvent = `${MESSAGE_RECIEVED}-${chat.id}`;
     const typingEvent = `${TYPING}-${chat.id}`;

@@ -1,21 +1,13 @@
 import React from "react";
-import FAVideo from "react-icons/lib/fa/video-camera";
-import FAUserPlus from "react-icons/lib/fa/user-plus";
-import MdEllipsisMenu from "react-icons/lib/md/keyboard-control";
 import PropTypes from "prop-types";
 import { withStyles } from "material-ui/styles";
-import Drawer from "material-ui/Drawer";
 import AppBar from "material-ui/AppBar";
 import Toolbar from "material-ui/Toolbar";
-import List from "material-ui/List";
 import Typography from "material-ui/Typography";
 import IconButton from "material-ui/IconButton";
-import Hidden from "material-ui/Hidden";
-import Divider from "material-ui/Divider";
 import MenuIcon from "@material-ui/icons/Menu";
 import GroupIcon from "@material-ui/icons/Group";
 
-import classNames from "classnames";
 import "./ChatHeading.scss";
 const drawerWidth = 240;
 
@@ -60,7 +52,6 @@ class ChatHeading extends React.Component {
     console.log(drawerWidth);
     const {
       classes,
-      theme,
       name,
       numberOfUsers,
       handleDrawerToggle,

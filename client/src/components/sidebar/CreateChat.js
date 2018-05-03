@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import Dialog, {
   DialogActions,
   DialogContent,
@@ -7,13 +7,13 @@ import Dialog, {
 } from "material-ui/Dialog";
 import Button from "material-ui/Button";
 import TextField from "material-ui/TextField";
-import Input, { InputLabel, InputAdornment } from "material-ui/Input";
+import { InputAdornment } from "material-ui/Input";
 import LabelIcon from "@material-ui/icons/LabelOutline";
-import { FormGroup, FormControlLabel } from "material-ui/Form";
+import { FormControlLabel } from "material-ui/Form";
 import Checkbox from "material-ui/Checkbox";
 
 import { VERIFY_NEW_CHAT } from "../../Events";
-class CreateChat extends Component {
+class CreateChat extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -36,7 +36,7 @@ class CreateChat extends Component {
   };
 
   verifyChat = ({ isChat }) => {
-    const { name, description } = this.state;
+    const { name } = this.state;
     if (isChat) {
       this.setError("Chat name taken");
     } else if (name === "") {
@@ -126,7 +126,8 @@ class CreateChat extends Component {
             />
           </form>
           <DialogContentText>
-            Setting a chat to private makes it only accessible through a secret code
+            Setting a chat to private makes it only accessible through a secret
+            code
           </DialogContentText>
           {this.state.private ? (
             <TextField

@@ -1,9 +1,8 @@
-import React, { Component } from "react";
+import React from "react";
 import { VERIFY_USER } from "../Events";
 import PropTypes from "prop-types";
 import { withStyles } from "material-ui/styles";
-import Card, { CardActions, CardContent, CardMedia } from "material-ui/Card";
-import Button from "material-ui/Button";
+import Card, { CardContent } from "material-ui/Card";
 import Typography from "material-ui/Typography";
 import TextField from "material-ui/TextField";
 
@@ -22,7 +21,7 @@ const styles = theme => ({
   }
 });
 
-class LoginForm extends Component {
+class LoginForm extends React.Component {
   constructor(props) {
     super(props);
 
@@ -66,8 +65,14 @@ class LoginForm extends Component {
             <Typography gutterBottom variant="headline" component="h2">
               Welcome
             </Typography>
-            <Typography component="p">What should everyone call you?</Typography>
-            <form onSubmit={this.handleSubmit} className="login-form" autoComplete="off">
+            <Typography component="p">
+              What should everyone call you?
+            </Typography>
+            <form
+              onSubmit={this.handleSubmit}
+              className="login-form"
+              autoComplete="off"
+            >
               <TextField
                 ref={input => {
                   this.textInput = input;

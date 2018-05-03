@@ -2,8 +2,6 @@ import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "material-ui/styles";
 import Avatar from "material-ui/Avatar";
-import Chip from "material-ui/Chip";
-import DoneIcon from "@material-ui/icons/Done";
 import ExpansionPanel, {
   ExpansionPanelDetails,
   ExpansionPanelSummary,
@@ -65,8 +63,6 @@ class SideBarOption extends PureComponent {
   };
   decideWhatToRender = () => {
     const {
-      active,
-      lastMessage,
       name,
       onClick,
       classes,
@@ -83,7 +79,10 @@ class SideBarOption extends PureComponent {
           className={classes.expansionPanel}
         >
           <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-            <Avatar style={{ backgroundColor: color }} className={classes.avatar}>
+            <Avatar
+              style={{ backgroundColor: color }}
+              className={classes.avatar}
+            >
               {name[0].toUpperCase()}
             </Avatar>
             <Typography className={classes.heading}>
@@ -106,7 +105,10 @@ class SideBarOption extends PureComponent {
           className={classes.expansionPanel}
         >
           <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-            <Avatar style={{ backgroundColor: color }} className={classes.avatar}>
+            <Avatar
+              style={{ backgroundColor: color }}
+              className={classes.avatar}
+            >
               {name[0].toUpperCase()}
             </Avatar>
             <Typography className={classes.heading}>
@@ -133,16 +135,6 @@ class SideBarOption extends PureComponent {
     }
   };
   render() {
-    const {
-      active,
-      lastMessage,
-      name,
-      onClick,
-      classes,
-      color,
-      expanded,
-      handleChangePanel
-    } = this.props;
     return <React.Fragment>{this.decideWhatToRender()}</React.Fragment>;
   }
 }

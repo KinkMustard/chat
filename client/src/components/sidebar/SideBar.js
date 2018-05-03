@@ -1,8 +1,5 @@
 import React, { Component } from "react";
-import FAChevronDown from "react-icons/lib/md/keyboard-arrow-down";
-import FAMenu from "react-icons/lib/fa/list-ul";
 import FASearch from "react-icons/lib/fa/search";
-import MdEject from "react-icons/lib/md/eject";
 import PropTypes from "prop-types";
 import { withStyles } from "material-ui/styles";
 import Button from "material-ui/Button";
@@ -10,28 +7,17 @@ import Typography from "material-ui/Typography";
 import SwipeableViews from "react-swipeable-views";
 import AppBar from "material-ui/AppBar";
 import Tabs, { Tab } from "material-ui/Tabs";
-import MenuItem from "material-ui/Menu/MenuItem";
 import TextField from "material-ui/TextField";
-import Card, { CardActions, CardContent, CardMedia } from "material-ui/Card";
+import Card, { CardActions, CardContent } from "material-ui/Card";
 import Drawer from "material-ui/Drawer";
-import Toolbar from "material-ui/Toolbar";
 import Chip from "material-ui/Chip";
-import List from "material-ui/List";
-import IconButton from "material-ui/IconButton";
-import Delete from "@material-ui/icons/Delete";
 import Hidden from "material-ui/Hidden";
 import Badge from "material-ui/Badge";
-import Divider from "material-ui/Divider";
-import MenuIcon from "@material-ui/icons/Menu";
 import Avatar from "material-ui/Avatar";
 // import { mailFolderListItems, otherMailFolderListItems } from "./tileData";
 import SideBarOption from "./SideBarOption";
-import { last, get, differenceBy } from "lodash";
+import { last, get } from "lodash";
 import { createChatNameFromUsers } from "../../Factories";
-import SideBarOptionChats from "./SideBarOptionChats";
-import { FormGroup, FormControlLabel } from "material-ui/Form";
-import Input, { InputLabel, InputAdornment } from "material-ui/Input";
-import Checkbox from "material-ui/Checkbox";
 import CreateChat from "./CreateChat";
 import "./SideBar.scss";
 import "simplebar";
@@ -207,16 +193,8 @@ class SideBar extends Component {
   };
 
   renderPublicChats = () => {
-    const { classes, theme } = this.props;
-    const {
-      chats,
-      activeChat,
-      user,
-      setActiveChat,
-      logout,
-      users,
-      unreadChats
-    } = this.props;
+    const { classes } = this.props;
+    const { chats, activeChat, user, unreadChats } = this.props;
 
     return chats.filter(chat => chat.isDM === false).map(chat => {
       // if (unreadChats[chat.id]) {
@@ -282,16 +260,8 @@ class SideBar extends Component {
   };
 
   renderDMs = () => {
-    const { classes, theme } = this.props;
-    const {
-      chats,
-      activeChat,
-      user,
-      setActiveChat,
-      logout,
-      users,
-      unreadChats
-    } = this.props;
+    const { classes } = this.props;
+    const { chats, activeChat, user, unreadChats } = this.props;
     return chats.filter(chat => chat.isDM === true).map(chat => {
       // if (unreadChats[chat.id]) {
       //   // let temp = this.state.publicSum;
@@ -352,8 +322,7 @@ class SideBar extends Component {
   };
 
   renderTabs = () => {
-    const { classes, theme } = this.props;
-    const { publicSum, privateSum } = this.state;
+    const { classes } = this.props;
     if (gemp && hemp) {
       return (
         <Tabs
@@ -438,15 +407,8 @@ class SideBar extends Component {
   };
   render() {
     const { classes, theme } = this.props;
-    const {
-      chats,
-      activeChat,
-      user,
-      setActiveChat,
-      logout,
-      users
-    } = this.props;
-    const { reciever, activeSideBar } = this.state;
+    const { user, logout } = this.props;
+    const { reciever } = this.state;
     const drawer = (
       <div className="chats-side-bar">
         <SideBarDropDown

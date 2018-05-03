@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import DownIcon from "@material-ui/icons/ExpandMore";
-import Card, { CardContent } from "material-ui/Card";
 import Button from "material-ui/Button";
 import PropTypes from "prop-types";
 import { withStyles } from "material-ui/styles";
@@ -15,7 +14,7 @@ let onBegan = false;
 let offBegan = false;
 let completed = true;
 
-const styles = theme => ({
+const styles = () => ({
   drawerPaper: {
     background: "none"
   }
@@ -96,7 +95,7 @@ class SideBarDropdown extends Component {
     }
   };
   render() {
-    const { classes, theme } = this.props;
+    const { classes } = this.props;
     const { anchorEl } = this.state;
     return (
       <React.Fragment>

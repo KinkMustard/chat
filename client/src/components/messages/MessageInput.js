@@ -1,7 +1,7 @@
-import React, { Component } from "react";
+import React from "react";
 import "./MessageInput.scss";
 
-export default class MessageInput extends Component {
+export default class MessageInput extends React.Component {
   constructor(props) {
     super(props);
 
