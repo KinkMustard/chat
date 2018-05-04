@@ -1,20 +1,20 @@
-$black: #21252b;
-$blackBody: #282c34;
-$greyFont: #ccccc1;
-$blackPop: #2f333d;
+@import "../../styles/globals.scss";
 
+.button-container {
+  background-color: $blue;
+}
 .title-header {
   text-align: left;
-  background-color: $blackBody !important;
+  // background-color: $blackBody !important;
   color: $greyFont !important;
   // margin: 16px !important;
-  margin-bottom: 10px !important;
+  // margin-bottom: 10px !important;
   display: flex !important;
   justify-content: start !important;
+  width: 100%;
+  height: 100%;
   // display: none;
-  a:hover {
-    background-color: $greyFont !important;
-  }
+
   .header-text {
     order: 1;
     color: $greyFont;

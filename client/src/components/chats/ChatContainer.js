@@ -272,6 +272,7 @@ export default class ChatContainer extends React.Component {
                 name={activeChat.name}
                 handleDrawerToggle={this.handleDrawerToggle}
                 handleUserDrawerToggle={this.handleUserDrawerToggle}
+                className="chat-heading"
               />
               <Messages
                 messages={activeChat.messages}

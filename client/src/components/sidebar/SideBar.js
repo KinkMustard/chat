@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import FASearch from "react-icons/lib/fa/search";
 import PropTypes from "prop-types";
-import { withStyles } from "material-ui/styles";
+import { withStyles, MuiThemeProvider } from "material-ui/styles";
 import Button from "material-ui/Button";
 import Typography from "material-ui/Typography";
 import SwipeableViews from "react-swipeable-views";
@@ -12,9 +12,9 @@ import Card, { CardActions, CardContent } from "material-ui/Card";
 import Drawer from "material-ui/Drawer";
 import Chip from "material-ui/Chip";
 import Hidden from "material-ui/Hidden";
+import { createMuiTheme } from "material-ui/styles";
 import Badge from "material-ui/Badge";
 import Avatar from "material-ui/Avatar";
-// import { mailFolderListItems, otherMailFolderListItems } from "./tileData";
 import SideBarOption from "./SideBarOption";
 import { last, get } from "lodash";
 import { createChatNameFromUsers } from "../../Factories";
@@ -25,6 +25,7 @@ import SimpleBar from "simplebar";
 import "../scrollbar.scss";
 import * as Colors from "../../Colors";
 import SideBarDropDown from "./SideBarDropdown";
+import AddUser from "./AddUser";
 
 const drawerWidth = 240;
 
@@ -126,13 +127,13 @@ class SideBar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      reciever: "",
       activeSideBar: SideBar.type.CHATS,
       mobileOpen: false,
       expanded: null,
       open: false,
       publicSum: 0,
-      privateSum: 0
+      privateSum: 0,
+      addUserOpen: false
     };
 
     this.chatContainer = React.createRef();
@@ -145,15 +146,6 @@ class SideBar extends Component {
 
   handleDrawerToggle = () => {
     this.setState({ mobileOpen: !this.state.mobileOpen });
-  };
-
-  handleSubmit = e => {
-    e.preventDefault();
-    const { reciever } = this.state;
-    const { onSendPrivateMessage } = this.props;
-
-    onSendPrivateMessage(reciever);
-    this.setState({ reciever: "" });
   };
 
   addChatForUser = reciever => {
@@ -174,9 +166,15 @@ class SideBar extends Component {
   handleDialogOpen = () => {
     this.setState({ open: true });
   };
+  handleAddUserDialogOpen = () => {
+    this.setState({ addUserOpen: true });
+  };
 
   handleDialogClose = () => {
     this.setState({ open: false });
+  };
+  handleAddUserDialogClose = () => {
+    this.setState({ addUserOpen: false });
   };
 
   resetExpandedPanel = () => {
@@ -409,12 +407,12 @@ class SideBar extends Component {
   render() {
     const { classes, theme } = this.props;
     const { user, logout } = this.props;
-    const { reciever } = this.state;
     const drawer = (
       <div className="chats-side-bar">
         <SideBarDropDown
           className="anime-header"
           handleDialogOpen={this.handleDialogOpen}
+          handleAddUserDialogOpen={this.handleAddUserDialogOpen}
         />
 
         <CreateChat
@@ -424,22 +422,13 @@ class SideBar extends Component {
           createNewChat={this.props.createNewChat}
           socket={this.props.socket}
         />
-        <form onSubmit={this.handleSubmit} className="search">
-          <i className="search-icon">
-            <FASearch />
-          </i>
-          <TextField
-            label="Search"
-            id="search"
-            className={classes.textField}
-            type="text"
-            value={reciever}
-            onChange={e => {
-              this.setState({ reciever: e.target.value });
-            }}
-            margin="normal"
-          />
-        </form>
+        <AddUser
+          open={this.state.addUserOpen}
+          onClose={this.handleAddUserDialogClose}
+          handleDialogClose={this.handleAddUserDialogClose}
+          onSendPrivateMessage={this.props.onSendPrivateMessage}
+          socket={this.props.socket}
+        />
         <div className="side-bar-grid-container">
           <AppBar position="static" color="default" className="animeAppBar">
             {this.renderTabs()}
@@ -453,17 +442,7 @@ class SideBar extends Component {
             data-simplebar="init"
           >
             <TabContainer dir={theme.direction}>
-              <div>
-                {this.renderPublicChats()}
-                <Button
-                  variant="raised"
-                  color="secondary"
-                  className="other-create-chat-button"
-                  onClick={this.handleDialogOpen}
-                >
-                  Create New Chat
-                </Button>
-              </div>
+              <div>{this.renderPublicChats()}</div>
             </TabContainer>
             <TabContainer dir={theme.direction}>
               {this.renderDMs()}

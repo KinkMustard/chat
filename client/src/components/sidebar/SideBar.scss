@@ -1,7 +1,4 @@
-$black: #21252b;
-$blackBody: #282c34;
-$greyFont: #ccccc1;
-$blackPop: #2f333d;
+@import "../../styles/globals.scss";
 
 .chats-side-bar {
   height: 100%;
@@ -10,7 +7,7 @@ $blackPop: #2f333d;
   display: grid;
   // grid-template-rows: 2fr 1fr 0.5fr 3fr 1.5fr;
   grid-template-rows:
-    minmax(60px, 70px) minmax(50px, 60px) minmax(100px, 1fr)
+    minmax(60px, 70px) minmax(100px, 1fr)
     minmax(80px, 120px);
   // grid-template-rows: repeat(auto-fill, minmax(100px, 1fr));
   grid-template-columns: 240px;
@@ -38,12 +35,6 @@ $blackPop: #2f333d;
     width: 50px;
     height: 50px;
   }
-  .other-create-chat-button {
-    // background-color: $blackPop !important; // color: $greyFont !important;
-    background-color: #ffffff;
-    color: $blackPop;
-    margin-left: 18px;
-  }
   .chat-container {
     height: 93%;
     overflow: auto;
@@ -61,7 +52,7 @@ $blackPop: #2f333d;
   .side-bar-grid-container {
     grid-column-start: 1;
     grid-column-end: span 1;
-    grid-row-start: 3;
+    grid-row-start: 2;
     grid-row-end: span 1;
   }
   .side-bar-container {
@@ -116,7 +107,7 @@ $blackPop: #2f333d;
     color: $greyFont !important;
     grid-column-start: 1;
     grid-column-end: span 1;
-    grid-row-start: 4;
+    grid-row-start: 3;
     grid-row-end: span 1;
     .logout {
       background-color: $blackPop !important;

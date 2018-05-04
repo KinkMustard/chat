@@ -61,7 +61,13 @@ class CreateChat extends React.Component {
   };
 
   resetFields = () => {
-    this.setState({ private: false, name: "", secretCode: "", error: "" });
+    this.setState({
+      private: false,
+      name: "",
+      secretCode: "",
+      error: "",
+      description: ""
+    });
     this.props.handleDialogClose();
   };
 
@@ -143,7 +149,7 @@ class CreateChat extends React.Component {
           ) : null}
         </DialogContent>
         <DialogActions>
-          <Button onClick={this.resetFields} color="primary">
+          <Button onClick={this.resetFields} color="secondary">
             Cancel
           </Button>
           <Button onClick={this.handleSubmit} color="primary">

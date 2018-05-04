@@ -1,9 +1,4 @@
-$black: #21252b;
-$blackBody: #282c34;
-$greyFont: #ccccc1;
-$blackPop: #2f333d;
-$secondary-color: #484d79;
-$primary-color-light: #5d5d8a;
+@import "../../styles/globals.scss";
 
 .message-input {
   background: white;

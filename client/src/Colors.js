@@ -14,6 +14,7 @@ export const Green = baseGreen.A700;
 export const Teal = baseTeal.A700;
 export const Purple = basePurple.A700;
 export const Blue = baseBlue.A700;
+export const Blue2 = "#0078D7";
 export const White = baseGrey["50"];
 // export const Black = basePurple["900"];
 export const Black = "#21252b";

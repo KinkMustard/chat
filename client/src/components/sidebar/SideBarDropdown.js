@@ -8,6 +8,7 @@ import anime from "animejs";
 import Popover from "material-ui/Popover";
 import "./SideBarDropdown.scss";
 import * as Colors from "../../Colors";
+const accent = Colors.Blue;
 
 let nice;
 let onBegan = false;
@@ -99,16 +100,18 @@ class SideBarDropdown extends Component {
     const { anchorEl } = this.state;
     return (
       <React.Fragment>
-        <Button
-          className="title-header"
-          color="secondary"
-          onClick={this.ToggleOn}
-        >
-          <Typography variant="headline" className="header-text">
-            Chats
-          </Typography>
-          <DownIcon className="down-icon" />
-        </Button>
+        <div style={{ backgroundColor: Colors.Blue }}>
+          <Button
+            className="title-header"
+            color="inherit"
+            onClick={this.ToggleOn}
+          >
+            <Typography variant="headline" className="header-text">
+              Chats
+            </Typography>
+            <DownIcon className="down-icon" />
+          </Button>
+        </div>
         <Popover
           open={Boolean(anchorEl)}
           anchorEl={anchorEl}
@@ -141,6 +144,7 @@ class SideBarDropdown extends Component {
               variant="raised"
               color="secondary"
               className="create-chat-button"
+              onClick={this.props.handleAddUserDialogOpen}
             >
               Add Another User To Chat
             </Button>

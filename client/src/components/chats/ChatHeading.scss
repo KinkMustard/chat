@@ -1,12 +1,10 @@
-$black: #21252b;
-$blackBody: #282c34;
-$greyFont: #ccccc1;
-$blackPop: #2f333d;
+@import "../../styles/globals.scss";
 
 .app-bar {
   background-color: $blackBody !important;
   color: $greyFont !important;
   display: flex;
+  height: 100%;
   // width: 100%;
   // justify-content: center;
   .chat-name {
