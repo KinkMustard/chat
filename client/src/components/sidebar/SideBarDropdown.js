@@ -6,6 +6,7 @@ import { withStyles } from "material-ui/styles";
 import Typography from "material-ui/Typography";
 import anime from "animejs";
 import Popover from "material-ui/Popover";
+import IconButton from "material-ui/IconButton";
 import "./SideBarDropdown.scss";
 import * as Colors from "../../Colors";
 const accent = Colors.Blue;
@@ -32,19 +33,11 @@ class SideBarDropdown extends Component {
     if (onBegan === false && completed === true) {
       onBegan = true;
       nice = anime({
-        targets: ".down-icon",
-        color: [
-          { value: Colors.GreyFont },
-          { value: Colors.Red },
-          { value: Colors.Orange },
-          { value: Colors.Green },
-          { value: Colors.Blue },
-          { value: Colors.GreyFont }
-        ],
+        targets: ".down-icon-base",
         easing: "easeInOutQuad",
         rotate: "+=3.5turn",
-        scale: 1.6,
-        duration: 500,
+        scale: 1.7,
+        duration: 400,
         complete() {
           completed = false;
           onBegan = false;
@@ -57,19 +50,11 @@ class SideBarDropdown extends Component {
     if (offBegan === false && completed === false) {
       offBegan = true;
       nice = anime({
-        targets: ".down-icon",
-        color: [
-          { value: Colors.GreyFont },
-          { value: Colors.Red },
-          { value: Colors.Orange },
-          { value: Colors.Green },
-          { value: Colors.Blue },
-          { value: Colors.GreyFont }
-        ],
+        targets: ".down-icon-base",
         easing: "linear",
         rotate: "-=3.5turn",
-        scale: 1.2,
-        duration: 500,
+        scale: 1.3,
+        duration: 400,
         complete() {
           completed = true;
           offBegan = false;
@@ -101,7 +86,6 @@ class SideBarDropdown extends Component {
     return (
       <React.Fragment>
         <div style={{ backgroundColor: theme.palette.primary.main }}>
-          {console.log("got theme", theme)}
           <Button
             className="title-header"
             color="primary"
@@ -114,7 +98,12 @@ class SideBarDropdown extends Component {
             >
               Chats
             </Typography>
-            <DownIcon className="down-icon" />
+            <IconButton
+              style={{ color: theme.fontColor }}
+              className="down-icon"
+            >
+              <DownIcon className="down-icon-base" />
+            </IconButton>
           </Button>
         </div>
         <Popover
@@ -142,7 +131,7 @@ class SideBarDropdown extends Component {
               </Typography> */}
             <Button
               variant="raised"
-              color="secondary"
+              color="primary"
               className="create-chat-button"
               onClick={this.props.handleDialogOpen}
             >
@@ -150,7 +139,7 @@ class SideBarDropdown extends Component {
             </Button>
             <Button
               variant="raised"
-              color="secondary"
+              color="primary"
               className="create-chat-button"
               onClick={this.props.handleAddUserDialogOpen}
             >

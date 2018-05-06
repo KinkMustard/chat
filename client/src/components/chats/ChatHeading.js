@@ -50,7 +50,6 @@ const styles = theme => ({
 
 class ChatHeading extends React.Component {
   render() {
-    console.log(drawerWidth);
     const {
       classes,
       name,
@@ -73,7 +72,7 @@ class ChatHeading extends React.Component {
                   onClick={handleDrawerToggle}
                   className={classes.navIconHide}
                   ref={this.menuElement}
-                  style={{ color: theme.fontColor }}
+                  style={{ color: theme.palette.primary.main }}
                 >
                   <MenuIcon />
                 </IconButton>
@@ -96,7 +95,7 @@ class ChatHeading extends React.Component {
                   onClick={handleUserDrawerToggle}
                   className={classes.navIconHide}
                   ref={this.menuElement}
-                  style={{ color: theme.fontColor }}
+                  style={{ color: theme.palette.primary.main }}
                 >
                   <GroupIcon />
                 </IconButton>

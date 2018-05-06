@@ -15,7 +15,10 @@ import {
   FormControlLabel,
   FormHelperText
 } from "material-ui/Form";
-import * as Themes from "../../Themes";
+import "simplebar";
+import SimpleBar from "simplebar";
+import "../scrollbar.scss";
+import Themes from "../../Themes";
 import "./ChangeTheme.scss";
 
 function TabContainer({ children, dir }) {
@@ -61,6 +64,7 @@ class ChangeTheme extends Component {
       tabValue: 0
     };
   }
+
   handlePopoverOpen = event => {
     this.setState({ anchorEl: event.target });
   };
@@ -90,10 +94,60 @@ class ChangeTheme extends Component {
 
   handleChangeTab = (event, value) => {
     this.setState({ tabValue: value });
+    console.log(value);
+    console.log(event.target);
   };
 
   handleChangeTabIndex = index => {
     this.setState({ tabValue: index });
+  };
+
+  renderThemes = affinity => {
+    const { theme } = this.props;
+    let newObject = Object.keys(Themes);
+    return newObject.map(color => {
+      const temp = color;
+      const gemp = temp.replace(/([A-Z])/g, " $1").replace(/^./, function(str) {
+        return str.toUpperCase();
+      });
+      const hemp = (
+        <Typography style={{ color: theme.fontColor }}>{gemp}</Typography>
+      );
+      if (affinity === "dark") {
+        return (
+          <FormControlLabel
+            value={"d" + color}
+            control={<Radio color="primary" />}
+            label={hemp}
+            key={color}
+            className="form-label"
+          />
+        );
+      } else if (affinity === "light") {
+        return (
+          <FormControlLabel
+            value={"l" + color}
+            control={<Radio color="primary" />}
+            label={hemp}
+            key={color}
+            className="form-label"
+          />
+        );
+      } else {
+        throw new Error("no affinity provided!");
+      }
+    });
+  };
+  checkTab = value => {
+    const { theme } = this.props;
+    if (value !== this.state.tabValue) {
+      return {
+        backgroundColor: theme.baseColor,
+        color: theme.fontColor
+      };
+    } else {
+      return;
+    }
   };
 
   render() {
@@ -106,6 +160,7 @@ class ChangeTheme extends Component {
           onMouseOut={this.handlePopoverClose}
           className={classes.button}
           onClick={this.handleClick}
+          style={{ color: theme.palette.primary.main, order: 3 }}
         >
           <PaletteIcon />
         </IconButton>
@@ -127,7 +182,9 @@ class ChangeTheme extends Component {
           onClose={this.handlePopoverClose}
           disableRestoreFocus
         >
-          <Typography>Change Theme</Typography>
+          <div className="hover-popover">
+            <Typography>Change Theme</Typography>
+          </div>
         </Popover>
         <Popover
           open={Boolean(clickAnchorEl)}
@@ -142,7 +199,10 @@ class ChangeTheme extends Component {
             horizontal: "center"
           }}
         >
-          <div className="change-theme-popover">
+          <div
+            className="change-theme-popover"
+            style={{ backgroundColor: theme.baseColor, color: theme.fontColor }}
+          >
             <AppBar position="static" color="default">
               <Tabs
                 value={this.state.tabValue}
@@ -150,15 +210,34 @@ class ChangeTheme extends Component {
                 indicatorColor="primary"
                 textColor="primary"
                 fullWidth
+                style={{
+                  backgroundColor: theme.baseColor,
+                  color: theme.fontColor
+                }}
               >
-                <Tab label="Dark" className="dark-light-tabs" />
-                <Tab label="Light" className="dark-light-tabs" />
+                <Tab
+                  label="Dark"
+                  className="dark-light-tabs"
+                  textColor="primary"
+                  style={this.checkTab(0)}
+                />
+                <Tab
+                  label="Light"
+                  className="dark-light-tabs"
+                  textColor="primary"
+                  style={this.checkTab(1)}
+                />
               </Tabs>
             </AppBar>
             <SwipeableViews
               axis={theme.direction === "rtl" ? "x-reverse" : "x"}
               index={this.state.tabValue}
               onChangeIndex={this.handleChangeTabIndex}
+              data-simplebar="init"
+              style={{
+                backgroundColor: theme.bodyColor,
+                color: theme.fontColor
+              }}
             >
               <TabContainer dir={theme.direction}>
                 <FormControl
@@ -171,36 +250,7 @@ class ChangeTheme extends Component {
                     value={this.state.value}
                     onChange={this.handleChange}
                   >
-                    <FormControlLabel
-                      value="dBlue"
-                      control={<Radio color="primary" />}
-                      label="Blue"
-                      className="form-label"
-                    />
-                    <FormControlLabel
-                      value="dGreen"
-                      control={<Radio color="primary" />}
-                      label="Green"
-                      className="form-label"
-                    />
-                    <FormControlLabel
-                      value="dPurple"
-                      control={<Radio color="primary" />}
-                      label="Purple"
-                      className="form-label"
-                    />
-                    <FormControlLabel
-                      value="dOrange"
-                      control={<Radio color="primary" />}
-                      label="Orange"
-                      className="form-label"
-                    />
-                    <FormControlLabel
-                      value="dTeal"
-                      control={<Radio color="primary" />}
-                      label="Teal"
-                      className="form-label"
-                    />
+                    {this.renderThemes("dark")}
                   </RadioGroup>
                 </FormControl>
               </TabContainer>
@@ -215,36 +265,7 @@ class ChangeTheme extends Component {
                     value={this.state.value}
                     onChange={this.handleChange}
                   >
-                    <FormControlLabel
-                      value="lBlue"
-                      control={<Radio color="primary" />}
-                      label="Blue"
-                      className="form-label"
-                    />
-                    <FormControlLabel
-                      value="lGreen"
-                      control={<Radio color="primary" />}
-                      label="Green"
-                      className="form-label"
-                    />
-                    <FormControlLabel
-                      value="lPurple"
-                      control={<Radio color="primary" />}
-                      label="Purple"
-                      className="form-label"
-                    />
-                    <FormControlLabel
-                      value="lOrange"
-                      control={<Radio color="primary" />}
-                      label="Orange"
-                      className="form-label"
-                    />
-                    <FormControlLabel
-                      value="lTeal"
-                      control={<Radio color="primary" />}
-                      label="Teal"
-                      className="form-label"
-                    />
+                    {this.renderThemes("light")}
                   </RadioGroup>
                 </FormControl>
               </TabContainer>

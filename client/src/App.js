@@ -3,7 +3,7 @@ import Layout from "./components/Layout";
 import { MuiThemeProvider, createMuiTheme } from "material-ui/styles";
 import "./styles/css/index.min.css";
 // import * as Colors from "../src/Colors";
-import * as Themes from "../src/Themes";
+import Themes from "../src/Themes";
 
 let ButtonTheme = null;
 class App extends React.Component {
@@ -33,7 +33,7 @@ class App extends React.Component {
   };
 
   componentWillMount() {
-    this.changeTheme(Themes.Blue.dark);
+    this.changeTheme(Themes.blue.dark);
   }
 
   render() {

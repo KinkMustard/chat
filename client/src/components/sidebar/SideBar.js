@@ -191,6 +191,18 @@ class SideBar extends Component {
     return sum;
   };
 
+  checkTab = value => {
+    const { theme } = this.props;
+    if (value !== this.props.value) {
+      return {
+        backgroundColor: theme.baseColor,
+        color: theme.fontColor
+      };
+    } else {
+      return;
+    }
+  };
+
   renderPublicChats = () => {
     const { classes, theme } = this.props;
     const { chats, activeChat, user, unreadChats } = this.props;
@@ -341,13 +353,7 @@ class SideBar extends Component {
             badgeContent={gemp}
             color="secondary"
           >
-            <Tab
-              label="Chats"
-              className="animeTab"
-              style={{
-                color: theme.fontColor
-              }}
-            />
+            <Tab label="Chats" className="animeTab" style={this.checkTab(0)} />
           </Badge>
           <Badge
             className={classes.margin}
@@ -357,7 +363,7 @@ class SideBar extends Component {
             <Tab
               label="Messages"
               className="animeTab"
-              style={{ color: theme.fontColor }}
+              style={this.checkTab(1)}
             />
           </Badge>
         </Tabs>
@@ -378,17 +384,9 @@ class SideBar extends Component {
             badgeContent={gemp}
             color="secondary"
           >
-            <Tab
-              label="Chats"
-              className="animeTab"
-              style={{ color: theme.fontColor }}
-            />
+            <Tab label="Chats" className="animeTab" style={this.checkTab(0)} />
           </Badge>
-          <Tab
-            label="Messages"
-            className="animeTab"
-            style={{ color: theme.fontColor }}
-          />
+          <Tab label="Messages" className="animeTab" style={this.checkTab(1)} />
         </Tabs>
       );
     } else if (hemp) {
@@ -402,11 +400,7 @@ class SideBar extends Component {
           className="animeAppBar"
           style={{ backgroundColor: theme.baseColor }}
         >
-          <Tab
-            label="Chats"
-            className="animeTab"
-            style={{ color: theme.fontColor }}
-          />
+          <Tab label="Chats" className="animeTab" style={this.checkTab(0)} />
           <Badge
             className={classes.margin}
             badgeContent={hemp}
@@ -415,7 +409,7 @@ class SideBar extends Component {
             <Tab
               label="Messages"
               className="animeTab"
-              style={{ color: theme.fontColor }}
+              style={this.checkTab(1)}
             />
           </Badge>
         </Tabs>
@@ -431,16 +425,8 @@ class SideBar extends Component {
           className="animeAppBar"
           style={{ backgroundColor: theme.baseColor }}
         >
-          <Tab
-            label="Chats"
-            className="animeTab"
-            style={{ color: theme.fontColor }}
-          />
-          <Tab
-            label="Messages"
-            className="animeTab"
-            style={{ color: theme.fontColor }}
-          />
+          <Tab label="Chats" className="animeTab" style={this.checkTab(0)} />
+          <Tab label="Messages" className="animeTab" style={this.checkTab(1)} />
         </Tabs>
       );
     }

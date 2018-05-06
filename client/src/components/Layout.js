@@ -76,7 +76,6 @@ class Layout extends React.Component {
     const { theme } = this.props;
     return (
       <div className="container">
-        {console.log(theme.baseColor)}
         {!user ? (
           <LoginForm socket={socket} setUser={this.setUser} />
         ) : (

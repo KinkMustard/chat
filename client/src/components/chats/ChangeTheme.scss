@@ -1,16 +1,22 @@
 @import "../../styles/globals.scss";
+@import "../../normalize.css";
+
+.hover-popover {
+}
 
 .change-theme-popover {
-  height: 300px;
-  width: 200px;
+  height: 64vh;
+  width: 250px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-content: center;
+  overflow: hidden;
   .dark-light-tabs {
     min-width: 50%;
   }
   .form-label {
+    // margin: 0;
     margin-top: -14px;
     margin-bottom: 0;
   }
