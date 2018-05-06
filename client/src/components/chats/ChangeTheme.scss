@@ -1,10 +1,17 @@
 @import "../../styles/globals.scss";
 
 .change-theme-popover {
-  height: 200px;
+  height: 300px;
   width: 200px;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: flex-start;
   align-content: center;
+  .dark-light-tabs {
+    min-width: 50%;
+  }
+  .form-label {
+    margin-top: -14px;
+    margin-bottom: 0;
+  }
 }

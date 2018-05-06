@@ -4,6 +4,9 @@ import { withStyles } from "material-ui/styles";
 import PropTypes from "prop-types";
 import PaletteIcon from "@material-ui/icons/Palette";
 import Popover from "material-ui/Popover";
+import SwipeableViews from "react-swipeable-views";
+import AppBar from "material-ui/AppBar";
+import Tabs, { Tab } from "material-ui/Tabs";
 import Typography from "material-ui/Typography";
 import Radio, { RadioGroup } from "material-ui/Radio";
 import {
@@ -14,6 +17,20 @@ import {
 } from "material-ui/Form";
 import * as Themes from "../../Themes";
 import "./ChangeTheme.scss";
+
+function TabContainer({ children, dir }) {
+  return (
+    <Typography component="div" dir={dir} style={{ padding: 8 * 3 }}>
+      {children}
+    </Typography>
+  );
+}
+
+TabContainer.propTypes = {
+  children: PropTypes.node.isRequired,
+  dir: PropTypes.string.isRequired
+};
+
 const styles = theme => ({
   button: {
     margin: theme.spacing.unit
@@ -25,10 +42,12 @@ const styles = theme => ({
     pointerEvents: "none"
   },
   formControl: {
-    margin: theme.spacing.unit * 3
+    margin: theme.spacing.unit * 3,
+    marginTop: -15
   },
   group: {
-    margin: `${theme.spacing.unit}px 0`
+    // margin: `${theme.spacing.unit}px 0`,
+    margin: 0
   }
 });
 class ChangeTheme extends Component {
@@ -38,7 +57,8 @@ class ChangeTheme extends Component {
       anchorEl: null,
       popperOpen: false,
       clickAnchorEl: null,
-      value: ""
+      value: "dBlue",
+      tabValue: 0
     };
   }
   handlePopoverOpen = event => {
@@ -61,10 +81,23 @@ class ChangeTheme extends Component {
   };
   handleChange = event => {
     this.setState({ value: event.target.value });
-    this.props.changeTheme(Themes[event.target.label][event.target.name]);
+
+    let temp = event.target.value;
+    this.props.changeTheme(
+      Themes[temp.substring(1, temp.length)][event.target.name]
+    );
   };
+
+  handleChangeTab = (event, value) => {
+    this.setState({ tabValue: value });
+  };
+
+  handleChangeTabIndex = index => {
+    this.setState({ tabValue: index });
+  };
+
   render() {
-    const { classes } = this.props;
+    const { classes, theme } = this.props;
     const { anchorEl, clickAnchorEl } = this.state;
     return (
       <React.Fragment>
@@ -110,28 +143,112 @@ class ChangeTheme extends Component {
           }}
         >
           <div className="change-theme-popover">
-            <FormControl component="fieldset" className={classes.formControl}>
-              <FormLabel component="legend">Theme</FormLabel>
-              <RadioGroup
-                name="theme"
-                className={classes.group}
-                value={this.state.value}
-                onChange={this.handleChange}
+            <AppBar position="static" color="default">
+              <Tabs
+                value={this.state.tabValue}
+                onChange={this.handleChangeTab}
+                indicatorColor="primary"
+                textColor="primary"
+                fullWidth
               >
-                <FormControlLabel
-                  value="BlueDark"
-                  control={<Radio />}
-                  label="Blue"
-                  name="dark"
-                />
-                <FormControlLabel
-                  value="BlueLight"
-                  control={<Radio />}
-                  label="Blue"
-                  name="light"
-                />
-              </RadioGroup>
-            </FormControl>
+                <Tab label="Dark" className="dark-light-tabs" />
+                <Tab label="Light" className="dark-light-tabs" />
+              </Tabs>
+            </AppBar>
+            <SwipeableViews
+              axis={theme.direction === "rtl" ? "x-reverse" : "x"}
+              index={this.state.tabValue}
+              onChangeIndex={this.handleChangeTabIndex}
+            >
+              <TabContainer dir={theme.direction}>
+                <FormControl
+                  component="fieldset"
+                  className={classes.formControl}
+                >
+                  <RadioGroup
+                    name="dark"
+                    className={classes.group}
+                    value={this.state.value}
+                    onChange={this.handleChange}
+                  >
+                    <FormControlLabel
+                      value="dBlue"
+                      control={<Radio color="primary" />}
+                      label="Blue"
+                      className="form-label"
+                    />
+                    <FormControlLabel
+                      value="dGreen"
+                      control={<Radio color="primary" />}
+                      label="Green"
+                      className="form-label"
+                    />
+                    <FormControlLabel
+                      value="dPurple"
+                      control={<Radio color="primary" />}
+                      label="Purple"
+                      className="form-label"
+                    />
+                    <FormControlLabel
+                      value="dOrange"
+                      control={<Radio color="primary" />}
+                      label="Orange"
+                      className="form-label"
+                    />
+                    <FormControlLabel
+                      value="dTeal"
+                      control={<Radio color="primary" />}
+                      label="Teal"
+                      className="form-label"
+                    />
+                  </RadioGroup>
+                </FormControl>
+              </TabContainer>
+              <TabContainer dir={theme.direction}>
+                <FormControl
+                  component="fieldset"
+                  className={classes.formControl}
+                >
+                  <RadioGroup
+                    name="light"
+                    className={classes.group}
+                    value={this.state.value}
+                    onChange={this.handleChange}
+                  >
+                    <FormControlLabel
+                      value="lBlue"
+                      control={<Radio color="primary" />}
+                      label="Blue"
+                      className="form-label"
+                    />
+                    <FormControlLabel
+                      value="lGreen"
+                      control={<Radio color="primary" />}
+                      label="Green"
+                      className="form-label"
+                    />
+                    <FormControlLabel
+                      value="lPurple"
+                      control={<Radio color="primary" />}
+                      label="Purple"
+                      className="form-label"
+                    />
+                    <FormControlLabel
+                      value="lOrange"
+                      control={<Radio color="primary" />}
+                      label="Orange"
+                      className="form-label"
+                    />
+                    <FormControlLabel
+                      value="lTeal"
+                      control={<Radio color="primary" />}
+                      label="Teal"
+                      className="form-label"
+                    />
+                  </RadioGroup>
+                </FormControl>
+              </TabContainer>
+            </SwipeableViews>
           </div>
         </Popover>
       </React.Fragment>
@@ -139,7 +256,8 @@ class ChangeTheme extends Component {
   }
 }
 ChangeTheme.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  theme: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(ChangeTheme);
+export default withStyles(styles, { withTheme: true })(ChangeTheme);

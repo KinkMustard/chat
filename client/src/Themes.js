@@ -1,7 +1,46 @@
 /* eslint import/no-webpack-loader-syntax: 0 */
 
 // import * as Colors from "./Colors";
-import Colors from "!!sass-variable-loader!./styles/globals.scss";
+import * as Colors from "!!sass-variable-loader!./styles/globals.scss";
+import * as ThemeColors from "!!sass-variable-loader!./styles/themeColors.scss";
+
+export const DeepOrange = {
+  dark: {
+    baseColor: Colors.black,
+    bodyColor: Colors.blackBody,
+    popColor: Colors.blackPop,
+    fontColor: Colors.greyFont,
+    primary: Colors.orange,
+    secondary: Colors.red
+  },
+  light: {
+    baseColor: Colors.white,
+    bodyColor: Colors.whiteBody,
+    popColor: Colors.whitePop,
+    fontColor: Colors.whiteFont,
+    primary: Colors.orange,
+    secondary: Colors.red
+  }
+};
+
+export const Orange = {
+  dark: {
+    baseColor: Colors.black,
+    bodyColor: Colors.blackBody,
+    popColor: Colors.blackPop,
+    fontColor: Colors.greyFont,
+    primary: Colors.orange,
+    secondary: Colors.red
+  },
+  light: {
+    baseColor: Colors.white,
+    bodyColor: Colors.whiteBody,
+    popColor: Colors.whitePop,
+    fontColor: Colors.whiteFont,
+    primary: Colors.orange,
+    secondary: Colors.red
+  }
+};
 
 export const Blue = {
   dark: {
@@ -22,19 +61,59 @@ export const Blue = {
   }
 };
 
-// export const Test = {
-//   baseColor: Colors.Green,
-//   bodyColor: Colors.Green,
-//   popColor: Colors.Green,
-//   primary: Colors.Green,
-//   secondary: Colors.Green
-// };
+export const Green = {
+  dark: {
+    baseColor: Colors.black,
+    bodyColor: Colors.blackBody,
+    popColor: Colors.blackPop,
+    fontColor: Colors.greyFont,
+    primary: Colors.green,
+    secondary: Colors.red
+  },
+  light: {
+    baseColor: Colors.white,
+    bodyColor: Colors.whiteBody,
+    popColor: Colors.whitePop,
+    fontColor: Colors.whiteFont,
+    primary: Colors.green,
+    secondary: Colors.red
+  }
+};
 
-export const Test = {
-  baseColor: Colors.green,
-  bodyColor: Colors.green,
-  popColor: Colors.green,
-  fontColor: Colors.greyFont,
-  primary: Colors.green,
-  secondary: Colors.green
+export const Purple = {
+  dark: {
+    baseColor: Colors.black,
+    bodyColor: Colors.blackBody,
+    popColor: Colors.blackPop,
+    fontColor: Colors.greyFont,
+    primary: Colors.purple,
+    secondary: Colors.red
+  },
+  light: {
+    baseColor: Colors.white,
+    bodyColor: Colors.whiteBody,
+    popColor: Colors.whitePop,
+    fontColor: Colors.whiteFont,
+    primary: Colors.purple,
+    secondary: Colors.red
+  }
+};
+
+export const Teal = {
+  dark: {
+    baseColor: Colors.black,
+    bodyColor: Colors.blackBody,
+    popColor: Colors.blackPop,
+    fontColor: Colors.greyFont,
+    primary: Colors.teal,
+    secondary: Colors.red
+  },
+  light: {
+    baseColor: Colors.white,
+    bodyColor: Colors.whiteBody,
+    popColor: Colors.whitePop,
+    fontColor: Colors.whiteFont,
+    primary: Colors.teal,
+    secondary: Colors.red
+  }
 };
