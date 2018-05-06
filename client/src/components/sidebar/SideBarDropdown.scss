@@ -3,7 +3,7 @@
 .title-header {
   text-align: left;
   // background-color: $blackBody !important;
-  color: $greyFont !important;
+  // color: $greyFont !important;
   // margin: 16px !important;
   // margin-bottom: 10px !important;
   display: flex !important;
@@ -14,7 +14,7 @@
 
   .header-text {
     order: 1;
-    color: $greyFont;
+    // color: $greyFont;
     text-transform: none;
   }
   .down-icon {
@@ -25,8 +25,8 @@
   }
 }
 .popover-base {
-  background-color: $blackBody !important;
-  color: $greyFont !important;
+  // background-color: $blackBody !important;
+  // color: $greyFont !important;
   display: flex;
   flex-flow: column;
   // align-content: space-around;
@@ -36,13 +36,13 @@
   width: 200px;
 
   .popover-text {
-    background-color: $blackBody !important;
-    color: $greyFont !important;
+    // background-color: $blackBody !important;
+    // color: $greyFont !important;
   }
   .create-chat-button {
     // background-color: $blackPop !important; // color: $greyFont !important;
     // background-color: #ffffff;
-    color: $blackPop;
+    // color: $blackPop;
     // margin-left: 40px;
     margin: 0 10px;
     // margin-bottom: 12px;

@@ -61,7 +61,7 @@ class ChangeTheme extends Component {
   };
   handleChange = event => {
     this.setState({ value: event.target.value });
-    this.props.changeTheme(Themes[event.target.value]);
+    this.props.changeTheme(Themes[event.target.label][event.target.name]);
   };
   render() {
     const { classes } = this.props;
@@ -119,14 +119,16 @@ class ChangeTheme extends Component {
                 onChange={this.handleChange}
               >
                 <FormControlLabel
-                  value="Default"
+                  value="BlueDark"
                   control={<Radio />}
-                  label="Default"
+                  label="Blue"
+                  name="dark"
                 />
                 <FormControlLabel
-                  value="Test"
+                  value="BlueLight"
                   control={<Radio />}
-                  label="Test"
+                  label="Blue"
+                  name="light"
                 />
               </RadioGroup>
             </FormControl>

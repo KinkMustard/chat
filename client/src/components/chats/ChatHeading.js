@@ -56,29 +56,33 @@ class ChatHeading extends React.Component {
       name,
       numberOfUsers,
       handleDrawerToggle,
-      handleUserDrawerToggle
+      handleUserDrawerToggle,
+      theme
     } = this.props;
     return (
       <React.Fragment>
         <div>
           <AppBar className={classes.appBar}>
-            <Toolbar className="app-bar">
+            <Toolbar
+              className="app-bar"
+              style={{ backgroundColor: theme.baseColor }}
+            >
               <div className="menu-icon">
                 <IconButton
-                  color="inherit"
                   aria-label="open drawer"
                   onClick={handleDrawerToggle}
                   className={classes.navIconHide}
                   ref={this.menuElement}
+                  style={{ color: theme.fontColor }}
                 >
                   <MenuIcon />
                 </IconButton>
               </div>
               <Typography
                 variant="title"
-                color="inherit"
                 noWrap
                 className="chat-name"
+                style={{ color: theme.fontColor }}
               >
                 {name}
               </Typography>
@@ -88,11 +92,11 @@ class ChatHeading extends React.Component {
               <ChangeTheme changeTheme={this.props.changeTheme} />
               <div className="group-icon">
                 <IconButton
-                  color="inherit"
                   aria-label="open drawer"
                   onClick={handleUserDrawerToggle}
                   className={classes.navIconHide}
                   ref={this.menuElement}
+                  style={{ color: theme.fontColor }}
                 >
                   <GroupIcon />
                 </IconButton>

@@ -1,8 +1,8 @@
 @import "../../styles/globals.scss";
 
 .message-input {
-  background: white;
-  color: $secondary-color;
+  // background: white;
+  // color: $secondary-color;
   box-sizing: border-box;
   border-radius: 25px !important;
 
@@ -24,7 +24,7 @@
       height: 100%;
       border: none;
       font-size: 16px;
-      background: #cfd2d9;
+      // background: #cfd2d9;
     }
 
     .send {
@@ -34,13 +34,13 @@
       text-align: center;
       border: none;
       height: 100%;
-      color: $greyFont;
-      background: $blackPop;
+      // color: $greyFont;
+      // background: $blackPop;
       transition: all 0.35s ease-out;
 
       &:disabled {
         opacity: 0.2;
-        background: $primary-color-light;
+        // background: $primary-color-light;
       }
     }
   }

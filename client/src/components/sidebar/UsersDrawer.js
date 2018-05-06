@@ -8,7 +8,7 @@ import Hidden from "material-ui/Hidden";
 // import { mailFolderListItems, otherMailFolderListItems } from "./tileData";
 import SideBarOption from "./SideBarOption";
 import { differenceBy } from "lodash";
-import * as Colors from "../../Colors"
+import * as Colors from "../../Colors";
 import IslandImage from "../../images/island.svg";
 import "./UsersDrawer.scss";
 
@@ -157,7 +157,7 @@ class UsersDrawer extends Component {
   };
 
   renderUsers = () => {
-    const { user, users } = this.props;
+    const { user, users, theme } = this.props;
     if (users.length > 1) {
       return differenceBy(users, [user], "name").map(user => {
         return (
@@ -179,23 +179,41 @@ class UsersDrawer extends Component {
     } else {
       return (
         <div>
-          <Typography variant="headline" className="no-users-message">
+          <Typography
+            variant="headline"
+            className="no-users-message"
+            style={{ color: theme.fontColor }}
+          >
             Looks like there's nobody else here yet
           </Typography>
-          <img src={IslandImage} alt="no users" />
+          <img
+            src={IslandImage}
+            alt="no users"
+            style={{ color: theme.fontColor }}
+          />
         </div>
       );
     }
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, theme } = this.props;
     const drawer = (
-      <div className="users-side-bar">
-        <Card className="user-list-header">
+      <div
+        className="users-side-bar"
+        style={{ backgroundColor: theme.baseColor, color: theme.fontColor }}
+      >
+        <Card
+          className="user-list-header"
+          style={{ backgroundColor: theme.bodyColor, color: theme.fontColor }}
+        >
           <div className={classes.details}>
             <CardContent>
-              <Typography variant="headline" className="grey">
+              <Typography
+                variant="headline"
+                className="grey"
+                style={{ color: theme.fontColor }}
+              >
                 Users
               </Typography>
             </CardContent>

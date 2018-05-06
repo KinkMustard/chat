@@ -69,7 +69,8 @@ class SideBarOption extends PureComponent {
       color,
       expanded,
       handleChangePanel,
-      description
+      description,
+      theme
     } = this.props;
     if (this.props.version === "users") {
       return (
@@ -77,6 +78,7 @@ class SideBarOption extends PureComponent {
           expanded={expanded === name}
           onChange={handleChangePanel(name)}
           className={classes.expansionPanel}
+          style={{ backgroundColor: theme.bodyColor }}
         >
           <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
             <Avatar
@@ -86,7 +88,12 @@ class SideBarOption extends PureComponent {
               {name[0].toUpperCase()}
             </Avatar>
             <Typography className={classes.heading}>
-              <div className="side-bar-option-header">{name}</div>
+              <div
+                className="side-bar-option-header"
+                style={{ color: theme.fontColor }}
+              >
+                {name}
+              </div>
             </Typography>
           </ExpansionPanelSummary>
           <Divider />
@@ -103,6 +110,7 @@ class SideBarOption extends PureComponent {
           expanded={expanded === name}
           onChange={handleChangePanel(name)}
           className={classes.expansionPanel}
+          style={{ backgroundColor: theme.bodyColor }}
         >
           <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
             <Avatar
@@ -112,7 +120,12 @@ class SideBarOption extends PureComponent {
               {name[0].toUpperCase()}
             </Avatar>
             <Typography className={classes.heading}>
-              <div className="side-bar-option-header">{name}</div>
+              <div
+                className="side-bar-option-header"
+                style={{ color: theme.fontColor }}
+              >
+                {name}
+              </div>
             </Typography>
           </ExpansionPanelSummary>
           {name !== "General" ? (
@@ -143,4 +156,4 @@ SideBarOption.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(SideBarOption);
+export default withStyles(styles, { withTheme: true })(SideBarOption);

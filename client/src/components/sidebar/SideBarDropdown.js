@@ -101,13 +101,17 @@ class SideBarDropdown extends Component {
     return (
       <React.Fragment>
         <div style={{ backgroundColor: theme.palette.primary.main }}>
-          {console.log(theme)}
+          {console.log("got theme", theme)}
           <Button
             className="title-header"
-            color="inherit"
+            color="primary"
             onClick={this.ToggleOn}
           >
-            <Typography variant="headline" className="header-text">
+            <Typography
+              variant="headline"
+              className="header-text"
+              style={{ color: theme.fontColor }}
+            >
               Chats
             </Typography>
             <DownIcon className="down-icon" />
@@ -129,7 +133,10 @@ class SideBarDropdown extends Component {
             horizontal: "center"
           }}
         >
-          <div className="popover-base">
+          <div
+            className="popover-base"
+            style={{ backgroundColor: theme.bodyColor, color: theme.fontColor }}
+          >
             {/* <Typography className="popover-text">
                 The content of the Popover.
               </Typography> */}

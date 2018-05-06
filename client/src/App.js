@@ -7,7 +7,18 @@ import * as Themes from "../src/Themes";
 
 let ButtonTheme = null;
 class App extends React.Component {
-  changeTheme = ({ baseColor, bodyColor, popColor, primary, secondary }) => {
+  constructor(props) {
+    super(props);
+  }
+
+  changeTheme = ({
+    baseColor,
+    bodyColor,
+    popColor,
+    primary,
+    secondary,
+    fontColor
+  }) => {
     ButtonTheme = createMuiTheme({
       palette: {
         primary: { main: primary },
@@ -15,13 +26,14 @@ class App extends React.Component {
       },
       baseColor: baseColor,
       bodyColor: bodyColor,
-      popColor: popColor
+      popColor: popColor,
+      fontColor: fontColor
     });
-    console.log("theme changed");
+    this.forceUpdate();
   };
 
   componentWillMount() {
-    this.changeTheme(Themes.Default);
+    this.changeTheme(Themes.Blue.dark);
   }
 
   render() {

@@ -2,8 +2,8 @@
 
 .chats-side-bar {
   height: 100%;
-  background-color: $black;
-  color: $greyFont;
+  // background-color: $black;
+  // color: $greyFont;
   display: grid;
   // grid-template-rows: 2fr 1fr 0.5fr 3fr 1.5fr;
   grid-template-rows:
@@ -46,8 +46,8 @@
   .animeTab {
     min-width: 50%;
     font-size: 10px !important;
-    background-color: $blackBody !important;
-    color: $greyFont !important;
+    // background-color: $blackBody !important;
+    // color: $greyFont !important;
   }
   .side-bar-grid-container {
     grid-column-start: 1;
@@ -60,29 +60,29 @@
     align-content: center;
   }
   .side-bar-option {
-    background-color: $blackPop !important;
-    color: $greyFont !important;
+    // background-color: $blackPop !important;
+    // color: $greyFont !important;
     width: 100%;
     display: flex !important;
     align-content: space-between !important;
   }
   .side-bar-option-button {
     text-transform: none;
-    background-color: $blackPop !important;
-    color: $greyFont !important;
+    // background-color: $blackPop !important;
+    // color: $greyFont !important;
     width: 100%;
   }
   .search {
-    color: $greyFont !important;
+    // color: $greyFont !important;
     grid-column-start: 1;
     grid-column-end: span 1;
     grid-row-start: 2;
     grid-row-end: span 1;
     .search-icon {
-      color: $greyFont !important;
+      // color: $greyFont !important;
     }
     input {
-      color: $greyFont !important;
+      // color: $greyFont !important;
     }
   }
   .users {
@@ -103,15 +103,15 @@
     position: absolute;
     bottom: 0;
     width: 100%;
-    background-color: $blackBody !important;
-    color: $greyFont !important;
+    // background-color: $blackBody !important;
+    // color: $greyFont !important;
     grid-column-start: 1;
     grid-column-end: span 1;
     grid-row-start: 3;
     grid-row-end: span 1;
     .logout {
-      background-color: $blackPop !important;
-      color: $greyFont !important;
+      // background-color: $blackPop !important;
+      // color: $greyFont !important;
     }
   }
 }

@@ -1,13 +1,16 @@
 import React from "react";
 import Avatar from "material-ui/Avatar";
 import moment from "moment";
+import PropTypes from "prop-types";
+import { withStyles } from "material-ui/styles";
+
 import "simplebar";
 import SimpleBar from "simplebar";
 import "./Messages.scss";
 import "../scrollbar.scss";
 // import "../perfectScrollbar.scss";
 
-export default class Messages extends React.Component {
+class Messages extends React.Component {
   constructor(props) {
     super(props);
     this.container = React.createRef();
@@ -68,12 +71,13 @@ export default class Messages extends React.Component {
     });
   }
   render() {
-    const { typingUsers } = this.props;
+    const { typingUsers, theme } = this.props;
     return (
       <div
         ref={this.container}
         className="thread-container"
         data-simplebar="init"
+        style={{ backgroundColor: theme.bodyColor }}
       >
         <div className="thread">
           {this.displayMessage()}
@@ -87,3 +91,7 @@ export default class Messages extends React.Component {
     );
   }
 }
+Messages.propTypes = {
+  theme: PropTypes.object.isRequired
+};
+export default withStyles(null, { withTheme: true })(Messages);

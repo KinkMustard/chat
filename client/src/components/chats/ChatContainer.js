@@ -1,6 +1,8 @@
 import React from "react";
 import Typography from "material-ui/Typography";
 import { values, difference, differenceBy } from "lodash";
+import PropTypes from "prop-types";
+import { withTheme } from "material-ui/styles";
 
 import SideBar from "../sidebar/SideBar";
 import {
@@ -20,7 +22,7 @@ import Messages from "../messages/Messages";
 import MessageInput from "../messages/MessageInput";
 import UsersDrawer from "../sidebar/UsersDrawer";
 
-export default class ChatContainer extends React.Component {
+class ChatContainer extends React.Component {
   constructor(props) {
     super(props);
 
@@ -243,7 +245,7 @@ export default class ChatContainer extends React.Component {
     this.setState({ value: tabToGoTo });
   };
   render() {
-    const { user, logout } = this.props;
+    const { user, logout, theme } = this.props;
     const { chats, activeChat, users, unreadChats } = this.state;
     return (
       <div className="container">
@@ -265,6 +267,7 @@ export default class ChatContainer extends React.Component {
           handleChange={this.handleChange}
           handleChangeIndex={this.handleChangeIndex}
           changeTabs={this.changeTabs}
+          style={{ backgroundColor: theme.baseColor }}
         />
 
         <div className="chat-room-container">
@@ -290,10 +293,14 @@ export default class ChatContainer extends React.Component {
                   this.sendTyping(activeChat.id, isTyping);
                 }}
                 name={activeChat.name}
+                style={{ backgroundColor: theme.baseColor }}
               />
             </div>
           ) : (
-            <div className="chat-room choose">
+            <div
+              className="chat-room choose"
+              style={{ backgroundColor: theme.baseColor }}
+            >
               <Typography>Loading Chats</Typography>
             </div>
           )}
@@ -311,8 +318,13 @@ export default class ChatContainer extends React.Component {
           createNewChat={this.createNewChat}
           socket={this.props.socket}
           changeTabs={this.changeTabs}
+          style={{ backgroundColor: theme.baseColor }}
         />
       </div>
     );
   }
 }
+ChatContainer.propTypes = {
+  theme: PropTypes.object.isRequired
+};
+export default withTheme()(ChatContainer);
