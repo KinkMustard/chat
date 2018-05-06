@@ -294,6 +294,8 @@ class ChatContainer extends React.Component {
                 }}
                 name={activeChat.name}
                 style={{ backgroundColor: theme.baseColor }}
+                user={user}
+                typingUsers={activeChat.typingUsers}
               />
             </div>
           ) : (

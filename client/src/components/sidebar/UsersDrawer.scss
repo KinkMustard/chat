@@ -14,12 +14,21 @@
     text-align: center;
   }
   .user-list-header {
-    margin-left: 20px !important;
-    margin-right: 20px !important;
-    margin-top: 20px !important;
+    margin-left: 25px !important;
+    margin-right: 25px !important;
+    margin-top: 10px !important;
     // background-color: $blackBody !important;
     // color: $greyFont !important;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     text-align: center;
+    border-radius: 10px;
+
+    .grey {
+      font-size: 20px;
+    }
   }
   .side-bar-option-users {
     margin-left: 20px !important;

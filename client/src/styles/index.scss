@@ -124,7 +124,7 @@ textarea {
 }
 .chat-room {
   display: grid;
-  grid-template: 6.5vh 1fr 8vh / 100%;
+  grid-template: 6vh 1fr minmax(80px, 10vh) 28px/ 100%;
   height: 100%;
   width: 100%;
 
@@ -134,9 +134,9 @@ textarea {
     // font-size: 2em;
   }
 }
-@media screen and (min-height: 1200px) {
+@media screen and (min-height: 1000px) {
   .chat-room {
-    grid-template: 4vh 1fr 8vh / 100%;
+    grid-template: 4vh 1fr minmax(80px, 10vh) 28px/ 100%;
   }
 }
 .chat-heading {

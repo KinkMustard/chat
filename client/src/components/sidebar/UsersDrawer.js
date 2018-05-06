@@ -203,22 +203,21 @@ class UsersDrawer extends Component {
         className="users-side-bar"
         style={{ backgroundColor: theme.baseColor, color: theme.fontColor }}
       >
-        <Card
+        <div
           className="user-list-header"
-          style={{ backgroundColor: theme.bodyColor, color: theme.fontColor }}
+          style={{
+            backgroundColor: theme.palette.primary.main,
+            color: theme.fontColor
+          }}
         >
-          <div className={classes.details}>
-            <CardContent>
-              <Typography
-                variant="headline"
-                className="grey"
-                style={{ color: theme.fontColor }}
-              >
-                Users
-              </Typography>
-            </CardContent>
-          </div>
-        </Card>
+          <Typography
+            variant="headline"
+            className="grey"
+            style={{ color: theme.fontColor }}
+          >
+            Users
+          </Typography>
+        </div>
         <div className="side-bar-option-users">{this.renderUsers()}</div>
       </div>
     );

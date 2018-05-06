@@ -79,14 +79,7 @@ class Messages extends React.Component {
         data-simplebar="init"
         style={{ backgroundColor: theme.bodyColor }}
       >
-        <div className="thread">
-          {this.displayMessage()}
-          {typingUsers.map(name => (
-            <div key={name} className="typing-user">
-              {`${name} is typing . . .`}
-            </div>
-          ))}
-        </div>
+        <div className="thread">{this.displayMessage()}</div>
       </div>
     );
   }

@@ -1,47 +1,76 @@
 @import "../../styles/globals.scss";
 @import "../../normalize.css";
 
-.message-input {
-  // background: white;
-  // color: $secondary-color;
-  box-sizing: border-box;
-  border-radius: 25px !important;
+.input-background {
+  // background: rebeccapurple;
+  text-align: center;
+  .message-hr {
+    margin-top: 0;
+  }
+  .message-input {
+    // background: white;
+    // color: $secondary-color;
+    // box-sizing: border-box;
+    border-radius: 16px !important;
+    // border-radius: 30px;
+    border: 10px #cfd2d9 solid;
+    height: 60%;
+    width: 90%;
+    margin: auto;
+    // margin-left: 10px;
+    // margin-right: 10px;
+    // justify-self: center;
+    margin-top: 8px;
 
-  .message-form {
-    height: 100%;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
+    .message-form {
+      height: 100%;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-content: center;
+      background: #cfd2d9;
 
-    .form-control {
-      // @include customscrollbar();
-      &:focus {
-        outline: none;
+      .form-control {
+        // @include customscrollbar();
+        &:focus {
+          outline: none;
+        }
+        resize: none;
+        padding-left: 15px;
+        box-sizing: border-box;
+        width: 80%;
+        height: 100%;
+        border: none;
+        font-size: 16px;
+        background: #cfd2d9;
       }
-      resize: none;
-      padding-left: 15px;
-      box-sizing: border-box;
-      width: 80%;
-      height: 100%;
-      border: none;
-      font-size: 16px;
-      // background: #cfd2d9;
+      .send {
+        resize: none;
+        // padding-left: 15px;
+        box-sizing: border-box;
+        // width: 80%;
+        height: 100%;
+        border: none;
+        // font-size: 16px;
+        // background: #cfd2d9;
+      }
     }
+  }
 
-    .send {
-      width: 20%;
-      box-sizing: border-box;
-      font-size: 1.25em;
-      text-align: center;
-      border: none;
-      height: 100%;
-      // color: $greyFont;
-      // background: $blackPop;
-      transition: all 0.35s ease-out;
-
-      &:disabled {
-        opacity: 0.2;
-        // background: $primary-color-light;
+  .typing-user-placeholder {
+    height: 28px;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-content: center;
+    margin: auto;
+    margin-left: 10px;
+    .typing-user {
+      margin: auto;
+      margin-left: 10px;
+      .typing-user-text {
+        margin: auto;
+        margin-left: 10px;
       }
     }
   }
