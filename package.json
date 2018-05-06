@@ -35,5 +35,8 @@
     "simplebar": "^2.6.1",
     "socket.io": "^2.1.0",
     "uuid": "^3.2.1"
+  },
+  "devDependencies": {
+    "sass-variable-loader": "^0.1.2"
   }
 }

@@ -1,4 +1,7 @@
 import React from "react";
+import Typography from "material-ui/Typography";
+import { values, difference, differenceBy } from "lodash";
+
 import SideBar from "../sidebar/SideBar";
 import {
   GENERAL_CHAT,
@@ -15,7 +18,6 @@ import {
 import ChatHeading from "./ChatHeading";
 import Messages from "../messages/Messages";
 import MessageInput from "../messages/MessageInput";
-import { values, difference, differenceBy } from "lodash";
 import UsersDrawer from "../sidebar/UsersDrawer";
 
 export default class ChatContainer extends React.Component {
@@ -273,6 +275,7 @@ export default class ChatContainer extends React.Component {
                 handleDrawerToggle={this.handleDrawerToggle}
                 handleUserDrawerToggle={this.handleUserDrawerToggle}
                 className="chat-heading"
+                changeTheme={this.props.changeTheme}
               />
               <Messages
                 messages={activeChat.messages}
@@ -291,7 +294,7 @@ export default class ChatContainer extends React.Component {
             </div>
           ) : (
             <div className="chat-room choose">
-              <h3>Choose a chat!</h3>
+              <Typography>Loading Chats</Typography>
             </div>
           )}
         </div>

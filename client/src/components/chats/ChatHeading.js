@@ -7,6 +7,7 @@ import Typography from "material-ui/Typography";
 import IconButton from "material-ui/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import GroupIcon from "@material-ui/icons/Group";
+import ChangeTheme from "./ChangeTheme";
 
 import "./ChatHeading.scss";
 const drawerWidth = 240;
@@ -84,6 +85,7 @@ class ChatHeading extends React.Component {
               <Typography variant="title" color="inherit" noWrap>
                 {numberOfUsers || null}
               </Typography>
+              <ChangeTheme changeTheme={this.props.changeTheme} />
               <div className="group-icon">
                 <IconButton
                   color="inherit"

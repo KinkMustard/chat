@@ -8,6 +8,7 @@ import Hidden from "material-ui/Hidden";
 // import { mailFolderListItems, otherMailFolderListItems } from "./tileData";
 import SideBarOption from "./SideBarOption";
 import { differenceBy } from "lodash";
+import * as Colors from "../../Colors"
 import IslandImage from "../../images/island.svg";
 import "./UsersDrawer.scss";
 
@@ -83,7 +84,8 @@ const styles = theme => ({
     width: drawerWidth,
     [theme.breakpoints.up("md")]: {
       position: "relative"
-    }
+    },
+    border: Colors.Black
   },
   content: {
     flexGrow: 1,

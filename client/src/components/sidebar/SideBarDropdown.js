@@ -96,11 +96,12 @@ class SideBarDropdown extends Component {
     }
   };
   render() {
-    const { classes } = this.props;
+    const { classes, theme } = this.props;
     const { anchorEl } = this.state;
     return (
       <React.Fragment>
-        <div style={{ backgroundColor: Colors.Blue }}>
+        <div style={{ backgroundColor: theme.palette.primary.main }}>
+          {console.log(theme)}
           <Button
             className="title-header"
             color="inherit"
