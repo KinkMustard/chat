@@ -21,6 +21,9 @@ import ChatHeading from "./ChatHeading";
 import Messages from "../messages/Messages";
 import MessageInput from "../messages/MessageInput";
 import UsersDrawer from "../sidebar/UsersDrawer";
+import gql from "graphql-tag";
+import { graphql } from "react-apollo";
+import fetchChats from "../queries/fetchChats";
 
 class ChatContainer extends React.Component {
   constructor(props) {
@@ -284,6 +287,7 @@ class ChatContainer extends React.Component {
                 messages={activeChat.messages}
                 user={user}
                 typingUsers={activeChat.typingUsers}
+                chatId={activeChat.id}
               />
               <MessageInput
                 sendMessage={message => {
@@ -296,6 +300,7 @@ class ChatContainer extends React.Component {
                 style={{ backgroundColor: theme.baseColor }}
                 user={user}
                 typingUsers={activeChat.typingUsers}
+                chatId={activeChat.id}
               />
             </div>
           ) : (
@@ -329,4 +334,4 @@ class ChatContainer extends React.Component {
 ChatContainer.propTypes = {
   theme: PropTypes.object.isRequired
 };
-export default withTheme()(ChatContainer);
+export default graphql(fetchChats)(withTheme()(ChatContainer));

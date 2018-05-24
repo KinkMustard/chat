@@ -21,7 +21,11 @@ const {
 require("./models/Chat");
 require("./models/Message");
 
-const { createUser, createMessage, createChat } = require("./client/src/Factories");
+const {
+  createUser,
+  createMessage,
+  createChat
+} = require("./client/src/Factories");
 
 const ChatModel = mongoose.model("chats");
 
@@ -48,7 +52,7 @@ const potentialColors = [
 
 const generalChat = createChat({ isGeneral: true });
 
-module.exports = async (socket) => {
+module.exports = async socket => {
   // console.log('\x1bc'); //clears console
   console.log(`Socket Id:${socket.id}`);
 
@@ -74,17 +78,21 @@ module.exports = async (socket) => {
     currentGeneralChat = chat;
   }
   let sendTypingFromUser;
-  // Verify Username
   let currentPublicChats = await ChatModel.find({ isPublic: true });
-
+  console.log("current public chats", currentGeneralChat);
   socket.on(VERIFY_USER, async (nickname, callback) => {
     if (isUser(connectedUsers, nickname)) {
       callback({ isUser: true, user: null });
     } else {
-      const chosenColor = potentialColors[Math.floor(Math.random() * potentialColors.length)];
+      const chosenColor =
+        potentialColors[Math.floor(Math.random() * potentialColors.length)];
       callback({
         isUser: false,
-        user: createUser({ name: nickname, socketId: socket.id, color: chosenColor })
+        user: createUser({
+          name: nickname,
+          socketId: socket.id,
+          color: chosenColor
+        })
       });
       // Gets any new changes that might have happened while the user was filling out name
       currentPublicChats = await ChatModel.find({ isPublic: true });
@@ -102,7 +110,7 @@ module.exports = async (socket) => {
   });
 
   // User Connects with username
-  socket.on(USER_CONNECTED, async (user) => {
+  socket.on(USER_CONNECTED, async user => {
     user.socketId = socket.id;
     connectedUsers = addUser(connectedUsers, user);
     socket.user = user;
@@ -132,11 +140,11 @@ module.exports = async (socket) => {
   });
 
   // Get General Chat
-  socket.on(GENERAL_CHAT, (callback) => {
+  socket.on(GENERAL_CHAT, callback => {
     callback(currentGeneralChat);
   });
 
-  socket.on(GET_CURRENT_CHATS, (callback) => {
+  socket.on(GET_CURRENT_CHATS, callback => {
     callback(currentPublicChats);
   });
 
@@ -196,12 +204,16 @@ module.exports = async (socket) => {
           activeChat.users
             .filter(user => user in connectedUsers)
             .map(user => connectedUsers[user])
-            .map((user) => {
-              socket
-                .to(user.socketId)
-                .emit(NEW_CHAT_USER, { chatId: activeChat.id, newUser: reciever });
+            .map(user => {
+              socket.to(user.socketId).emit(NEW_CHAT_USER, {
+                chatId: activeChat.id,
+                newUser: reciever
+              });
             });
-          socket.emit(NEW_CHAT_USER, { chatId: activeChat.id, newUser: reciever });
+          socket.emit(NEW_CHAT_USER, {
+            chatId: activeChat.id,
+            newUser: reciever
+          });
         }
         socket.to(recieverSocket).emit(PRIVATE_MESSAGE, activeChat);
       }

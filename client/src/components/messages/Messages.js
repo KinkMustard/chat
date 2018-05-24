@@ -3,6 +3,9 @@ import Avatar from "material-ui/Avatar";
 import moment from "moment";
 import PropTypes from "prop-types";
 import { withStyles } from "material-ui/styles";
+import gql from "graphql-tag";
+import { graphql } from "react-apollo";
+// import fetchChats from "../queries/fetchChats";
 
 import "simplebar";
 import SimpleBar from "simplebar";

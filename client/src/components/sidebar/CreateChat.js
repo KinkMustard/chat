@@ -11,6 +11,9 @@ import { InputAdornment } from "material-ui/Input";
 import LabelIcon from "@material-ui/icons/LabelOutline";
 import { FormControlLabel } from "material-ui/Form";
 import Checkbox from "material-ui/Checkbox";
+import gql from "graphql-tag";
+import { graphql } from "react-apollo";
+import query from "../queries/fetchChats";
 
 import { VERIFY_NEW_CHAT } from "../../Events";
 class CreateChat extends React.Component {
@@ -46,6 +49,13 @@ class CreateChat extends React.Component {
     } else {
       this.setError("");
       this.props.createNewChat(this.state.name, this.state.description);
+      this.props.mutate({
+        variables: {
+          name: this.state.name,
+          description: this.state.description
+        },
+        refetchQueries: [{ query }]
+      });
       this.resetFields();
     }
   };
@@ -162,4 +172,13 @@ class CreateChat extends React.Component {
   }
 }
 
-export default CreateChat;
+const mutation = gql`
+  mutation AddChat($name: String, $description: String) {
+    addChat(name: $name, description: $description) {
+      name
+      description
+    }
+  }
+`;
+
+export default graphql(mutation)(CreateChat);

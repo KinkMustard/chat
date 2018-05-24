@@ -4,11 +4,14 @@
   "private": true,
   "dependencies": {
     "@material-ui/icons": "^1.0.0-beta.43",
+    "apollo-client": "^2.3.1",
     "custom-react-scripts": "0.2.2",
+    "graphql-tag": "^2.9.2",
     "material-ui": "^1.0.0-beta.43",
     "moment": "^2.22.1",
     "normalize.css": "^8.0.0",
     "react": "^16.3.2",
+    "react-apollo": "^2.1.4",
     "react-dom": "^16.3.2",
     "react-icons": "^2.2.7"
   },

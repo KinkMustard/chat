@@ -5,6 +5,8 @@ import { withStyles } from "material-ui/styles";
 import IconButton from "material-ui/IconButton";
 import SendIcon from "@material-ui/icons/Send";
 import Divider from "material-ui/Divider";
+import gql from "graphql-tag";
+import { graphql } from "react-apollo";
 
 import "./MessageInput.scss";
 
@@ -21,13 +23,23 @@ class MessageInput extends React.Component {
   handleSubmit = e => {
     e.preventDefault();
     this.sendMessage();
-    this.setState({ message: "" });
     this.setState({ isTyping: false });
     this.stopCheckingTyping();
   };
 
   sendMessage = () => {
     this.props.sendMessage(this.state.message);
+    this.props
+      .mutate({
+        variables: {
+          message: this.state.message,
+          chatId: this.props.chatId
+        }
+      })
+      .then(() => {
+        console.log("mutated succ");
+        this.setState({ message: "" });
+      });
   };
 
   componentWillUnmount() {
@@ -123,8 +135,22 @@ class MessageInput extends React.Component {
   }
 }
 
+const mutation = gql`
+  mutation AddMessageToChat($message: String, $chatId: ID) {
+    addMessageToChat(message: $message, chatId: $chatId) {
+      id
+      messages {
+        id
+        message
+      }
+    }
+  }
+`;
+
 MessageInput.propTypes = {
   theme: PropTypes.object.isRequired
 };
 
-export default withStyles(null, { withTheme: true })(MessageInput);
+export default graphql(mutation)(
+  withStyles(null, { withTheme: true })(MessageInput)
+);
