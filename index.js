@@ -6,12 +6,13 @@ const io = (module.exports.io = require("socket.io")(server));
 const mongoose = require("mongoose");
 const expressGraphQL = require("express-graphql");
 const bodyParser = require("body-parser");
+const cors = require("cors");
 
 const SocketManager = require("./SocketManager");
 const schema = require("./schema/schema");
 
 // require("./models/Color");
-
+app.use(cors());
 // const ColorModel = mongoose.model("colors");
 mongoose.Promise = global.Promise;
 mongoose.connect(

@@ -240,20 +240,11 @@ function sendTypingToChat(user) {
 */
 function sendMessageToChat(sender, color) {
   return async (chatId, message) => {
+    ChatModel.addMessage(chatId, message, color, sender);
     const newMessage = createMessage({ message, sender, color });
     io.emit(`${MESSAGE_RECIEVED}-${chatId}`, newMessage);
     const temp = await ChatModel.findById(chatId);
     temp.messages.push(newMessage);
-
-    await ChatModel.findByIdAndUpdate(
-      chatId,
-      {
-        messages: temp.messages
-      },
-      () => {
-        console.log("messages updated");
-      }
-    );
   };
 }
 

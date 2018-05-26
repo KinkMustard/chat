@@ -17,11 +17,11 @@ const chatSchema = new Schema({
   creator: { type: String }
 });
 
-chatSchema.statics.addMessage = function(chatId, content) {
+chatSchema.statics.addMessage = function(chatId, content, color, sender) {
   const Message = mongoose.model("messages");
 
   return this.findById(chatId).then(chat => {
-    const message = new Message({ content, chat });
+    const message = new Message({ content, chat, color, sender });
     chat.messages.push(message);
     return Promise.all([message.save(), chat.save()])
       .then(([message, chat]) => chat)
